@@ -1,0 +1,8 @@
+{
+  "entities": ["player", "husk", "skeleton", "zombie", "drowned", "stray", "wither_skeleton", "piglin", "piglin_brute", "zombified_piglin", "ghast"],
+  "slots": [
+    "hatred_inundate",
+    "chrysos_heirs_curios",
+    "currency_wars_curios"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+    "replace": false,
+    "values": [
+        "flame_chase_artifacts:sky_curios",
+        "flame_chase_artifacts:earth_curios",
+        "flame_chase_artifacts:ocean_curios",
+        "flame_chase_artifacts:romance_curios",
+        "flame_chase_artifacts:worldbearing_curios",
+        "flame_chase_artifacts:reason_curios",
+        "flame_chase_artifacts:trickery_curios",
+        "flame_chase_artifacts:strife_curios",
+        "flame_chase_artifacts:death_curios",
+        "flame_chase_artifacts:time_curios",
+        "flame_chase_artifacts:law_curios",
+        "flame_chase_artifacts:passage_curios"
+    ]
+}

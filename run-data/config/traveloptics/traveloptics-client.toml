@@ -1,0 +1,55 @@
+
+[client]
+
+	[client.general]
+		#Whether the armor info overlay should replace XP bars || Default: false
+		armor_overlay_replace_xp_bars = false
+
+	[client.plasma_fuel]
+		#Y Offset || Default 0
+		#Range: > -2147483648
+		y_offset = 0
+		#X Offset || Default 0
+		#Range: > -2147483648
+		x_offset = 0
+
+	[client.abyssal_hide]
+		#Y Offset || Default 0
+		#Range: > -2147483648
+		y_offset = 0
+		#X Offset || Default 0
+		#Range: > -2147483648
+		x_offset = 0
+
+	[client.cursed_wraithguard]
+		#Y Offset || Default 0
+		#Range: > -2147483648
+		y_offset = 0
+		#X Offset || Default 0
+		#Range: > -2147483648
+		x_offset = 0
+
+	[client.darkness]
+		#Y Offset || Default 0
+		#Range: > -2147483648
+		y_offset = 0
+		#X Offset || Default 0
+		#Range: > -2147483648
+		x_offset = 0
+
+	[client.tectonic_crest]
+		#Y Offset || Default 0
+		#Range: > -2147483648
+		y_offset = 0
+		#X Offset || Default 0
+		#Range: > -2147483648
+		x_offset = 0
+
+	[client.primordial_crest]
+		#Y Offset || Default 0
+		#Range: > -2147483648
+		y_offset = 0
+		#X Offset || Default 0
+		#Range: > -2147483648
+		x_offset = 0
+

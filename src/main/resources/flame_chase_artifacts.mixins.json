@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.inolia_zaicek.flame_chase_artifacts.Mixins",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "flame_chase_artifacts.refmap.json",
+  "mixins": [
+    "FCAMixinEnchantmentContainer"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

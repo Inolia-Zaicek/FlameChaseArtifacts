@@ -1,0 +1,13 @@
+{
+ "values":[
+  "flame_chase_artifacts:truedamage",
+  "flame_chase_artifacts:dotdamage",
+  "flame_chase_artifacts:tickdamage",
+  "flame_chase_artifacts:tickmdamage",
+  "flame_chase_artifacts:tick_fire_damage",
+  "flame_chase_artifacts:tick_freeze_damage",
+  "flame_chase_artifacts:tick_lightning_damage",
+  "flame_chase_artifacts:tick_poison_damage",
+  "flame_chase_artifacts:tick_wither_damage"
+ ]
+}

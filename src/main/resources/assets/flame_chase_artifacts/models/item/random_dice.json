@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "flame_chase_artifacts:item/random_dice"
+  }
+}
