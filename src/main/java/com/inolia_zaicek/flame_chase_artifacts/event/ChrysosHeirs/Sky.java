@@ -2,6 +2,7 @@ package com.inolia_zaicek.flame_chase_artifacts.event.ChrysosHeirs;
 
 import com.inolia_zaicek.flame_chase_artifacts.FlameChaseArtifacts;
 import com.inolia_zaicek.flame_chase_artifacts.config.FCAconfig;
+import com.inolia_zaicek.flame_chase_artifacts.register.FCAAttributes;
 import com.inolia_zaicek.flame_chase_artifacts.register.FCAItemRegister;
 import com.inolia_zaicek.flame_chase_artifacts.util.FCAUtil;
 import net.minecraft.ChatFormatting;
@@ -27,22 +28,41 @@ import java.util.Optional;
 @SuppressWarnings({"all", "removal"})
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE,modid = FlameChaseArtifacts.MODID)
 public class Sky {
+    private static final String eye_of_twilight_Number_NBT = FlameChaseArtifacts.MODID + ":eye_of_twilight_number";
+    private static final String eye_of_twilight_TIME_NBT = FlameChaseArtifacts.MODID + ":eye_of_twilight_time";
     @SubscribeEvent
     public static void heal(LivingHealEvent event) {
         LivingEntity livingEntity = event.getEntity();
-        //天空
+        CompoundTag compoundTag = livingEntity.getPersistentData();
+        //基础数值
+        float number = 1;
+        ///治疗量提升属性
+        double healUp = livingEntity.getAttributeValue(FCAAttributes.HEAL_AMPLIFIER.get());
+        if(healUp>0){
+            number += healUp;
+        }
         //计算
         if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.HatredInundate.get()) && !FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.SkyCurios.get())) {
-            event.setAmount((float) (event.getAmount() * FCAconfig.skyCurse.get()));
+            number *= FCAconfig.skyCurse.get();
         }
         if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.PristineLove.get()) ||  FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.SkyCurios.get())) {
-            event.setAmount((float) (event.getAmount() * FCAconfig.skyBlessing.get()));
+            number *= FCAconfig.skyBlessing.get();
         }
         if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.OriginSin.get())) {
-            event.setAmount((float) (event.getAmount() * FCAconfig.skyOverCurse.get()));
+            number *= FCAconfig.skyOverCurse.get();
+        }
+        if(number!=1){
+            event.setAmount(event.getAmount()*number);
+        }
+        float finish = event.getAmount()*number;
+        //晨昏之眼
+        if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.EyeOfTwilight.get())) {
+            //数额乘除10000
+            int healNumber = (int) (10000*finish/livingEntity.getMaxHealth());
+            compoundTag.putInt(eye_of_twilight_TIME_NBT, 200);
+            compoundTag.putInt(eye_of_twilight_Number_NBT, healNumber);
         }
         //饰品
-        CompoundTag compoundTag = livingEntity.getPersistentData();
         var skyKey = "sky_curios_get_nbt";
         if(FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.HatredInundate.get()) &&
                 event.getAmount()>=livingEntity.getMaxHealth()*0.2f && !compoundTag.getBoolean(skyKey) &&

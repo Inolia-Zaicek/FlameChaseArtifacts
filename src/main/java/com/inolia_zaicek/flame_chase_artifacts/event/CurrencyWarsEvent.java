@@ -5,7 +5,9 @@ import com.inolia_zaicek.flame_chase_artifacts.config.FCAconfig;
 import com.inolia_zaicek.flame_chase_artifacts.register.FCAEffectsRegister;
 import com.inolia_zaicek.flame_chase_artifacts.register.FCAItemRegister;
 import com.inolia_zaicek.flame_chase_artifacts.util.FCAUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -23,6 +25,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE,modid = FlameChaseArtifacts.MODID)
 public class CurrencyWarsEvent {
+    private static final String permansor_terrae_TIME_NBT = FlameChaseArtifacts.MODID + ":permansor_terrae_time";
     //货币战争
     @SubscribeEvent
     public static void hurt(LivingHurtEvent event) {
@@ -110,14 +113,36 @@ public class CurrencyWarsEvent {
         if (livingEntity.level().getGameTime() % 40L == 0) {
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.AbsoluteHeat.get())) {
                 int curiosCount = FCAUtil.getCuriosCount(livingEntity, FCAItemRegister.AbsoluteHeat.get());
-                var mobList = FCAUtil.mobList(27, livingEntity);
-                var playerList = FCAUtil.PlayerList(27, livingEntity);
+                var mobList = FCAUtil.mobList(7, livingEntity);
+                var playerList = FCAUtil.PlayerList(7, livingEntity);
                 float healNumber = livingEntity.getMaxHealth()*curiosCount*0.05f;
+                //上buff
+                livingEntity.heal(healNumber);
+                livingEntity.addEffect(new MobEffectInstance(FCAEffectsRegister.AfterRain.get(),100,0));
+                for (Mob mobs : mobList) {
+                    //有主人的随从
+                    if ((mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null  && ownableEntity.getOwner() == livingEntity) && mobs != livingEntity) {
+                        mobs.heal(healNumber);
+                        mobs.addEffect(new MobEffectInstance(FCAEffectsRegister.AfterRain.get(),100,0));
+                    }
+                }
+                for (Player players : playerList) {
+                    if (players != livingEntity) {
+                        players.heal(healNumber);
+                        players.addEffect(new MobEffectInstance(FCAEffectsRegister.AfterRain.get(),100,0));
+                    }
+                }
+            }
+            //晨昏之眼
+            if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.EyeOfTwilight.get())) {
+                var mobList = FCAUtil.mobList(16, livingEntity);
+                var playerList = FCAUtil.PlayerList(16, livingEntity);
+                float healNumber = livingEntity.getMaxHealth()*0.2F;
                 //上buff
                 livingEntity.heal(healNumber);
                 for (Mob mobs : mobList) {
                     //有主人的随从
-                    if ((mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null) && mobs != livingEntity) {
+                    if ((mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null && ownableEntity.getOwner()==livingEntity) && mobs != livingEntity) {
                         mobs.heal(healNumber);
                     }
                 }
@@ -130,17 +155,17 @@ public class CurrencyWarsEvent {
         }
         //掩体生成枪————10s赋予一次护盾
         if (livingEntity.level().getGameTime() % 200L == 0) {
-            if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.AbsoluteHeat.get())) {
-                int curiosCount = FCAUtil.getCuriosCount(livingEntity, FCAItemRegister.AbsoluteHeat.get());
-                var mobList = FCAUtil.mobList(27, livingEntity);
-                var playerList = FCAUtil.PlayerList(27, livingEntity);
+            if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.CoverGeneratingGun.get())) {
+                int curiosCount = FCAUtil.getCuriosCount(livingEntity, FCAItemRegister.CoverGeneratingGun.get());
+                var mobList = FCAUtil.mobList(7, livingEntity);
+                var playerList = FCAUtil.PlayerList(7, livingEntity);
                 //计算理应等级【如果是26血就是2，对应3级（2+1）
                 int effectLevel = (int)(livingEntity.getMaxHealth()/13)*curiosCount;
                 //上buff
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION,300,effectLevel ));
                 for (Mob mobs : mobList) {
                     //有主人的随从
-                    if ((mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null) && mobs != livingEntity) {
+                    if ((mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null  && ownableEntity.getOwner() == livingEntity) && mobs != livingEntity) {
                         mobs.addEffect(new MobEffectInstance(MobEffects.ABSORPTION,300,effectLevel ));
                     }
                 }
@@ -151,9 +176,74 @@ public class CurrencyWarsEvent {
                 }
             }
         }
+        //腾荒
+        int dragonTime = compoundTag.getInt(permansor_terrae_TIME_NBT);
+        if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.PermansorTerrae.get()) ) {
+            if (dragonTime == 0) {
+                var mobList = FCAUtil.mobList(16, livingEntity);
+                var playerList = FCAUtil.PlayerList(16, livingEntity);
+                int effectLevel = (int) (livingEntity.getAttributeValue(Attributes.ATTACK_DAMAGE)*0.23F);
+                //上buff
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 300, effectLevel));
+                livingEntity.addEffect(new MobEffectInstance(FCAEffectsRegister.Bondmate.get(), 300, 0));
+                for (Mob mobs : mobList) {
+                    //有主人的随从
+                    if ((mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null  && ownableEntity.getOwner() == livingEntity) && mobs != livingEntity) {
+                        mobs.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 300, effectLevel));
+                        mobs.addEffect(new MobEffectInstance(FCAEffectsRegister.Bondmate.get(), 300, 0));
+                    }
+                }
+                for (Player players : playerList) {
+                    if (players != livingEntity) {
+                        players.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 300, effectLevel));
+                        players.addEffect(new MobEffectInstance(FCAEffectsRegister.Bondmate.get(), 300, 0));
+                    }
+                }
+                compoundTag.putInt(permansor_terrae_TIME_NBT, 200);
+            }else{
+                compoundTag.putInt(permansor_terrae_TIME_NBT, dragonTime - 1);
+            }
+        }
+        //雅努斯——神启
+        if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.Janus.get()) ) {
+            if (dragonTime == 0) {
+                var mobList = FCAUtil.mobList(16, livingEntity);
+                var playerList = FCAUtil.PlayerList(16, livingEntity);
+                int effectLevel = (int) (livingEntity.getMaxHealth()*0.05F);
+                //上buff
+                livingEntity.addEffect(new MobEffectInstance(FCAEffectsRegister.Numinosity.get(), 300, effectLevel));
+                for (Mob mobs : mobList) {
+                    //有主人的随从
+                    if ((mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null  && ownableEntity.getOwner() == livingEntity) && mobs != livingEntity) {
+                        mobs.addEffect(new MobEffectInstance(FCAEffectsRegister.Numinosity.get(), 300, effectLevel));
+                    }
+                }
+                for (Player players : playerList) {
+                    if (players != livingEntity) {
+                        players.addEffect(new MobEffectInstance(FCAEffectsRegister.Numinosity.get(), 300, effectLevel));
+                    }
+                }
+                compoundTag.putInt(permansor_terrae_TIME_NBT, 200);
+            }else{
+                compoundTag.putInt(permansor_terrae_TIME_NBT, dragonTime - 1);
+            }
+        }
+        //魔术技巧
+        if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.Cerces.get()) ) {
+            var mobList = FCAUtil.mobList(16, livingEntity);
+            for (Mob mobs : mobList) {
+                //有主人的随从
+                if (!(mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null && ownableEntity.getOwner() == livingEntity) && mobs != livingEntity) {
+                    mobs.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 200, 1));
+                    mobs.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200, 1));
+                }
+            }
+        }
         //光能盾牌
-        if(livingEntity.getHealth()<livingEntity.getMaxHealth()*0.5F){
-            int curiosCount = FCAUtil.getCuriosCount(livingEntity, FCAItemRegister.AbsoluteHeat.get());
+        int photon_shield_TIME = compoundTag.getInt(photon_shield_TIME_NBT);
+        if(livingEntity.getHealth()<livingEntity.getMaxHealth()*0.5F&&FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.PhotonShield.get())
+        &&photon_shield_TIME==0){
+            int curiosCount = FCAUtil.getCuriosCount(livingEntity, FCAItemRegister.PhotonShield.get());
             float armor1 = (float) livingEntity.getAttributeValue(Attributes.ARMOR);
             float armor2 = (float) livingEntity.getAttributeValue(Attributes.ARMOR_TOUGHNESS);
             int effectLevel = (int)( (armor1+armor2)*curiosCount / 6.5 );
@@ -166,13 +256,13 @@ public class CurrencyWarsEvent {
             //武器大师
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.WeaponMaster.get())) {
                 int curiosCount = FCAUtil.getCuriosCount(livingEntity, FCAItemRegister.WeaponMaster.get());
-                var mobList = FCAUtil.mobList(27,livingEntity);
-                var playerList = FCAUtil.PlayerList(27,livingEntity);
+                var mobList = FCAUtil.mobList(7,livingEntity);
+                var playerList = FCAUtil.PlayerList(7,livingEntity);
                 //上buff
                 livingEntity.addEffect(new MobEffectInstance(FCAEffectsRegister.WeaponMaster.get(),100,curiosCount-1 ));
                 for (Mob mobs : mobList) {
                     //有主人的随从
-                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null) && mobs!=livingEntity) {
+                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null  && ownableEntity.getOwner() == livingEntity) && mobs!=livingEntity) {
                         mobs.addEffect(new MobEffectInstance(FCAEffectsRegister.WeaponMaster.get(),100,curiosCount-1 ));
                     }
                 }
@@ -185,12 +275,12 @@ public class CurrencyWarsEvent {
             //信心注入器
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.ConfidenceInjector.get())) {
                 int curiosCount = FCAUtil.getCuriosCount(livingEntity, FCAItemRegister.ConfidenceInjector.get());
-                var mobList = FCAUtil.mobList(27,livingEntity);
-                var playerList = FCAUtil.PlayerList(27,livingEntity);
+                var mobList = FCAUtil.mobList(7,livingEntity);
+                var playerList = FCAUtil.PlayerList(7,livingEntity);
                 //上buff
                 for (Mob mobs : mobList) {
                     //有主人的随从
-                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null) && mobs!=livingEntity) {
+                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null  && ownableEntity.getOwner() == livingEntity) && mobs!=livingEntity) {
                         mobs.addEffect(new MobEffectInstance(FCAEffectsRegister.ConfidenceInjector.get(),100,curiosCount-1 ));
                     }
                 }
@@ -203,12 +293,12 @@ public class CurrencyWarsEvent {
             //反卫星狙击枪
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.AntiSatelliteSniperRifle.get())) {
                 int curiosCount = FCAUtil.getCuriosCount(livingEntity, FCAItemRegister.AntiSatelliteSniperRifle.get());
-                var mobList = FCAUtil.mobList(27,livingEntity);
-                var playerList = FCAUtil.PlayerList(27,livingEntity);
+                var mobList = FCAUtil.mobList(7,livingEntity);
+                var playerList = FCAUtil.PlayerList(7,livingEntity);
                 //上buff
                 for (Mob mobs : mobList) {
                     //有主人的随从
-                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null) && mobs!=livingEntity) {
+                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null  && ownableEntity.getOwner() == livingEntity) && mobs!=livingEntity) {
                         mobs.addEffect(new MobEffectInstance(FCAEffectsRegister.AntiSatelliteSniperRifle.get(),100,curiosCount-1 ));
                     }
                 }
@@ -221,12 +311,12 @@ public class CurrencyWarsEvent {
             //自适应外骨骼
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.AdaptiveExoskeleton.get())) {
                 int curiosCount = FCAUtil.getCuriosCount(livingEntity, FCAItemRegister.AdaptiveExoskeleton.get());
-                var mobList = FCAUtil.mobList(27,livingEntity);
-                var playerList = FCAUtil.PlayerList(27,livingEntity);
+                var mobList = FCAUtil.mobList(7,livingEntity);
+                var playerList = FCAUtil.PlayerList(7,livingEntity);
                 //上buff
                 for (Mob mobs : mobList) {
                     //有主人的随从
-                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null) && mobs!=livingEntity) {
+                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null  && ownableEntity.getOwner() == livingEntity) && mobs!=livingEntity) {
                         mobs.addEffect(new MobEffectInstance(FCAEffectsRegister.AdaptiveExoskeleton.get(),100,curiosCount-1 ));
                     }
                 }
@@ -239,13 +329,13 @@ public class CurrencyWarsEvent {
             //胜利之旗
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.FlagOfVictory.get())) {
                 int curiosCount = FCAUtil.getCuriosCount(livingEntity, FCAItemRegister.FlagOfVictory.get());
-                var mobList = FCAUtil.mobList(27,livingEntity);
-                var playerList = FCAUtil.PlayerList(27,livingEntity);
+                var mobList = FCAUtil.mobList(7,livingEntity);
+                var playerList = FCAUtil.PlayerList(7,livingEntity);
                 //上buff
                 livingEntity.addEffect(new MobEffectInstance(FCAEffectsRegister.FlagOfVictory.get(),100,curiosCount-1 ));
                 for (Mob mobs : mobList) {
                     //有主人的随从
-                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null) && mobs!=livingEntity) {
+                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null  && ownableEntity.getOwner() == livingEntity) && mobs!=livingEntity) {
                         mobs.addEffect(new MobEffectInstance(FCAEffectsRegister.FlagOfVictory.get(),100,curiosCount-1 ));
                     }
                 }
@@ -258,12 +348,12 @@ public class CurrencyWarsEvent {
             //生命之环
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.RingOfLife.get())) {
                 int curiosCount = FCAUtil.getCuriosCount(livingEntity, FCAItemRegister.RingOfLife.get());
-                var mobList = FCAUtil.mobList(27,livingEntity);
-                var playerList = FCAUtil.PlayerList(27,livingEntity);
+                var mobList = FCAUtil.mobList(7,livingEntity);
+                var playerList = FCAUtil.PlayerList(7,livingEntity);
                 //上buff
                 for (Mob mobs : mobList) {
                     //有主人的随从
-                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null) && mobs!=livingEntity) {
+                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null  && ownableEntity.getOwner() == livingEntity) && mobs!=livingEntity) {
                         mobs.addEffect(new MobEffectInstance(FCAEffectsRegister.RingOfLife.get(),100,curiosCount-1 ));
                     }
                 }
@@ -276,12 +366,12 @@ public class CurrencyWarsEvent {
             //痛觉阻断
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.PainBlockChip.get())) {
                 int curiosCount = FCAUtil.getCuriosCount(livingEntity, FCAItemRegister.PainBlockChip.get());
-                var mobList = FCAUtil.mobList(27,livingEntity);
-                var playerList = FCAUtil.PlayerList(27,livingEntity);
+                var mobList = FCAUtil.mobList(7,livingEntity);
+                var playerList = FCAUtil.PlayerList(7,livingEntity);
                 //上buff
                 for (Mob mobs : mobList) {
                     //有主人的随从
-                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null) && mobs!=livingEntity) {
+                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null  && ownableEntity.getOwner() == livingEntity) && mobs!=livingEntity) {
                         mobs.addEffect(new MobEffectInstance(FCAEffectsRegister.PainBlockChip.get(),100,curiosCount-1 ));
                     }
                 }
@@ -294,13 +384,13 @@ public class CurrencyWarsEvent {
             //很硬的甲
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.VeryHardArmor.get())) {
                 int curiosCount = FCAUtil.getCuriosCount(livingEntity, FCAItemRegister.VeryHardArmor.get());
-                var mobList = FCAUtil.mobList(27,livingEntity);
-                var playerList = FCAUtil.PlayerList(27,livingEntity);
+                var mobList = FCAUtil.mobList(7,livingEntity);
+                var playerList = FCAUtil.PlayerList(7,livingEntity);
                 //上buff
                 livingEntity.addEffect(new MobEffectInstance(FCAEffectsRegister.VeryHardArmor.get(),100,curiosCount-1 ));
                 for (Mob mobs : mobList) {
                     //有主人的随从
-                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null) && mobs!=livingEntity) {
+                    if ( (mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null  && ownableEntity.getOwner() == livingEntity) && mobs!=livingEntity) {
                         mobs.addEffect(new MobEffectInstance(FCAEffectsRegister.VeryHardArmor.get(),100,curiosCount-1 ));
                     }
                 }
@@ -359,7 +449,6 @@ public class CurrencyWarsEvent {
         }else{
             compoundTag.putInt(perpetual_motion_machine_Number_NBT, 0);
         }
-        int photon_shield_TIME = compoundTag.getInt(photon_shield_TIME_NBT);
         if (photon_shield_TIME > 0) {
             compoundTag.putInt(photon_shield_TIME_NBT, photon_shield_TIME - 1);
         }

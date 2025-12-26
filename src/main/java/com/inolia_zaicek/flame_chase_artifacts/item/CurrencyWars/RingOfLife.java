@@ -20,7 +20,7 @@ public class RingOfLife extends CuriosTootip3Item {
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, this.getTooltipItemName(), 0.1, AttributeModifier.Operation.MULTIPLY_BASE));
+        atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, this.getTooltipItemName(), 0.15, AttributeModifier.Operation.MULTIPLY_BASE));
         atts.put(FCAAttributes.HEAL_AMPLIFIER.get(), new AttributeModifier(uuid, this.getTooltipItemName(), 0.2, AttributeModifier.Operation.ADDITION));
         return atts;
     }

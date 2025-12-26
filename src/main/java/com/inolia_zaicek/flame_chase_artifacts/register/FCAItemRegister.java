@@ -1,9 +1,10 @@
 package com.inolia_zaicek.flame_chase_artifacts.register;
 
+import com.inolia_zaicek.flame_chase_artifacts.item.ChrysosHeirs.Hero.*;
 import com.inolia_zaicek.flame_chase_artifacts.item.CurrencyWars.*;
-import com.inolia_zaicek.flame_chase_artifacts.item.FCACuriosItem;
 import com.inolia_zaicek.flame_chase_artifacts.item.ChrysosHeirs.*;
 import com.inolia_zaicek.flame_chase_artifacts.item.*;
+import com.inolia_zaicek.flame_chase_artifacts.item.EveryBody.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -46,6 +47,36 @@ public class FCAItemRegister {
     public static final Supplier<Item> TimeCurios=registerCommonMaterials(ZeroingITEM,"time_curios", timeCurios::new);
     public static final Supplier<Item> LawCurios=registerCommonMaterials(ZeroingITEM,"law_curios", lawCurios::new);
     public static final Supplier<Item> PassageCurios=registerCommonMaterials(ZeroingITEM,"passage_curios", passageCurios::new);
+
+    public static final Supplier<Item> EyeOfTwilight=registerCommonMaterials(ZeroingITEM,"eye_of_twilight", EyeOfTwilightItem::new);
+    public static final Supplier<Item> PermansorTerrae=registerCommonMaterials(ZeroingITEM,"permansor_terrae", PermansorTerraeItem::new);
+    public static final Supplier<Item> Phagousa=registerCommonMaterials(ZeroingITEM,"phagousa", PhagousaItem::new);
+
+    public static final Supplier<Item> Mnestia=registerCommonMaterials(ZeroingITEM,"mnestia", MnestiaItem::new);
+    public static final Supplier<Item> CoronalRadiance=registerCommonMaterials(ZeroingITEM,"coronal_radiance", CoronalRadianceItem::new);
+    public static final Supplier<Item> Cerces=registerCommonMaterials(ZeroingITEM,"cerces", CercesItem::new);
+
+    public static final Supplier<Item> CoinOfWhimsy=registerCommonMaterials(ZeroingITEM,"coin_of_whimsy", CoinOfWhimsyItem::new);
+    public static final Supplier<Item> LanceOfFury=registerCommonMaterials(ZeroingITEM,"lance_of_fury", LanceOfFuryItem::new);
+    public static final Supplier<Item> HandOfShadow=registerCommonMaterials(ZeroingITEM,"hand_of_shadow", HandOfShadowItem::new);
+
+    public static final Supplier<Item> Evernight=registerCommonMaterials(ZeroingITEM,"evernight", EvernightItem::new);
+    public static final Supplier<Item> Talanton=registerCommonMaterials(ZeroingITEM,"talanton", TalantonItem::new);
+    public static final Supplier<Item> Janus=registerCommonMaterials(ZeroingITEM,"janus", JanusItem::new);
+
+    public static final Supplier<Item> DeepestDark=registerCommonMaterials(ZeroingITEM,"deepest_dark", DeepestDarkItem::new);
+    public static final Supplier<Item> Acheron=registerCommonMaterials(ZeroingITEM,"acheron", AcheronItem::new);
+    /// 货币战争
+    //散件
+    public static final Supplier<Item> RollerSkates = registerCommonMaterials(ZeroingITEM, "roller_skates", RollerSkatesItem::new);
+    public static final Supplier<Item> FoldingKnife = registerCommonMaterials(ZeroingITEM, "folding_knife", FoldingKnifeItem::new);
+    public static final Supplier<Item> PeacePistol = registerCommonMaterials(ZeroingITEM, "peace_pistol", PeacePistolItem::new);
+    public static final Supplier<Item> LuckyStar = registerCommonMaterials(ZeroingITEM, "lucky_star", LuckyStarItem::new);
+    public static final Supplier<Item> FlowerOfLife = registerCommonMaterials(ZeroingITEM, "flower_of_life", FlowerOfLifeItem::new);
+    public static final Supplier<Item> MassProductionArmor = registerCommonMaterials(ZeroingITEM, "mass_production_armor", MassProductionArmorItem::new);
+    public static final Supplier<Item> EtherealDrill = registerCommonMaterials(ZeroingITEM, "ethereal_drill", EtherealDrillItem::new);
+    public static final Supplier<Item> PhotonBattery = registerCommonMaterials(ZeroingITEM, "photon_battery", PhotonBatteryItem::new);
+    //完全体
 
     public static final Supplier<Item> AntiGravBoots = registerCommonMaterials(ZeroingITEM, "anti_grav_boots", AntiGravBoots::new);
     public static final Supplier<Item> FirestormSurge = registerCommonMaterials(ZeroingITEM, "firestorm_surge", FirestormSurge::new);

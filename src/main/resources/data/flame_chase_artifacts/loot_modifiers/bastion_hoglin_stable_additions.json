@@ -1,0 +1,20 @@
+{
+  "type": "flame_chase_artifacts:add_item",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/bastion_hoglin_stable"
+    }
+  ],
+  "chance": 0.1,
+  "items": [
+    "flame_chase_artifacts:roller_skates",
+    "flame_chase_artifacts:folding_knife",
+    "flame_chase_artifacts:peace_pistol",
+    "flame_chase_artifacts:lucky_star",
+    "flame_chase_artifacts:flower_of_life",
+    "flame_chase_artifacts:mass_production_armor",
+    "flame_chase_artifacts:ethereal_drill",
+    "flame_chase_artifacts:photon_battery"
+  ]
+}

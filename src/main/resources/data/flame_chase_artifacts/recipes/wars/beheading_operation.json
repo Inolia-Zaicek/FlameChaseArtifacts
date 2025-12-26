@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition":{
+    "item":"flame_chase_artifacts:peace_pistol"
+  },
+  "base":{
+    "item":"flame_chase_artifacts:ethereal_drill"
+  },
+  "result":{
+    "item":"flame_chase_artifacts:beheading_operation"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

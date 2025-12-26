@@ -2,13 +2,19 @@ package com.inolia_zaicek.flame_chase_artifacts.event.ChrysosHeirs;
 
 import com.inolia_zaicek.flame_chase_artifacts.FlameChaseArtifacts;
 import com.inolia_zaicek.flame_chase_artifacts.config.FCAconfig;
+import com.inolia_zaicek.flame_chase_artifacts.register.FCAEffectsRegister;
 import com.inolia_zaicek.flame_chase_artifacts.register.FCAItemRegister;
 import com.inolia_zaicek.flame_chase_artifacts.util.FCAUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,6 +23,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 @SuppressWarnings({"all", "removal"})
@@ -64,6 +71,78 @@ public class Strife {
                         .filter(instance -> instance.getModifier(uuid) == null)
                         .ifPresent(instance -> instance.addTransientModifier(
                                 new AttributeModifier(uuid, "strife_over_urse", -(1-FCAconfig.strifeOverCurse.get() ), AttributeModifier.Operation.MULTIPLY_BASE)));
+            }
+            //周围有满溢之杯
+            if (event.getEntity().getAttributeValue(Attributes.ARMOR)>0) {
+                LivingEntity mob = event.getEntity();
+                var mobList = FCAUtil.mobList(16, livingEntity);
+                for (Mob mobs : mobList) {
+                    //实体本身满足条件
+                    if (!(mob instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null && ownableEntity==livingEntity) && mob!=mobs) {
+                        //周围有穿戴的
+                        if(FCAUtil.isCurioEquipped(mobs, FCAItemRegister.Phagousa.get())){
+                            Optional.of(event.getEntity())
+                                    .map(LivingEntity::getAttributes)
+                                    .filter(manager -> manager.hasAttribute(Attributes.ARMOR))
+                                    .map(manager -> manager.getInstance(Attributes.ARMOR))
+                                    .filter(instance -> instance.getModifier(uuid) == null)
+                                    .ifPresent(instance -> instance.addTransientModifier(
+                                            new AttributeModifier(uuid, "phagousa", -0.6F, AttributeModifier.Operation.MULTIPLY_TOTAL)));
+                            var map = mob.getActiveEffectsMap();
+                            Random random = new Random();
+                            int fire = mob.getRemainingFireTicks();
+                            if (random.nextInt(30) < 10) {
+                                mob.addEffect(new MobEffectInstance(MobEffects.WITHER, 400, 0));
+                                if (!mob.hasEffect(MobEffects.WITHER)) {
+                                    map.put(MobEffects.WITHER, new MobEffectInstance(MobEffects.WEAKNESS, 400, 0));
+                                }
+                            } else if (random.nextInt(30) < 20 && random.nextInt(30) >= 10) {
+                                mob.addEffect(new MobEffectInstance(MobEffects.POISON, 400, 0));
+                                if (!mob.hasEffect(MobEffects.POISON)) {
+                                    map.put(MobEffects.POISON, new MobEffectInstance(MobEffects.POISON, 400, 0));
+                                }
+                            } else if (random.nextInt(30) >= 20) {
+                                if (fire<=200) {
+                                    mob.setRemainingFireTicks(200);
+                                }
+                            }
+                        }
+                    }
+                }
+                var playerList = FCAUtil.PlayerList(16, livingEntity);
+                for (Player player : playerList) {
+                    //实体本身满足条件
+                    if (!(mob instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null && ownableEntity==livingEntity) && mob!=player) {
+                        //周围有穿戴的
+                        if(FCAUtil.isCurioEquipped(player, FCAItemRegister.Phagousa.get())){
+                            Optional.of(event.getEntity())
+                                    .map(LivingEntity::getAttributes)
+                                    .filter(manager -> manager.hasAttribute(Attributes.ARMOR))
+                                    .map(manager -> manager.getInstance(Attributes.ARMOR))
+                                    .filter(instance -> instance.getModifier(uuid) == null)
+                                    .ifPresent(instance -> instance.addTransientModifier(
+                                            new AttributeModifier(uuid, "phagousa", -0.6F, AttributeModifier.Operation.MULTIPLY_TOTAL)));
+                            var map = mob.getActiveEffectsMap();
+                            Random random = new Random();
+                            int fire = mob.getRemainingFireTicks();
+                            if (random.nextInt(30) < 10) {
+                                mob.addEffect(new MobEffectInstance(MobEffects.WITHER, 400, 0));
+                                if (!mob.hasEffect(MobEffects.WITHER)) {
+                                    map.put(MobEffects.WITHER, new MobEffectInstance(MobEffects.WEAKNESS, 400, 0));
+                                }
+                            } else if (random.nextInt(30) < 20 && random.nextInt(30) >= 10) {
+                                mob.addEffect(new MobEffectInstance(MobEffects.POISON, 400, 0));
+                                if (!mob.hasEffect(MobEffects.POISON)) {
+                                    map.put(MobEffects.POISON, new MobEffectInstance(MobEffects.POISON, 400, 0));
+                                }
+                            } else if (random.nextInt(30) >= 20) {
+                                if (fire<=200) {
+                                    mob.setRemainingFireTicks(200);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

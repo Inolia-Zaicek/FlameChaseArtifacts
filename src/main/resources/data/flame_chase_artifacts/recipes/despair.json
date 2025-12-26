@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "item": "flame_chase_artifacts:trickery_curios"
+        },
+        {
+            "item": "flame_chase_artifacts:strife_curios"
+        },
+        {
+            "item": "flame_chase_artifacts:death_curios"
+        },
+        {
+            "item": "flame_chase_artifacts:time_curios"
+        },
+        {
+            "item": "flame_chase_artifacts:law_curios"
+        },
+        {
+            "item": "flame_chase_artifacts:passage_curios"
+        }
+    ],
+    "result": {
+        "item": "flame_chase_artifacts:despair",
+        "count": 1
+    }
+}

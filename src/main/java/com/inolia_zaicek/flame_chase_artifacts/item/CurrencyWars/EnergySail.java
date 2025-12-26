@@ -3,6 +3,7 @@ package com.inolia_zaicek.flame_chase_artifacts.item.CurrencyWars;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.inolia_zaicek.flame_chase_artifacts.item.CuriosTootip3Item;
+import com.inolia_zaicek.flame_chase_artifacts.register.FCAAttributes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -21,7 +22,7 @@ public class EnergySail extends CuriosTootip3Item {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
         atts.put(ForgeMod.STEP_HEIGHT_ADDITION.get(), new AttributeModifier(uuid, this.getTooltipItemName(), 1, AttributeModifier.Operation.ADDITION));
-        atts.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, this.getTooltipItemName(), 0.3, AttributeModifier.Operation.MULTIPLY_BASE));
+        atts.put(FCAAttributes.DAMAGE_AMPLIFIER.get(), new AttributeModifier(uuid, this.getTooltipItemName(), 0.3, AttributeModifier.Operation.ADDITION));
         return atts;
     }
     @Override

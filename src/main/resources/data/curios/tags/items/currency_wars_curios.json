@@ -1,6 +1,15 @@
 {
     "replace": false,
     "values": [
+        "flame_chase_artifacts:roller_skates",
+        "flame_chase_artifacts:folding_knife",
+        "flame_chase_artifacts:peace_pistol",
+        "flame_chase_artifacts:lucky_star",
+        "flame_chase_artifacts:flower_of_life",
+        "flame_chase_artifacts:mass_production_armor",
+        "flame_chase_artifacts:ethereal_drill",
+        "flame_chase_artifacts:photon_battery",
+
         "flame_chase_artifacts:anti_grav_boots",
         "flame_chase_artifacts:firestorm_surge",
         "flame_chase_artifacts:electromagnetic_catapult",

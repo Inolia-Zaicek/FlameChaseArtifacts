@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition":{
+    "item":"flame_chase_artifacts:roller_skates"
+  },
+  "base":{
+    "item":"flame_chase_artifacts:ethereal_drill"
+  },
+  "result":{
+    "item":"flame_chase_artifacts:light_speed_propeller"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

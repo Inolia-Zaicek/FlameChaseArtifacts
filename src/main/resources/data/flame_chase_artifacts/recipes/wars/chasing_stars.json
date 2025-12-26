@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition":{
+    "item":"flame_chase_artifacts:roller_skates"
+  },
+  "base":{
+    "item":"flame_chase_artifacts:lucky_star"
+  },
+  "result":{
+    "item":"flame_chase_artifacts:chasing_stars"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

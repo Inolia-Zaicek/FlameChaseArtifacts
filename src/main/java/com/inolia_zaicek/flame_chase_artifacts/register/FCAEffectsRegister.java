@@ -24,4 +24,9 @@ public class FCAEffectsRegister {
     public static final RegistryObject<MobEffect> VeryHardArmor = INOEFFECT.register("very_hard_armor", VeryHardArmorBuff::new);
     public static final RegistryObject<MobEffect> AntiSatelliteSniperRifle = INOEFFECT.register("anti_satellite_sniper_rifle", AntiSatelliteSniperRifleBuff::new);
     public static final RegistryObject<MobEffect> AntiGravBoots = INOEFFECT.register("anti_grav_boots", AntiGravBootsBuff::new);
+    public static final RegistryObject<MobEffect> Phagousa = INOEFFECT.register("phagousa", PhagousaBuff::new);
+    public static final RegistryObject<MobEffect> AfterRain = INOEFFECT.register("after_rain", AfterRainBuff::new);
+    public static final RegistryObject<MobEffect> KittyPhantomThief = INOEFFECT.register("kitty_phantom_thief", KittyPhantomThiefBuff::new);
+    public static final RegistryObject<MobEffect> Bondmate = INOEFFECT.register("bondmate", BondmateBuff::new);
+    public static final RegistryObject<MobEffect> Numinosity = INOEFFECT.register("numinosity", NuminosityBuff::new);
 }

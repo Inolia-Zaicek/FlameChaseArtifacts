@@ -26,17 +26,21 @@ public class Reason {
         //是经验值提升
         if(event.getAmount()>0) {
             LivingEntity livingEntity = event.getEntity();
-
+            float number = 1;
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.HatredInundate.get()) && !FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.ReasonCurios.get())) {
-                event.setAmount((int) (event.getAmount() * FCAconfig.reasonCurse.get()));
+                number*=FCAconfig.reasonCurse.get();
             }
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.PristineLove.get()) || FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.ReasonCurios.get())) {
-                event.setAmount((int) (event.getAmount() * FCAconfig.reasonBlessing.get()));
+                number*=FCAconfig.reasonBlessing.get();
             }
             //加冕
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.OriginSin.get())) {
-                event.setAmount((int) (event.getAmount() * FCAconfig.reasonOverCurse.get()));
+                number*=FCAconfig.reasonOverCurse.get();
             }
+            if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.Cerces.get())) {
+                number*=10;
+            }
+            event.setAmount((int) (event.getAmount() * number));
         }
     }
 }

@@ -44,9 +44,10 @@ public abstract class FCAMixinEnchantmentContainer extends AbstractContainerMenu
         } catch (Exception ignored) {}
         if(container == null) return;
 
-        // 检查玩家是否佩戴理性+德谬歌
-        if (FCAUtil.isCurioEquipped(player, FCAItemRegister.ReasonCurios.get())
-                &&FCAUtil.isCurioEquipped(player, FCAItemRegister.PristineLove.get()) ) {
+        // 检查玩家是否佩戴理性+德谬歌/裂分
+        if (
+                ( FCAUtil.isCurioEquipped(player, FCAItemRegister.ReasonCurios.get()) &&FCAUtil.isCurioEquipped(player, FCAItemRegister.PristineLove.get()) )
+        ||  FCAUtil.isCurioEquipped(player, FCAItemRegister.Cerces.get()) ) {
             ItemStack inputItem = container.enchantSlots.getItem(0);
             int levelsRequired = clickedID + 1;
 
@@ -61,7 +62,14 @@ public abstract class FCAMixinEnchantmentContainer extends AbstractContainerMenu
                             inputItem, clickedID, finalContainer.costs[clickedID]
                     );
                     if (!rolledEnchantments.isEmpty()) {
-                        Integer up = (int) (FCAconfig.reasonEgoCurios.get()*1);
+                        int number = 0;
+                        if(FCAUtil.isCurioEquipped(player, FCAItemRegister.ReasonCurios.get()) &&FCAUtil.isCurioEquipped(player, FCAItemRegister.PristineLove.get())){
+                            number+=(int) (FCAconfig.reasonEgoCurios.get()*1);
+                        }
+                        if(FCAUtil.isCurioEquipped(player, FCAItemRegister.Cerces.get())){
+                            number+=15;
+                        }
+                        Integer up = number;
                         ItemStack doubleRoll = EnchantmentHelper.enchantItem(
                                 player.getRandom(), inputItem.copy(),
                                 //附魔台等级

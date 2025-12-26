@@ -44,6 +44,22 @@ public class Passage {
             }
             mob.hurt(DamageType, (float) (event.getAmount()*FCAconfig.passageEgoCurios.get()));
         }
+        //日冕
+        if(event.getSource().getEntity() instanceof LivingEntity livingEntity && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.CoronalRadiance.get())){
+            LivingEntity mob =event.getEntity();
+            var DamageType = FCADamageType.source(livingEntity.level(), FCADamageType.TRUEDAMAGE);
+            if(livingEntity instanceof Player player) {
+                mob.setLastHurtByPlayer(player);
+            }
+            mob.hurt(DamageType, (float) (event.getAmount()*0.13F));
+        }else if(event.getSource().getDirectEntity() instanceof LivingEntity livingEntity && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.CoronalRadiance.get())){
+            LivingEntity mob =event.getEntity();
+            var DamageType = FCADamageType.source(livingEntity.level(), FCADamageType.TRUEDAMAGE);
+            if(livingEntity instanceof Player player) {
+                mob.setLastHurtByPlayer(player);
+            }
+            mob.hurt(DamageType, (float) (event.getAmount()*0.13F));
+        }
     }
     @SubscribeEvent
     public static void event(EntityTeleportEvent event) {

@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "item": "flame_chase_artifacts:sky_curios"
+        },
+        {
+            "item": "flame_chase_artifacts:earth_curios"
+        },
+        {
+            "item": "flame_chase_artifacts:ocean_curios"
+        },
+        {
+            "item": "flame_chase_artifacts:romance_curios"
+        },
+        {
+            "item": "flame_chase_artifacts:worldbearing_curios"
+        },
+        {
+            "item": "flame_chase_artifacts:reason_curios"
+        }
+    ],
+    "result": {
+        "item": "flame_chase_artifacts:hope",
+        "count": 1
+    }
+}

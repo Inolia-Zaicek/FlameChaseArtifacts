@@ -110,6 +110,15 @@ public class CuriosGiveEvent {
             player.addItem(new ItemStack( FCAItemRegister.ReasonCurios.get() ));
             compoundTag.putBoolean(reasonKey, true);
         }
+        //黄泉高度判断
+        var acheronKey = "acheron_curios_get_nbt";
+        if(livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(acheronKey) ){
+            float Y = player.getOnPos().getY();
+            if(Y<=-264) {
+                player.addItem(new ItemStack(FCAItemRegister.ReasonCurios.get()));
+                compoundTag.putBoolean(reasonKey, true);
+            }
+        }
         //岁月——玩家进游戏每tick提升，满额则给
         var timeKey = "time_curios_get_nbt";
         int timeTick = compoundTag.getInt(time_curios_tick_time_nbt);
@@ -308,7 +317,9 @@ public class CuriosGiveEvent {
                 "passage_over_world",
                 "passage_nether",
                 "passage_end",
-                "book_get_nbt"
+                "coronal_radiance_number",
+                "coronal_radiance_damage",
+                "acheron_curios_get_nbt"
         };
 
         for (String key : keys) {

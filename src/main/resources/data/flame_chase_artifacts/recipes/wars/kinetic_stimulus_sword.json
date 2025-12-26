@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition":{
+    "item":"flame_chase_artifacts:folding_knife"
+  },
+  "base":{
+    "item":"flame_chase_artifacts:ethereal_drill"
+  },
+  "result":{
+    "item":"flame_chase_artifacts:kinetic_stimulus_sword"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

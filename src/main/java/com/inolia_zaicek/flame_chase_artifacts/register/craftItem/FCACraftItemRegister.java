@@ -1,6 +1,7 @@
 package com.inolia_zaicek.flame_chase_artifacts.register.craftItem;
 
 import com.inolia_zaicek.flame_chase_artifacts.item.AsWrittenByWhomItem;
+import com.inolia_zaicek.flame_chase_artifacts.item.HopeAndDespairItem;
 import com.inolia_zaicek.flame_chase_artifacts.item.TooltipItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
@@ -25,6 +26,9 @@ public class FCACraftItemRegister {
         return object;
     }
     //素材
+    public static final RegistryObject<Item> AsWrittenByWhom = registerCommonMaterials(ZeroingITEM,"as_written_by_whom", AsWrittenByWhomItem::new);
+    public static final RegistryObject<Item> Hope = registerCommonMaterials(ZeroingITEM,"hope", HopeAndDespairItem::new);
+    public static final RegistryObject<Item> Despair = registerCommonMaterials(ZeroingITEM,"despair", HopeAndDespairItem::new);
     public static final RegistryObject<Item> MemoryCrystalShard = registerCommonMaterials(ZeroingITEM,"memory_crystal_shard", () -> new TooltipItem(new TooltipItem.Properties().stacksTo(64)));
     public static final RegistryObject<Item> GoldenRemains = registerCommonMaterials(ZeroingITEM,"golden_remains", () -> new TooltipItem(new TooltipItem.Properties().stacksTo(64)));
     public static final RegistryObject<Item> UndyingEmbers = registerCommonMaterials(ZeroingITEM,"undying_embers", () -> new TooltipItem(new TooltipItem.Properties().stacksTo(64)));
@@ -35,7 +39,6 @@ public class FCACraftItemRegister {
     public static final RegistryObject<Item> VanquishedFlowSReticence = registerCommonMaterials(ZeroingITEM,"vanquished_flow_s_reticence", () -> new TooltipItem(new TooltipItem.Properties().stacksTo(64)));
     public static final RegistryObject<Item> EternalLament = registerCommonMaterials(ZeroingITEM,"eternal_lament", () -> new TooltipItem(new TooltipItem.Properties().stacksTo(64)));
     public static final RegistryObject<Item> GloryAspersedTorso = registerCommonMaterials(ZeroingITEM,"glory_aspersed_torso", () -> new TooltipItem(new TooltipItem.Properties().stacksTo(64)));
-    public static final RegistryObject<Item> AsWrittenByWhom = registerCommonMaterials(ZeroingITEM,"as_written_by_whom", AsWrittenByWhomItem::new);
 
 
     public FCACraftItemRegister(){

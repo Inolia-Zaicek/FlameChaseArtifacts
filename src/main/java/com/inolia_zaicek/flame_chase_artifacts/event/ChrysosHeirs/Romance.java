@@ -25,27 +25,33 @@ import java.util.Optional;
 @SuppressWarnings({"all", "removal"})
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE,modid = FlameChaseArtifacts.MODID)
 public class Romance {
+    private static final String mnestia_Number_NBT = FlameChaseArtifacts.MODID + ":mnestia_number";
+    private static final String mnestia_TIME_NBT = FlameChaseArtifacts.MODID + ":mnestia_time";
     @SubscribeEvent
     public static void hurt(LivingHurtEvent event) {
         if (event.getSource().getEntity() instanceof LivingEntity livingEntity) {
             LivingEntity mob = event.getEntity();
             Optional<SlotResult> stack = CuriosApi.getCuriosHelper().findFirstCurio(livingEntity, FCAItemRegister.HatredInundate.get());
             //记录livingEntity.sendSystemMessage(Component.literal(String.valueOf("1")).withStyle(ChatFormatting.GOLD));
+            int number = 1;
+            float invulnerableTime = mob.invulnerableTime;
             if (stack.isPresent() && FCAconfig.romanceCurse.get() >= 0 && !FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.RomanceCurios.get())) {
-                //记录原始时间
-                float time = mob.invulnerableTime;
-                mob.invulnerableTime = (int) (time * FCAconfig.romanceCurse.get());
+                number*=FCAconfig.romanceCurse.get();
             }
             //德谬歌or饰品
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.PristineLove.get()) || FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.RomanceCurios.get())) {
-                float time = mob.invulnerableTime;
-                mob.invulnerableTime = (int) (time * FCAconfig.romanceBlessing.get());
+                number*=FCAconfig.romanceBlessing.get();
             }
             //加冕
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.OriginSin.get())) {
-                //记录原始时间
-                float time = mob.invulnerableTime;
-                mob.invulnerableTime = (int) (time * FCAconfig.romanceOverCurse.get());
+                number*=FCAconfig.romanceOverCurse.get();
+            }
+            CompoundTag compoundTag = livingEntity.getPersistentData();
+            int romanceNumber = compoundTag.getInt(mnestia_Number_NBT);
+            if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.Mnestia.get()) && romanceNumber>0) {
+                mob.invulnerableTime = Math.max(0, (int) (number * invulnerableTime - romanceNumber) );
+            }else{
+                mob.invulnerableTime = Math.max(0, (int) (number * invulnerableTime) );
             }
             //德谬歌+饰品
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.PristineLove.get()) && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.RomanceCurios.get())) {

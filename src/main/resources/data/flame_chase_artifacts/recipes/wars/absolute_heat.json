@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition":{
+    "item":"flame_chase_artifacts:flower_of_life"
+  },
+  "base":{
+    "item":"flame_chase_artifacts:photon_battery"
+  },
+  "result":{
+    "item":"flame_chase_artifacts:absolute_heat"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

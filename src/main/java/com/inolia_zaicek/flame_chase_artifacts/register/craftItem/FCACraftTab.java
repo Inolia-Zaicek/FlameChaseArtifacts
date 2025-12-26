@@ -25,7 +25,7 @@ public class FCACraftTab {
             //物品栏名称
             .title(Component.translatable(MoreModTetraTab))
             //图标
-            .icon(FCACraftItemRegister.MemoryCrystalShard.get()::getDefaultInstance)
+            .icon(FCACraftItemRegister.AsWrittenByWhom.get()::getDefaultInstance)
             .displayItems((itemDisplayParameters, output) -> {
                 // 遍历 CommonItem 列表中的物品
                 for(RegistryObject<Item> curios: FCACraftItemRegister.CommonItem){

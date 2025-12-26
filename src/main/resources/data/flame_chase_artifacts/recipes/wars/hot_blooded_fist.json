@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition":{
+    "item":"flame_chase_artifacts:lucky_star"
+  },
+  "base":{
+    "item":"flame_chase_artifacts:flower_of_life"
+  },
+  "result":{
+    "item":"flame_chase_artifacts:hot_blooded_fist"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition":{
+    "item":"flame_chase_artifacts:roller_skates"
+  },
+  "base":{
+    "item":"flame_chase_artifacts:folding_knife"
+  },
+  "result":{
+    "item":"flame_chase_artifacts:firestorm_surge"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

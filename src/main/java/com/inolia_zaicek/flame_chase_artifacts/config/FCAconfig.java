@@ -169,7 +169,7 @@ public class FCAconfig {
         egoCuriosHasSourseDamageDown = BUILDER.comment("真我有源减伤").defineInRange("egoCuriosHasSourseDamageDown", 0.3F,0F,2147483647F);
         egoCuriosNoSourseDamage = BUILDER.comment("真我无源减伤").defineInRange("egoCuriosNoSourseDamage", 0.5F,0F,2147483647F);
         egoCuriosRange = BUILDER.comment("真我范围").defineInRange("egoCuriosRange", 15F,3F,2147483647F);
-        egoCuriosAttack = BUILDER.comment("真我增伤").defineInRange("egoCuriosAttack", 0.5F,1F,2147483647F);
+        egoCuriosAttack = BUILDER.comment("真我增伤").defineInRange("egoCuriosAttack", 0.5F,0F,2147483647F);
         BUILDER.pop();
         BUILDER.push("ego_curios");
         skyEgoCurios = BUILDER.comment("天空饰品").defineInRange("skyEgoCurios", 15F,3F,2147483647F);
@@ -184,7 +184,7 @@ public class FCAconfig {
         worldbearingEgoCurios = BUILDER.comment("负世饰品").defineInRange("worldbearingEgoCurios", 1.0F,0F,2147483647F);
         reasonEgoCurios = BUILDER.comment("理性饰品").defineInRange("reasonEgoCurios", 10F,0F,2147483647F);
         reasonEgoCuriosTreasure = BUILDER.comment("理性饰品是否启用宝藏").define("reasonEgoCuriosTreasure",false);
-        trickeryEgoCurios = BUILDER.comment("诡计饰品").defineInRange("trickeryEgoCurios", 0.5F,1F,2147483647F);
+        trickeryEgoCurios = BUILDER.comment("诡计饰品").defineInRange("trickeryEgoCurios", 0.5F,0F,2147483647F);
         strifeEgoCurios = BUILDER.comment("纷争饰品").defineInRange("strifeEgoCurios", 0.4F,0F,2147483647F);
         deathEgoCurios = BUILDER.comment("死亡饰品").defineInRange("deathEgoCurios", 240F,0F,2147483647F);
         timeEgoCurios = BUILDER.comment("岁月饰品").defineInRange("timeEgoCurios", 0.25F,0F,2147483647F);

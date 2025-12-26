@@ -22,7 +22,7 @@ import java.util.Map;
 public class AsWrittenByWhomItem extends Item {
     public AsWrittenByWhomItem() {
         super(new Item.Properties()
-                        .stacksTo(1)
+                        .stacksTo(1).fireResistant()
         );
     }
 

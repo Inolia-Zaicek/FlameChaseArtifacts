@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition":{
+    "item":"flame_chase_artifacts:lucky_star"
+  },
+  "base":{
+    "item":"flame_chase_artifacts:ethereal_drill"
+  },
+  "result":{
+    "item":"flame_chase_artifacts:flag_of_victory"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

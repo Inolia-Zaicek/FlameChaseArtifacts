@@ -172,7 +172,7 @@
 "tooltip.flame_chase_artifacts.origin_sin.text": "§4「此刻，宇宙的第四时刻已然到来」",
 "tooltip.flame_chase_artifacts.origin_sin.text1": " ",
 "tooltip.flame_chase_artifacts.origin_sin.text2": "§5按住§cShift§5查看饰品基础效果详情",
-"tooltip.flame_chase_artifacts.origin_sin.text3": "5按住§cAlt§5查看饰品吞噬的逐火饰品特殊效果",
+"tooltip.flame_chase_artifacts.origin_sin.text3": "§5按住§cAlt§5查看饰品吞噬的逐火饰品特殊效果",
 
 
 "tooltip.flame_chase_artifacts.origin_sin.sky_titan": "「天空」——「§kAAAA§r」",
@@ -272,7 +272,7 @@
 "item.flame_chase_artifacts.light_speed_propeller":"光速螺旋桨",
 "tooltip.flame_chase_artifacts.light_speed_propeller.text":"§4攻击速度+10%%",
 "tooltip.flame_chase_artifacts.light_speed_propeller.text1":"§d移动速度+10%%",
-"tooltip.flame_chase_artifacts.light_speed_propeller.text2":"每有0.1移动速度，提供2%%伤害增幅",
+"tooltip.flame_chase_artifacts.light_speed_propeller.text2":"移动速度＞1时，每有0.1移动速度，提供2%%伤害增幅",
 
 "item.flame_chase_artifacts.electric_spark_boot":"电光履",
 "tooltip.flame_chase_artifacts.electric_spark_boot.text":"§9台阶高度+1",
@@ -305,7 +305,7 @@
 "item.flame_chase_artifacts.confidence_injector":"信心注入器",
 "tooltip.flame_chase_artifacts.confidence_injector.text":"§b护甲值+10%",
 "tooltip.flame_chase_artifacts.confidence_injector.text1":"§5伤害增幅+30%%",
-"tooltip.flame_chase_artifacts.confidence_injector.text2":"为周围13x13随从与玩家持续提供[信心注入]状态，伤害增幅+25%与10%伤害减免",
+"tooltip.flame_chase_artifacts.confidence_injector.text2":"为周围13x13随从与玩家持续提供[信心注入]状态，伤害增幅+25%%与10%%伤害减免",
 
 "item.flame_chase_artifacts.kinetic_stimulus_sword":"动能激发剑",
 "tooltip.flame_chase_artifacts.kinetic_stimulus_sword.text":"§4攻击速度+25%",
@@ -325,7 +325,7 @@
 "item.flame_chase_artifacts.anti_satellite_sniper_rifle":"反卫星狙击枪",
 "tooltip.flame_chase_artifacts.anti_satellite_sniper_rifle.text":"§e幸运一击率+30%%",
 "tooltip.flame_chase_artifacts.anti_satellite_sniper_rifle.text1":"§5伤害增幅+30%%",
-"tooltip.flame_chase_artifacts.anti_satellite_sniper_rifle.text2":"为自身及周围13x13随从与玩家持续提供[反卫星狙击枪]状态，使幸运一击伤害额外提升10%%",
+"tooltip.flame_chase_artifacts.anti_satellite_sniper_rifle.text2":"为周围13x13随从与玩家持续提供[反卫星狙击枪]状态，使幸运一击伤害额外提升10%%",
 
 "item.flame_chase_artifacts.cover_generating_gun":"掩体生成枪",
 "tooltip.flame_chase_artifacts.cover_generating_gun.text":"§a生命值+10%%",
@@ -426,12 +426,102 @@
 "tooltip.flame_chase_artifacts.perpetual_motion_machine.text":"§5伤害增幅+20%%",
 "tooltip.flame_chase_artifacts.perpetual_motion_machine.text1":"[10s内的首次攻击]及[之后每3次攻击后的第四次攻击]，额外获得50%%伤害增幅",
 
+"item.flame_chase_artifacts.roller_skates":"轮滑鞋",
+"tooltip.flame_chase_artifacts.roller_skates.text":"§d移动速度+5%",
+"item.flame_chase_artifacts.folding_knife":"折叠小刀",
+"tooltip.flame_chase_artifacts.folding_knife.text":"§5伤害增幅+10%%",
+"item.flame_chase_artifacts.peace_pistol":"和平手枪",
+"tooltip.flame_chase_artifacts.peace_pistol.text":"§5伤害增幅+10%%",
+"item.flame_chase_artifacts.lucky_star":"幸运星",
+"tooltip.flame_chase_artifacts.lucky_star.text":"§e幸运一击率+5%%",
+"item.flame_chase_artifacts.flower_of_life":"生命之花",
+"tooltip.flame_chase_artifacts.flower_of_life.text":"§a生命值+5%",
+"item.flame_chase_artifacts.mass_production_armor":"量产型装甲",
+"tooltip.flame_chase_artifacts.mass_production_armor.text":"§a护甲值+5%",
+"item.flame_chase_artifacts.ethereal_drill":"以太钻头",
+"tooltip.flame_chase_artifacts.ethereal_drill.text":"§4攻击速度+10%",
+"item.flame_chase_artifacts.photon_battery":"光能电池",
+"tooltip.flame_chase_artifacts.photon_battery.text":"§9攻击/触及距离+0.25",
+
+
+"item.flame_chase_artifacts.hope":"§e希望",
+"tooltip.flame_chase_artifacts.hope.text":"主手持有，且副手为[绝望]时，可将[流溢之恨]转化为[原初之罪]",
+"item.flame_chase_artifacts.despair":"§e绝望",
+"tooltip.flame_chase_artifacts.despair.text":"副手持有，且主手为[希望]时，可将[流溢之恨]转化为[原初之罪]",
+
 "flame_chase_artifacts.damage_amplifier":"伤害增幅",
 "flame_chase_artifacts.damage_reduction":"伤害减免",
 "flame_chase_artifacts.luck_hit_chance":"幸运一击率",
 "flame_chase_artifacts.luck_hit_amplifier":"幸运一击倍率",
 "flame_chase_artifacts.heal_amplifier":"治疗量增幅",
 
+
+"item.flame_chase_artifacts.coronal_radiance":"§e「全世之座」",
+"tooltip.flame_chase_artifacts.coronal_radiance.text":"§7「汝将肩负骄阳，直到灰白的黎明显著」\n\n§6「逐火是不断失去的旅途，在那一切当中，生命就如尘埃一般渺小」\n§6「无妨，我的性命本就微不足道」\n§e而在启程之初，也有人失却了昨日的自己\n\n§6此刻，又望前途，是通天的长路\n§6向着升起的烈阳，他写下§f「救世」§6的名\n\n§6他一腔孤勇，试着向命运反抗\n§6可普渡众生的烈阳，一旦坠落\n§6便将焚毁大地，变作金色的死亡\n\n§6只怕背负越多，错谬越多，荆棘遍布的，未必是英雄的道途\n§6可泪水尚未流下，便因灼热而蒸发\n§6他的光芒比太阳更炽烈，在那光芒底下，只有冰冷的破灭\n§e永劫时针，三千万转，亘古长升，蚀火残阳\n\n§6无名的英雄，卡厄斯兰那\n§4他从未爱过自己，又何以爱这世界？\n\n§6按§4shift§6查看技能详情",
+"tooltip.flame_chase_artifacts.coronal_radiance.shift_text":"§4此躯即神：\n§6免疫负面状态，生命值提高270%%，攻击力提高80%%，获得飞行能力\n§4此身如炬：\n§6受到致命伤害后，不会死亡，恢复自身25%% 最大生命值，冷却600秒\n§4弑魂之炽：\n§6获得75%% 伤害减免，提高30%% 护甲值\n§4身承炎炬万千：\n§6造成的伤害提高30%%，提高100%%的治疗量\n§4火与光，善恶的化身：\n§6每击杀496个生物，提高1%% 的暴击伤害，最多可叠加33550336%% 的暴击伤害（基础暴击率20%%）\n§4亘古长升，蚀火残阳：\n§6造成伤害后，额外造成本次伤害13%%数额的真实伤害",
+
+"item.flame_chase_artifacts.lance_of_fury":"§6「天谴之矛」",
+"tooltip.flame_chase_artifacts.lance_of_fury.text":"§6纷争的化身\n\n§c「终有一日，汝将背后负创而死」\n\n§c那沉入迷雾的悬锋，纷争与战乱之城，他的神明以灾厄之名\n§c追忆为往事作结，男人再度迈入战阵\n§c他已是这世间必要的伤痕，是令旧神称臣的新王\n\n§c尘埃落定，纷争已息，故乡唯余死寂，男人孤身回返\n§c往日的幻影似在发问——————\n§c「你已走完那逐火之路了吗，王？」\n§c于王座上，男人沉吟——————\n§c「没有什么值得再去追猎，朕已是旅途尽头的烈火」\n\n§c如其所言，弑王成王，弑神登神，浴血代冠，是他永恒的宿命\n§c寒风雕琢不屈的脊梁，纷争见证尸骸的喉鸣，荣耀辉映不渝的筵席\n§c号角惊觉缄默的狂狮，兵戈雕刻躯身的烈焰，往日攀陟沉积的血山\n\n§c以至明日，星星会如此传唱：§4悬锋的孤王，其人名为万敌\n§c他一生行向的，是永劫战火，他身后留下的，是荣光遍地\n\n§6按§cshift§6查看技能详情",
+"tooltip.flame_chase_artifacts.lance_of_fury.shift_text":"§e城邦守护者：\n§6获得[战甲]，战甲会使自身受到的伤害减免15%%\n§4以血还血：\n§6提高自身50%%生命值，护甲值保持为0，受到伤害不会死亡，回复50%%最大生命值，冷却60秒\n§e三十僭主：\n§6免疫负面状态，受到的治疗量提高75%%，暴击率提高50%%\n§4受征伐者皆见灾殃：\n§6每次攻击扣除自身生命值15%%，血量低于20%%获得200%%的增伤",
+
+"item.flame_chase_artifacts.hand_of_shadow":"§5「灰黯之手」",
+"tooltip.flame_chase_artifacts.hand_of_shadow.text":"§5灰黯之手\n\n§5「汝将凋零，令逝者自残余中发芽，一同死去的火新生」\n\n§5那敬爱死亡的国度，终日飘雪的哀地里亚，今日已沉入甘甜的酣眠\n§5人们常说，死是与灰黯之手合掌，梦则是被它的小指轻掠\n§d「蝴蝶会停留在何人指尖？」，§5不予以回答，正如死亡，缄默不言\n\n§5她记得早夭婴孩的睡颜，也记得母亲绝望的眼神\n§5她记得战死将领的伤痕，也记得孤孀满面的泪涟\n§5在被遗忘埋葬的千言中，她唯一能捞起的话语\n§5如同对命运的讥讽————§d「活下去」\n\n§5死亡并非终结，只是蝴蝶落在枯花的枝头，无足轻重\n§5令人心碎，令人心醉，她是死亡的指头，是诗与爱的鬼魅\n§5除了死亡，她还有其他东西，值得为人铭记\n\n§5「不可回头，不可回头，灰黯的长手会将亡者挽留」\n§5「无需回头，无需回头，那代价早已有人替你承受」\n§5「不可回头，不可回头，望向人间，便是回头」\n\n§5此间的故事，不知从何处来，随着浪花，散落于浅滩大地\n§5口是心非莫过于此，习惯于死亡的人，未必擅于道别\n§5若死亡不可避免，我希望它，更美一些\n\n§5呵护世间魂灵的恸哭，拥抱命运的孤独\n§5生死皆为旅途，当蝴蝶停落枝头，那凋零又将新生\n\n§d“你所在的地方，就是温柔的花海”\n§d「花海尽头，生者的魂灵将温暖汝之指尖：相拥过后，便是永恒的离别」\n\n§6按§dshift§6查看技能详情",
+"tooltip.flame_chase_artifacts.hand_of_shadow.shift_text":"§5濒死之梦，浓烟似墨：\n§6攻击会对自身造成5%%最大生命值的凋零伤害，并使该次伤害数额额外提升目标血量的2.5%%\n§5于痛苦的芬芳中死去：\n§6对生命值大于50%%的生物造成伤害时，伤害数额提高50%%，并无视敌方护甲值\n§d月茧之庇：\n§6在受到致命伤害后，不会死亡，回复自身100%%的生命值，冷却1200秒\n§5拥悲怜哀歌安眠：\n§6生命上限提高30%%，治疗量提高200%%，生命值大于100点后，提高40%%暴击伤害\n§d遗世冥域\n§6每秒对周围25x25范围内的非随从/玩家实体造成10%%%%攻击力的凋零伤害",
+
+"item.flame_chase_artifacts.deepest_dark":"§7「至黑之剑」",
+"tooltip.flame_chase_artifacts.deepest_dark.text":"§7至黑之剑\n\n§8末日歧途的盗火者脸上的破损面具\n\n§8伴随黑潮而来、狩猎泰坦火种的无名剑士\n§8面具下石像般的面容与救世主无异，几近崩毁，仿佛将死的薪柴。\n\n§8空洞的回响自火焰中来：一切皆为徒劳。\n\n§6按§8shift§6查看技能详情",
+"tooltip.flame_chase_artifacts.deepest_dark.shift_text":"§7将尽的命数：\n§6攻击将为目标叠加1级「黑潮侵蚀」状态，至多叠加至4级\n§7亡死的黑云：\n§6攻击时，目标每有1级「黑潮侵蚀」状态，则回复自身5%%生命值\n§7永别的决绝：\n§6若3s内未造成伤害，则回复1个「残破容器」，最多持有4个；每个「残破容器」将提供20%%伤害减免§7分离的哀痛：\n§6每次攻击将消耗1个「残破容器」，令该次伤害提升40%%数额，并获得1级「灾难之力」\n§7莫因舍弃而哭泣：\n§6持有4级「灾难之力」时，下一次攻击将提升400%%伤害数额，并回复4个「残破容器」",
+
+"effect.flame_chase_artifacts.phagousa": "暗流",
+"effect.flame_chase_artifacts.after_rain": "雨过天晴",
+
+"item.flame_chase_artifacts.phagousa":"§1「满溢之杯」",
+"tooltip.flame_chase_artifacts.phagousa.text":"§1满溢之杯\n\n§1「汝将于天地境界之海完成征服，长眠于涛声中」 \n\n§9旧日的琴已化为两把利剑，唯有锋利的挽歌流淌弦上。\n§9即便渴望有一日会有人听懂其中向往，但她逐渐意识到人世也与寂寞的深海无异。\n§9每个人都像是迷失的鱼儿，每个人都在盲目地朝着光芒游去。\n \n§9「此战胜利之后，剑旗爵，你可有想要之物？」\n§9她饮下蜜酿，向君主私语，笑声飞翔在宴会的角落。\n§9这里多么悦耳，多么光亮。世界旋转着，酒杯相撞的声音，冰块滑动的声音。\n§9久未开口的海妖，她的歌声仍如蜜酿泼洒——「宴席的烛火如此耀眼一片新的大海它摇荡在我们举杯碰撞间....」\n\n§9「海洋的宠儿，你可有什么心愿想要实现？」\n§9「海瑟音，你在往何处去？」\n§9「剑旗爵，你可有想要之物？」\n\n§9故乡，欢宴，逐火都曾在她的生命中闪耀，然后迅速化为泡影...只剩下一声叹息回荡天际。\n§9「可它们..多么美丽....」\n§9「……」\n\n§1 翁法罗斯的黎明将要升起。在最后的泡沫破碎前，她微笑着，仿佛已唱尽...那已无需言语表达的心声。\n\n§6按§bshift§6查看技能详情",
+"tooltip.flame_chase_artifacts.phagousa.shift_text":"§9于海的栖息地：\n§6游泳速度提升100%%，且持续获得水下呼吸与潮涌核心效果\n§9泛音，暗流后齐鸣：\n§6攻击后令目标获得「暗流」状态，状态期间实体所受伤害提升50%%\n§9绝海回涛，噬魂舞曲：\n§6周围31x31范围内的「非自身随从或玩家」的实体，受伤时视为减少60%%护甲值\n§9征服的剑旗：\n§6周围31x31范围内的「非自身随从或玩家」的实体，攻击时减少30%%伤害数额\n§9于梳洗中，我轻吟浅唱：\n§6周围31x31范围内的「非自身随从或玩家」的实体，受伤时会被随机附加20s的燃烧/凋零I/中毒I效果\n§9沉没的你，何日返乡：\n§6攻击处于燃烧/凋零I/中毒I效果的实体时，目标每有一个状态，所造成的伤害提升62.5%%",
+
+"item.flame_chase_artifacts.eye_of_twilight":"§3「晨昏之眼」",
+"tooltip.flame_chase_artifacts.eye_of_twilight.text":"§3晨昏之眼\n\n§d「在彩虹桥的尽头，天空之子将缝补晨昏」\n\n§d艾格勒带走了光明，但祂还留下一颗明亮的心，来照亮这处幸福的梦境。\n§d疗愈世界，需要更亮的光辉。\n§d若阳光因命运而黯淡……就由我代替，疗愈世间的晨曦。\n§d晨昏可以被修补，仇怨可以被消融。\n§d我想告诉你，天空之所以伟大的秘密——\n§d当痛苦的大地向它投来目光，它总是会展露笑容！\n§d情绪就像云，而我们是承载它的天空，如果天空乌云密布，心绪就会阴晴不定。\n§d来世，愿黎明照拂众人……\n§d愿天空，虹光永驻。\n\n§e按§dshift§e查看技能详情",
+"tooltip.flame_chase_artifacts.eye_of_twilight.shift_text":"§3疗愈世间的晨曦\n§6每次获得治疗时，为10s内的下一次攻击增伤「该次治疗量占最大生命值的百分比数额」\n§3牵起晴空的手\n§6受到伤害时，治疗自身5%%+1的生命值\n§3展翼，奔向日辉\n§6获得200%%治疗量增幅，并提升100%%最大生命值。\n§3爱在虹光洒落时\n§6每2秒治疗周围穿戴者及周围31x31的自身随从与玩家，治疗数额相当于穿戴者的20%%生命上限\n§3飞入晨昏的我们\n§6令穿戴者及周围31x31的自身随从与玩家获得「雨过天晴」状态，提高75%%+28点生命上限",
+
+
+"item.flame_chase_artifacts.evernight":"§d「永夜之帷」",
+"tooltip.flame_chase_artifacts.evernight.text":"§4用心听，他们想要的未来，就在过去。\n§4回忆编织成过去，逐渐累积，已经在来时的路上，投下长长的影子。\n§4与世隔绝的忆域，烛火映出过往，与迷雾中悄然熄去。\n§4别担心，我会为你看护「开拓」的前路…不惜任何代价。\n§4去往哪里才能摆脱「过去」…摆脱「我」？\n§4我会以「记忆」的力量，抚慰那些悲伤的岁月。\n§4希望你醒来的那一天，我能送给你…描绘着美好结局的「未来」。\n§4这场「雨」不会持续太久，它会将一切痛苦的记忆冲刷殆尽——也许「忘却」才是唯一出口。\n§4我很庆幸，在最接近黑暗的时刻，有看见那缕光。\n§4它们曾是我长眠时，如梦般的浮光掠影。\n§4这场不期而遇的相逢，就把它当成滋润你的一场细雨。\n§4我会一直走一直走，总有一天，我们会一起见证，「我」的过去，「我」的未来。\n\n§c按§4shift§c查看技能详情",
+"tooltip.flame_chase_artifacts.evernight.shift_text":"§c今夜与我同行\n§6每次受到伤害时，为下一次攻击增伤「该次伤害扣除生命值百分比*10%%」\n§c白昼悄然离去\n§6生命上限提升50%%，且暴击伤害提升「穿戴者最大生命值*3%%」\n§c晚安，全世界无眠\n§6每次攻击扣除自身当前血量的5%%，并使伤害提升「最大生命值*1%%」数额\n§c迷梦，流失，如露\n§6每次受到伤害获得1点「忆质」，当「忆质」达到8点时，下一次攻击回复50%%最大生命值，并额外使伤害提升250%%",
+
+"item.flame_chase_artifacts.coin_of_whimsy":"§1「翻飞之币」",
+"tooltip.flame_chase_artifacts.coin_of_whimsy.text":"§1翻飞之币\n\n§1「汝将与贪婪同行，亦将亡于分文」\n\n§5多洛斯，失落的盗寇之都，三百侠盗曾在此狂欢纵酒。她的神明以诡计为名，布下命运的棋盘\n\n§5戏言成火，引燃前路。猫耳少女再度踏入这场欺诈的游戏\n\n§5她已成为世间必要的谎言。是窃走旧神权柄的新盗\n\n§5“再无值得追猎之物。我，即是旅途尽头的诡计本身”\n\n§5诚如所言：劫掠贫富，戏弄火焰，迎风加冕。皆是刻在她命运中的永恒\n\n§5谎言磨利了猫耳，诡计见证珍宝消逝。荣光映照不散的盛宴\n\n§5神座在静默中被惊醒。火种在骨血里燃烧，往日堆积成金色的山峦\n\n§5直至群星低语的那一天：\n§3多洛斯的孤盗，其名为赛飞儿\n\n§5她所奔赴的，是永劫的谎言。她所留下的，是遍地的传奇\n\n§1按§5shift§1查看技能详情",
+"tooltip.flame_chase_artifacts.coin_of_whimsy.shift_text":"§1热情好客的多洛斯人\n§6造成伤害时，记录伤害数额的24%%为「银币」，每秒减少1%%的银币数额\n§1嘿，空手套白银\n§6移动速度提升50%%，攻击力提升30%%\n§1猫咪怪盗，敬上！\n§6按下绑定快捷键后，获得5s「猫咪怪盗」状态。期间造成伤害将使伤害基础数额提升「银币」等额数值，并在解除状态的同时清空「银币」\n§1穿靴子的猫\n§6击杀时，额外掉落3份列表战利品。",
+"effect.flame_chase_artifacts.kitty_phantom_thief": "猫咪怪盗",
+"flame_chase_artifacts.key.coin_of_whimsy":"「翻飞之币」绑定按键",
+
+
+"item.flame_chase_artifacts.permansor_terrae":"§2「磐岩之脊」",
+"tooltip.flame_chase_artifacts.permansor_terrae.text":"§2磐岩之脊\n\n§6「汝将自掘坟墓，焚毁于叛逆的熔炉」\n\n§6吉奥里亚的胸膛，伏龙的身躯支撑破碎的大地，忍耐千年苦痛\n§6无名客丹恒，捍卫「大地」火种的黄金裔，扶八荒之将倾，将地上生灵送往远方的天地 §6百川归海，群山合鸣，不朽的道途将绵延万里\n§6惕者无咎，蜕鳞而腾——「因为他们，我从不曾失去归途。」\n \n§6「古老的圣树，将你的根系借给我吧。用我背负的火种，与这片陆地共鸣。」\n§6「以天地为横轴，以时光为纵轴，我将找到那唯一的一点。」\n§6「哪怕要用我的双脚，遍历这山川大地的每一处角落……」\n§6「我都会带你回家。」\n\n§2按§6shift§2查看技能详情",
+"tooltip.flame_chase_artifacts.permansor_terrae.shift_text":"§e渊渟岳峙，地载八荒\n§6持有「伤害吸收」状态时，造成伤害提升「伤害吸收等级*23%%」\n§e生生之德，品物流形\n§6每10s为自身及周围31x31的自身随从与玩家赋予「伤害吸收」状态，状态等级为「1+穿戴者攻击力*23%%」(取整)\n§e亢龙无悔，移山辟世\n§6触发「生生之德，品物流形」时，为周围实体附加「同袍」状态，提升60%%攻击力，\n§e葳蕤\n§6造成伤害时，缩短0.5s「生生之德，品物流形」的间隔时间，至2s时不再缩短\n§e神秀\n§6提升穿戴者30%%攻击力、护甲值、护甲韧性",
+"effect.flame_chase_artifacts.bondmate": "同袍",
+
+"item.flame_chase_artifacts.janus":"§4「万径之门」",
+"tooltip.flame_chase_artifacts.janus.text":"§4「汝将碎作千片，凋零在他乡的土壤」\n\n§c最初的传火者，拥有三重生命之人，万径之践行人。双手不为挥舞枪矛而生，双足生来便要为众生奔走。\n\n§c指引世人者，灵魂必遭岐路分离，碎作千片化身，如琉璃掷地。那就将我打碎，开辟出万千道路。\n\n§c愿一切世人，都能循着那踏出的万千道路，在鲜花芬芳的西风尽头重逢。\n\n§c羔羊的热血不会白流，泼洒的奠酒必得馈答。乘着西风，展翅远行。\n\n§c从这里开始，我将踏上遥远的旅途；从这里开始，你已走过漫长的归路。\n\n§c明天见！\n\n§4按§cshift§4查看技能详情",
+"tooltip.flame_chase_artifacts.janus.shift_text":"§4一百层的小火箭\n§6提升穿戴者42%%最大生命值、移动速度\n§4礼物都去哪儿了\n§6为自身及周围31x31的自身随从与玩家持续赋予「神启」状态，状态等级为「1+穿戴者最大生命值*5%%」(取整)\n§4猜猜这里住着谁\n§6攻击造成的基础伤害数额提升自身最大生命值的37.5%%\n§4好忙好忙的缇宝\n§6「神启」状态下，实体将获得「状态等级*15%%」的伤害增幅\n§4城墙外的羊羔儿\n§6「神启」状态下，自身造成的伤害提升72%%",
+"effect.flame_chase_artifacts.numinosity": "神启",
+
+"item.flame_chase_artifacts.cerces":"§a「裂分之枝」",
+"tooltip.flame_chase_artifacts.cerces.text":"§2「汝将超越至纯粹之终极，回归腐败苦黑」\n\n§a奇迹是最傲慢的神迹，它是神以伟力对人的否定。\n§a魔术是最巧妙的抗议，他是人以智慧对神迹的仿戏。\n§a愿用最后的魔术，创造断绝神迹的神迹。\n§a一切皆为学术，人智无边无际。无论武技还是人情，皆能穷理尽性。\n§a愈是渺小，愈见重量。我的名字越愚钝，我成就的一切便越辉煌。\n§a所有「错误」的尝试，都是更接近「正确」的一步。\n§a世上有且只有一种神，那就是无法毁灭的真理！\n§a跨越人生的表演，终到了谢幕的时候。\n§a诸般声音沸腾，而后化为寂静。\n§a一片黑暗中，璀璨的真理在他的手中成型。\n\n§2按§ashift§2查看技能详情",
+"tooltip.flame_chase_artifacts.cerces.shift_text":"§a分形，驱逐虚知\n§6近战攻击时，会对目标周围13x13范围内随机非自身随从实体造成4次87.5%%攻击力的魔法伤害\n§a必要的留白\n§6附魔时，视为附魔额外提升15级；且获取经验数额提升900%%\n§a四分明哲，三重至高\n§6每有1级经验等级，所造成的伤害数额提升5%%，最高计算30级\n§a生息破土，世界塑造\n§6若经验等级达到50级，则「分形，驱逐虚知」伤害次数*2\n§a瞳扉之彩\n§6周围31x31的非自身随从实体，将持续获得缓慢II，虚弱I效果",
+
+"item.flame_chase_artifacts.mnestia":"§e「黄金之茧」",
+"tooltip.flame_chase_artifacts.mnestia.text":"§e「汝将最后一次沐浴，在温热耀眼的黄金中」\n\n§6「黄金之茧」阿格莱雅\n§6你要轻抚圣城的丝网，凝听群星的声息\n§6永不落幕的圣城，仿若与黄金之茧的半神昔在永在\n§6在那黎明照拂的圣城，织者抚弄金丝，连缀命运\n§6视物已成双眼的负累，她指尖的金丝，将无数尘埃间的低语和鲜血凝成的歌传至耳边\n§6「这一缕，是战士的牺牲。」\n§6「这一缕，是英雄的成长。」\n§6「这一缕，是城邦的繁盛。」\n§6……\n§6衣匠牵丝引线，汇聚在她的指尖\n§6「一些英雄的轨迹，已然断裂……」\n§6她挽起另一些金丝，接续缝补\n§6「一些英雄的命运，仍要向前延展……」\n§6梦是千百种可能的连缀，藉由命运丝线编织的未来更是如此\n§6织者落枕入梦…\n§6—— 于梦中，她窥见了更为灼眼的金色\n§6背负「浪漫」火种的黄金裔，召集世间英雄，带领他们再度踏上漫长的征程\n§6—— 击落众神，归还神火，予以几近覆灭的翁法罗斯新生\n§6被赋予神性的织机兀自运转，衣匠们曼舞翩跹\n§6千年时光在织机上流流过，她早已习惯了如此的等待 ——\n§6为了那将光阴织成黄金的「灵感」\n\n§e按§6shift§e查看技能详情",
+"tooltip.flame_chase_artifacts.mnestia.shift_text":"§e至高之姿\n§6提升穿戴者100%%攻击速度与移动速度\n§e披星百裂\n§6每次近战攻击提升1层「间隙织线」，持续10s，每层「间隙织线」会降低攻击目标0.05s的无敌时间\n§e孤锋千吻\n§6近战攻击会对目标及其周围5x5范围内非自身随从实体造成伤害数额63%%的有源雷电伤害\n§e短视之惩\n§6移动速度＞1时，每有0.1移动速度，提升10%%伤害数额\n§e金玫之指\n§6「间隙织线」达到6层时，近战攻击会额外造成126%%的有源雷电伤害",
+
+"item.flame_chase_artifacts.talanton":"§b「公正之秤」",
+"tooltip.flame_chase_artifacts.talanton.text":"§3「汝将于天地境界之海完成征服，长眠于涛声中。」\n\n§b「『燃冕者』、『独裁官』、『女皇』、『总帅』、『凯撒』…世人给予我的头衔林林总总，但你不妨直呼我的本名——刻律德菈。」\n§b「免礼。天光甚好，对弈一局如何？」\n§b「棋子只识敌我两方，孰不知宇宙远不止黑白二色。翁法罗斯的终点也不过是银河的起点，我必将奔赴更渺远的群星。」\n\n§b“律法的天平是公平的，想要成为律法半神必须通过这场试炼，这是翁法罗斯存续必须支付的门票。”\n\n§b「这绝非终点，翁法罗斯的征途，当是银河群星！」\n§b「律法的火种不能归位，你们指明的救世之路已无法实现。」\n§b「历史总有一天会遗忘刻律德菈，但绝不会忘记凯撒的人民——和由她开启的逐火时代！」\n\n§b她将自己视作棋盘上可舍弃的王棋，坦言“棋是牺牲的艺术，棋手须先立必死决心，逐火是不断失却的旅途，唯有同等代价能换同等胜利”，并托付海瑟音，由“金织”阿格莱雅接过逐火重任。\n\n§b「我宁愿被遗忘，也不愿被定义。」\n§b「群星会记得翁法洛斯，记得她的人民。」\n§1「凯撒的承诺从不落空，所以收下这片记忆，那就是主之所见，天外的大海。」\n\n§3按§bshift§3查看技能详情",
+"tooltip.flame_chase_artifacts.talanton.shift_text":"§b荣光属于凯撒\n§6提升90%%暴击伤害，27%%攻击力，每次攻击获得1点「军功」\n§b升变，士皆可帅\n§6「军功」≥6时，下次攻击消耗6点「军功」，触发「奇袭」\n§b世事如棋，四步堪杀\n§6触发「奇袭」时，该次攻击的伤害额外提升288%%数额\n§b见者\n§6每点「军功」提升15%%暴击率，触发「奇袭」时，该次攻击必定暴击\n§b来者\n§6穿戴者攻击力≥8时，每提升1点攻击力，提升10%%暴击伤害",
+
+"item.flame_chase_artifacts.acheron":"§4「无」",
+"tooltip.flame_chase_artifacts.acheron.text":"\n\n§3按§bshift§3查看技能详情\n\n§7在处于-264高度，且10s内受到了90%%最大生命值数额的伤害时获取()",
+"tooltip.flame_chase_artifacts.acheron.shift_text":"§4四相断我\n§f攻击非精英敌人时，伤害提升900%%\n§4残梦尽染，一刀缭断\n§f攻击无视目标25%%护甲值，且第9次攻击会获得500%%的额外增伤\n§4红叶时雨，万倾一空\n§f目标每有1个非正面状态，触发「残梦尽染，一刀缭断」所需攻击次数减1",
+
+"flame_chase_artifacts.key":"星穹饰品",
 "item_group.flame_chase_artifacts.tab":"星穹饰品",
 "item_group.flame_chase_artifacts.craft_item_tab":"星穹饰品-素材",
 "item_group.flame_chase_artifacts.sponsor_item_tab":"星穹饰品-赞助者物品"

@@ -3,6 +3,7 @@ package com.inolia_zaicek.flame_chase_artifacts.item.CurrencyWars;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.inolia_zaicek.flame_chase_artifacts.item.CuriosTootip4Item;
+import com.inolia_zaicek.flame_chase_artifacts.item.CuriosTootip5Item;
 import com.inolia_zaicek.flame_chase_artifacts.register.FCAAttributes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -16,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-public class RandomDice extends CuriosTootip4Item {
+public class RandomDice extends CuriosTootip5Item {
     //
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
