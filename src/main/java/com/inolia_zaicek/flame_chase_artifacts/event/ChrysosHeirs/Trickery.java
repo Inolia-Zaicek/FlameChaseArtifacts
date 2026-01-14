@@ -62,19 +62,19 @@ public class Trickery {
             MobEffect type = effect.getEffect();
             //正面
             if (type.getCategory().equals(MobEffectCategory.BENEFICIAL) ) {
-                float number = (float) ((float) 1 / (FCAconfig.trickeryCurse.get()*1));
-                int finish = (int) (effect.getDuration() / (1-number) );
-                FCAEntityHelper.shortenEffect(effect, livingEntity, finish);
+                //这里返回的是缩短了多久，不是最终时间————例如effect.getDuration()/4是缩短25%时间，即1-(1/4)=3/4————
+                //想获得缩短50%（0.5——即获取time/[1/0.5]=time/2
+                FCAEntityHelper.shortenEffect(effect, livingEntity, (int) (effect.getDuration()/(1/FCAconfig.trickeryCurse.get())));
             }
         }
+        //祝福
         if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.PristineLove.get()) || FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.TrickeryCurios.get()) ) {
             MobEffectInstance effect = event.getEffectInstance();
             MobEffect type = effect.getEffect();
             //正面
             if (type.getCategory().equals(MobEffectCategory.BENEFICIAL) ) {
-                float number = (float) (FCAconfig.trickeryBlessing.get() * 1);
-                int finish = (int) (effect.getDuration() * (number-1) );
-                FCAEntityHelper.extendEffect(effect, livingEntity, finish);
+                //提升了多久——————150%-1)*time=提升了50%time
+                FCAEntityHelper.extendEffect(effect, livingEntity, (int) (effect.getDuration() * (FCAconfig.trickeryBlessing.get()-1)));
             }
         }
         if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.OriginSin.get()) ) {
@@ -82,9 +82,7 @@ public class Trickery {
             MobEffect type = effect.getEffect();
             //正面
             if (type.getCategory().equals(MobEffectCategory.BENEFICIAL) ) {
-                float number = (float) (FCAconfig.trickeryOverCurse.get() * 1);
-                int finish = (int) (effect.getDuration() * (number-1) );
-                FCAEntityHelper.extendEffect(effect, livingEntity, finish);
+                FCAEntityHelper.extendEffect(effect, livingEntity, (int) (effect.getDuration() * (FCAconfig.trickeryOverCurse.get()-1)));
             }
         }
         /// 海洋
@@ -94,9 +92,7 @@ public class Trickery {
                 MobEffect type = effect.getEffect();
                 //非正面
                 if (!type.getCategory().equals(MobEffectCategory.BENEFICIAL)) {
-                    float number = (float) (FCAconfig.oceanCurse.get() * 1);
-                    int finish = (int) (effect.getDuration() * (number-1) );
-                    FCAEntityHelper.extendEffect(effect, livingEntity, finish);
+                    FCAEntityHelper.extendEffect(effect, livingEntity, (int) (effect.getDuration() * (FCAconfig.oceanCurse.get()-1)));
                 }
             }
         }
@@ -106,9 +102,7 @@ public class Trickery {
                 MobEffect type = effect.getEffect();
                 //非正面
                 if (!type.getCategory().equals(MobEffectCategory.BENEFICIAL)) {
-                    float number = (float) ((float) 1 / (FCAconfig.oceanBlessing.get() * 1));
-                    int finish = (int) (effect.getDuration() / (1-number) );
-                    FCAEntityHelper.shortenEffect(effect, livingEntity, finish);
+                    FCAEntityHelper.shortenEffect(effect, livingEntity, (int) (effect.getDuration()/(1/FCAconfig.oceanBlessing.get())));
                 }
             }
         }
@@ -118,9 +112,7 @@ public class Trickery {
             MobEffect type = effect.getEffect();
             //非正面
             if (!type.getCategory().equals(MobEffectCategory.BENEFICIAL)) {
-                float number = (float) (FCAconfig.oceanOverCurse.get() * 1);
-                int finish = (int) (effect.getDuration() * (number-1) );
-                FCAEntityHelper.extendEffect(effect, livingEntity, finish);
+                FCAEntityHelper.extendEffect(effect, livingEntity, (int) (effect.getDuration() * (FCAconfig.oceanOverCurse.get()-1)));
             }
         }
     }

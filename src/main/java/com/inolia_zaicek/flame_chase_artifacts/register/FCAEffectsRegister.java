@@ -29,4 +29,6 @@ public class FCAEffectsRegister {
     public static final RegistryObject<MobEffect> KittyPhantomThief = INOEFFECT.register("kitty_phantom_thief", KittyPhantomThiefBuff::new);
     public static final RegistryObject<MobEffect> Bondmate = INOEFFECT.register("bondmate", BondmateBuff::new);
     public static final RegistryObject<MobEffect> Numinosity = INOEFFECT.register("numinosity", NuminosityBuff::new);
+    public static final RegistryObject<MobEffect> ToughnessBreak = INOEFFECT.register("toughness_break", ToughnessBreakBuff::new);
+    public static final RegistryObject<MobEffect> FromShatteredSkyIFreeFall = INOEFFECT.register("from_shattered_sky_i_free_fall", FromShatteredSkyIFreeFallBuff::new);
 }

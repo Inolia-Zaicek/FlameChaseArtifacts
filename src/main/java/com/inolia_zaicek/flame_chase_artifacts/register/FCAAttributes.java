@@ -44,4 +44,32 @@ public class FCAAttributes {
                     0,//最小值
                     10000//最大值
             ).setSyncable(true));
+    //击破效率
+    public static final RegistryObject<Attribute> Break_Efficiency = ATTRIBUTES.register("break_efficiency",
+            () -> new RangedAttribute(FlameChaseArtifacts.MODID + ".break_efficiency",
+                    1,//基础值
+                    0,//最小值
+                    10000//最大值
+            ).setSyncable(true));
+    //击破伤害倍率
+    public static final RegistryObject<Attribute> Break_Damage = ATTRIBUTES.register("break_damage",
+            () -> new RangedAttribute(FlameChaseArtifacts.MODID + ".break_damage",
+                    0.25,//基础值
+                    0,//最小值
+                    10000//最大值
+            ).setSyncable(true));
+    //超击破倍率
+    public static final RegistryObject<Attribute> Break_Amplifier = ATTRIBUTES.register("break_amplifier",
+            () -> new RangedAttribute(FlameChaseArtifacts.MODID + ".break_amplifier",
+                    0.1,//基础值
+                    0,//最小值
+                    10000//最大值
+            ).setSyncable(true));
+    //击破时长——基础5秒
+    public static final RegistryObject<Attribute> Break_Time = ATTRIBUTES.register("break_time",
+            () -> new RangedAttribute(FlameChaseArtifacts.MODID + ".break_time",
+                    5*20,//基础值
+                    0,//最小值
+                    10000//最大值
+            ).setSyncable(true));
 }

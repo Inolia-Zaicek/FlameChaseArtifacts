@@ -8,11 +8,14 @@ import com.inolia_zaicek.flame_chase_artifacts.register.FCAEffectsRegister;
 import com.inolia_zaicek.flame_chase_artifacts.register.FCAItemRegister;
 import com.inolia_zaicek.flame_chase_artifacts.util.FCAUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -23,6 +26,7 @@ import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -60,8 +64,9 @@ public class HurtEvent {
     private static final String mnestia_TIME_NBT = FlameChaseArtifacts.MODID + ":mnestia_time";
     private static final String talanton_Number_NBT = FlameChaseArtifacts.MODID + ":talanton_number";
     private static final String acheron_Number_NBT = FlameChaseArtifacts.MODID + ":acheron_number";
-    private static final String acheron_damage_NBT = FlameChaseArtifacts.MODID + ":acheron_damage";
-    private static final String acheron_get_NBT = FlameChaseArtifacts.MODID + ":acheron_get";
+    //击破进度
+    static final String break_progress_NBT = FlameChaseArtifacts.MODID + ":break_progress";
+    public static final TagKey<Item> break_curios = TagKey.create(Registries.ITEM,new ResourceLocation("flame_chase_artifacts","break_curios"));
     @SubscribeEvent
     public static void hurt(LivingHurtEvent event) {
         LivingEntity attacked = event.getEntity();
@@ -185,6 +190,12 @@ public class HurtEvent {
                     number*=1-(deepsetNumber*0.2F);
                 }
             }
+            //流萤
+            if (FCAUtil.isCurioEquipped(attacked, FCAItemRegister.Firefly.get()) ){
+                //已损失血量，距离70%血量还差多少
+                float hpNumber = (float) ( ( attacked.getMaxHealth()-attacked.getHealth() )/(attacked.getMaxHealth()*0.7F) );
+                number*=1-hpNumber*0.5F;
+            }
             ///伤害减免属性
             //实体伤害减免属性叠加
             double damageDown = attacked.getAttributeValue(FCAAttributes.DAMAGE_REDUCTION.get());
@@ -248,6 +259,53 @@ public class HurtEvent {
         //攻击
         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
             float number = 1;
+            CompoundTag compoundTag = attacker.getPersistentData();
+            ///击破——击破时敌人默认受到10%独立易伤，与超击破独立
+            //判断有无击破饰品
+            if(FCAUtil.curiosHasTag(attacker, String.valueOf(break_curios))){
+                var map = attacked.getActiveEffectsMap();
+                //击破进度x100【1%击破进度就是100数值
+                CompoundTag breakCompoundTag = attacked.getPersistentData();
+                int breakProgress = breakCompoundTag.getInt(break_progress_NBT);
+                //击破效率
+                float breakEfficiency =  (float) attacker.getAttributeValue(FCAAttributes.Break_Efficiency.get());
+                //击破倍率
+                float breakDamage = (float)  attacker.getAttributeValue(FCAAttributes.Break_Damage.get());
+                //超击破倍率
+                float breakAmplifier = (float) attacker.getAttributeValue(FCAAttributes.Break_Amplifier.get());
+                //击破时长（基础5*20tick=5s）
+                int breakTime = (int) attacker.getAttributeValue(FCAAttributes.Break_Time.get());
+                //如果未击破
+                if(!attacked.hasEffect(FCAEffectsRegister.ToughnessBreak.get())) {
+                    ///削韧计算——初始削韧进度+100，满10000破韧
+                    //结算韧性
+                    int finishBreakProgress = (int) (breakProgress + breakProgress * breakEfficiency);
+                    //精英敌人，削韧减半
+                    if(FCAUtil.isBossEntity(attacked.getType())){
+                        finishBreakProgress*= (int) (0.5F*finishBreakProgress);
+                    }
+                    compoundTag.putInt(break_progress_NBT, finishBreakProgress);
+                    //击破
+                    if (finishBreakProgress >= 10000&&breakTime>0) {
+                        //击破伤害增幅
+                        number*=1+breakDamage;
+                        //击破状态赋予
+                        attacked.addEffect(new MobEffectInstance(FCAEffectsRegister.ToughnessBreak.get(), breakTime, 0));
+                        if (!attacked.hasEffect(FCAEffectsRegister.ToughnessBreak.get())) {map.put(FCAEffectsRegister.ToughnessBreak.get(),
+                                new MobEffectInstance(FCAEffectsRegister.ToughnessBreak.get(), breakTime, 0));
+                        }
+                        //如果有流萤
+                        if (FCAUtil.isCurioEquipped(attacked, FCAItemRegister.Firefly.get())){
+                            attacked.addEffect(new MobEffectInstance(FCAEffectsRegister.FromShatteredSkyIFreeFall.get(), 7*20, 0));
+                        }
+                    }
+                    //后面记得加上未触发击破时，大丽花饰品按比例触发超击破
+                }
+                //如果击破了
+                else{
+                    number*=1+breakAmplifier;
+                }
+            }
             //昔涟13饰品增伤
             if (event.getSource().getEntity() instanceof LivingEntity livingEntity) {
                 var mobList = FCAUtil.mobList((int) ((FCAconfig.egoCuriosRange.get() - 1) / 2), livingEntity);
@@ -363,7 +421,6 @@ public class HurtEvent {
             if (damageUp > 0) {
                 damageAmplifier += (float) damageUp;
             }
-            CompoundTag compoundTag = attacker.getPersistentData();
             //冷却
             compoundTag.putInt(electromagnetic_catapult_TIME_NBT, 200);
             compoundTag.putInt(deepest_dark_TIME_NBT, 60);
@@ -871,6 +928,21 @@ public class HurtEvent {
                     attacked.hurt(DamageType, finishDamage * 1.26F);
                 }
             }
+            //流萤
+            if (FCAUtil.isCurioEquipped(attacked, FCAItemRegister.Firefly.get()) && FCAUtil.isMeleeAttack(event.getSource()) ){
+                attacker.heal(attacker.getMaxHealth()*0.05F);
+                //超击破倍率
+                float breakAmplifier = (float) attacker.getAttributeValue(FCAAttributes.Break_Amplifier.get());
+                var DamageType = FCADamageType.hasSource(attacker.level(), FCADamageType.TRUEDAMAGE,attacker);
+                var mobList = FCAUtil.mobList(3, attacked);
+                for (Mob mobs : mobList) {
+                    if (!(mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null&& ownableEntity.getOwner() == attacker )) {
+                        mobs.invulnerableTime = 0;
+                        mobs.hurt(DamageType, finishDamage * 0.5F * breakAmplifier);
+                        mobs.invulnerableTime = 0;
+                    }
+                }
+            }
             //确保清除
             attacker.removeEffect(FCAEffectsRegister.KittyPhantomThief.get());
             /// 最终结算
@@ -881,6 +953,54 @@ public class HurtEvent {
             }
         }else if (event.getSource().getDirectEntity() instanceof LivingEntity attacker) {
             float number = 1;
+
+            CompoundTag compoundTag = attacker.getPersistentData();
+            ///击破——击破时敌人默认受到10%独立易伤，与超击破独立
+            //判断有无击破饰品
+            if(FCAUtil.curiosHasTag(attacker, String.valueOf(break_curios))){
+                var map = attacked.getActiveEffectsMap();
+                //击破进度x100【1%击破进度就是100数值
+                CompoundTag breakCompoundTag = attacked.getPersistentData();
+                int breakProgress = breakCompoundTag.getInt(break_progress_NBT);
+                //击破效率
+                float breakEfficiency =  (float) attacker.getAttributeValue(FCAAttributes.Break_Efficiency.get());
+                //击破倍率
+                float breakDamage = (float)  attacker.getAttributeValue(FCAAttributes.Break_Damage.get());
+                //超击破倍率
+                float breakAmplifier = (float) attacker.getAttributeValue(FCAAttributes.Break_Amplifier.get());
+                //击破时长（基础5*20tick=5s）
+                int breakTime = (int) attacker.getAttributeValue(FCAAttributes.Break_Time.get());
+                //如果未击破
+                if(!attacked.hasEffect(FCAEffectsRegister.ToughnessBreak.get())) {
+                    ///削韧计算——初始削韧进度+100，满10000破韧
+                    //结算韧性
+                    int finishBreakProgress = (int) (breakProgress + breakProgress * breakEfficiency);
+                    //精英敌人，削韧减半
+                    if(FCAUtil.isBossEntity(attacked.getType())){
+                        finishBreakProgress*= (int) (0.5F*finishBreakProgress);
+                    }
+                    compoundTag.putInt(break_progress_NBT, finishBreakProgress);
+                    //击破
+                    if (finishBreakProgress >= 10000&&breakTime>0) {
+                        //击破伤害增幅
+                        number*=1+breakDamage;
+                        //击破状态赋予
+                        attacked.addEffect(new MobEffectInstance(FCAEffectsRegister.ToughnessBreak.get(), breakTime, 0));
+                        if (!attacked.hasEffect(FCAEffectsRegister.ToughnessBreak.get())) {map.put(FCAEffectsRegister.ToughnessBreak.get(),
+                                new MobEffectInstance(FCAEffectsRegister.ToughnessBreak.get(), breakTime, 0));
+                        }
+                        //如果有流萤
+                        if (FCAUtil.isCurioEquipped(attacked, FCAItemRegister.Firefly.get())){
+                            attacked.addEffect(new MobEffectInstance(FCAEffectsRegister.FromShatteredSkyIFreeFall.get(), 7*20, 0));
+                        }
+                    }
+                    //后面记得加上未触发击破时，大丽花饰品按比例触发超击破
+                }
+                //如果击破了
+                else{
+                    number*=1+breakAmplifier;
+                }
+            }
             //昔涟13饰品增伤
             if(event.getSource().getEntity() instanceof LivingEntity livingEntity){
                 var mobList = FCAUtil.mobList( (int)( (FCAconfig.egoCuriosRange.get()-1)/2) , livingEntity);
@@ -997,7 +1117,6 @@ public class HurtEvent {
             if(damageUp>0){
                 damageAmplifier += (float) damageUp;
             }
-            CompoundTag compoundTag = attacker.getPersistentData();
             //电磁弹射器冷却
             compoundTag.putInt(electromagnetic_catapult_TIME_NBT, 200);
             compoundTag.putInt(deepest_dark_TIME_NBT, 60);
@@ -1487,7 +1606,7 @@ public class HurtEvent {
                 var DamageType = FCADamageType.hasSource(attacker.level(), DamageTypes.LIGHTNING_BOLT, attacker);
                 var mobList = FCAUtil.mobList(3, attacked);
                 for (Mob mobs : mobList) {
-                    if (!(mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null&& ownableEntity.getOwner() == attacker )) {
+                    if (!(mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null&& ownableEntity.getOwner() == attacker )&&mobs!=attacker) {
                         mobs.invulnerableTime = 0;
                         mobs.hurt(DamageType, finishDamage * 1.26F);
                         mobs.invulnerableTime = 0;
@@ -1495,6 +1614,22 @@ public class HurtEvent {
                 }
                 if(romanceNumber>=6){
                     attacked.hurt(DamageType, finishDamage * 1.26F);
+                }
+            }
+
+            //流萤
+            if (FCAUtil.isCurioEquipped(attacked, FCAItemRegister.Firefly.get()) && FCAUtil.isMeleeAttack(event.getSource()) ){
+                attacker.heal(attacker.getMaxHealth()*0.05F);
+                //超击破倍率
+                float breakAmplifier = (float) attacker.getAttributeValue(FCAAttributes.Break_Amplifier.get());
+                var DamageType = FCADamageType.hasSource(attacker.level(), FCADamageType.TRUEDAMAGE,attacker);
+                var mobList = FCAUtil.mobList(3, attacked);
+                for (Mob mobs : mobList) {
+                    if (!(mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null&& ownableEntity.getOwner() == attacker )&&mobs!=attacker) {
+                        mobs.invulnerableTime = 0;
+                        mobs.hurt(DamageType, finishDamage * 0.5F * breakAmplifier);
+                        mobs.invulnerableTime = 0;
+                    }
                 }
             }
             //确保清除

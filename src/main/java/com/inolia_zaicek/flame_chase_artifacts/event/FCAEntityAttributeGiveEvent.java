@@ -20,6 +20,10 @@ public class FCAEntityAttributeGiveEvent {
                 event.add(entityType, FCAAttributes.LUCK_HIT_CHANCE.get());
                 event.add(entityType, FCAAttributes.LUCK_HIT_AMPLIFIER.get());
                 event.add(entityType, FCAAttributes.HEAL_AMPLIFIER.get());
+                event.add(entityType, FCAAttributes.Break_Efficiency.get());
+                event.add(entityType, FCAAttributes.Break_Damage.get());
+                event.add(entityType, FCAAttributes.Break_Amplifier.get());
+                event.add(entityType, FCAAttributes.Break_Time.get());
             }
         }
     }

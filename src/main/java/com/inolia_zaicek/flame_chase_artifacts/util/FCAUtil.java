@@ -1,6 +1,7 @@
 package com.inolia_zaicek.flame_chase_artifacts.util;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -20,13 +21,12 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.registries.ForgeRegistries;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
-import com.inolia_zaicek.flame_chase_artifacts.register.FCAItemRegister;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
-
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
@@ -153,4 +153,33 @@ public class FCAUtil {
     public static DamageSource source(Level level, ResourceKey<DamageType> type){
         return source(level,type,null, null);
     }
+
+    public static boolean curiosHasTag(LivingEntity entity, String stringTag) {
+            // 获取Curios容器
+            Optional<ICuriosItemHandler> curiosOpt = CuriosApi.getCuriosInventory(entity).resolve();
+            if (!curiosOpt.isPresent()) {
+                return false;
+            }
+            ICuriosItemHandler curiosHandler = curiosOpt.get();
+
+            // 获取装备的饰品
+            IItemHandlerModifiable itemHandler = curiosHandler.getEquippedCurios();
+            int slotCount = itemHandler.getSlots();
+
+            // 遍历所有槽位
+            for(int i = 0; i < slotCount; i++) {
+                ItemStack stack = itemHandler.getStackInSlot(i);
+                if (!stack.isEmpty()) {
+                    // 检测饰品是否穿戴
+                    if (curiosHandler.isEquipped(stack.getItem())) {
+                        // 获取宠物的NBT标签
+                        CompoundTag tag = stack.getTag();
+                        if (tag != null && tag.contains(stringTag)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
 }

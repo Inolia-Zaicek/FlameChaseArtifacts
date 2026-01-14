@@ -115,7 +115,7 @@ public class CuriosGiveEvent {
         if(livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(acheronKey) ){
             float Y = player.getOnPos().getY();
             if(Y<=-264) {
-                player.addItem(new ItemStack(FCAItemRegister.ReasonCurios.get()));
+                player.addItem(new ItemStack(FCAItemRegister.Acheron.get()));
                 compoundTag.putBoolean(reasonKey, true);
             }
         }
@@ -123,7 +123,8 @@ public class CuriosGiveEvent {
         var timeKey = "time_curios_get_nbt";
         int timeTick = compoundTag.getInt(time_curios_tick_time_nbt);
         if(livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(timeKey)){
-            if(timeTick<4*60*60*20){
+            //tick实际上是*2
+            if(timeTick<4*60*60*20/2){
                 compoundTag.putInt(time_curios_tick_time_nbt, timeTick+1);
             }else{
                 player.addItem(new ItemStack(FCAItemRegister.TimeCurios.get()));

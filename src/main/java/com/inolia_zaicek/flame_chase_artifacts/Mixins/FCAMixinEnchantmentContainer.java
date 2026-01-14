@@ -34,7 +34,7 @@ public abstract class FCAMixinEnchantmentContainer extends AbstractContainerMenu
 
     @Inject(
             at = @At("HEAD"),
-            method = "clickMenuButton",
+            method = {"clickMenuButton(Lnet/minecraft/world/entity/player/Player;I)Z"},
             cancellable = true
     )
     private void onEnchantedItem(Player player, int clickedID, CallbackInfoReturnable<Boolean> info) {

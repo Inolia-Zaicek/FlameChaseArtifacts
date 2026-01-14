@@ -1,7 +1,6 @@
 {
     "replace": false,
     "values": [
-        "flame_chase_artifacts:cerces",
         "flame_chase_artifacts:firefly"
     ]
 }

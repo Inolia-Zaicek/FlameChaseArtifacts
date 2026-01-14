@@ -518,9 +518,20 @@
 "tooltip.flame_chase_artifacts.talanton.shift_text":"§b荣光属于凯撒\n§6提升90%%暴击伤害，27%%攻击力，每次攻击获得1点「军功」\n§b升变，士皆可帅\n§6「军功」≥6时，下次攻击消耗6点「军功」，触发「奇袭」\n§b世事如棋，四步堪杀\n§6触发「奇袭」时，该次攻击的伤害额外提升288%%数额\n§b见者\n§6每点「军功」提升15%%暴击率，触发「奇袭」时，该次攻击必定暴击\n§b来者\n§6穿戴者攻击力≥8时，每提升1点攻击力，提升10%%暴击伤害",
 
 "item.flame_chase_artifacts.acheron":"§4「无」",
-"tooltip.flame_chase_artifacts.acheron.text":"\n\n§3按§bshift§3查看技能详情\n\n§7在处于-264高度，且10s内受到了90%%最大生命值数额的伤害时获取()",
+"tooltip.flame_chase_artifacts.acheron.text":"§o§9『‘黄泉’…虽然只是借来的名字，但你知道我是怎样的人，记得我做过怎样的事，如此之后…我便是黄泉。』\n\n§8『梦原本没有意义，赋予其意义的是生命的底色。但如果色彩是一片『虚无』。梦也只剩下黑白的空壳。』\n\n§c『我多么希望这是一个美好的时代，即便出云国依旧面临威胁，人们也依旧怀抱希望，相信恶神会被尽数斩落，天下将重获自由可直到刀光消陨，我才明白：这是一条没有终点的死路，而踏上它的人们，再无回头的可能...』\n\n§8『我曾向她提问，这一切有何意义？但她并未作答。是她不知晓如何回应，还是她心中早已有了答案？』——某位混沌医师的手记\n\n§c『从彼岸醒来时，海的尽头残存雷鸣，漫天血雨刚好飘落——唯有这一刻的所见，无比清晰地留在眼底。』\n\n§4按§9shift§4查看技能详情\n\n§7在处于-264高度，且10s内受到了90%%§7最大生命值数额的伤害时获取()",
 "tooltip.flame_chase_artifacts.acheron.shift_text":"§4四相断我\n§f攻击非精英敌人时，伤害提升900%%\n§4残梦尽染，一刀缭断\n§f攻击无视目标25%%护甲值，且第9次攻击会获得500%%的额外增伤\n§4红叶时雨，万倾一空\n§f目标每有1个非正面状态，触发「残梦尽染，一刀缭断」所需攻击次数减1",
 
+"item.flame_chase_artifacts.firefly":"§a「火萤IV型」",
+"tooltip.flame_chase_artifacts.firefly.text":"§a「尽情燃烧吧，为了格拉默的未来…」\n§a「为了女皇陛下…」\n§a「为自己的诞生感到荣耀…」\n§a火萤飞舞的水面旁，她离开装甲，感受着夜晚的清风和丝丝的凉意。\n§a她看着停留在手上的火萤。\n§a「…它们虽是渺小的生命，却比星星更耀眼。」\n\n\n§a「你相信命运么？同向而行的人终会在某个地方相聚，现在…我们见面了。」\n\n§a在阿斯德纳星系的边缘，她跃入忆域，犹如一颗火星。\n§a那些藏在浓厚忆质中的情绪仿佛变成了幻影，在她的耳边盘旋着，呼唤着。\n\n§a——「为什么死去？」\n§a她来不及手捧花束，为一位又一位牺牲的铁骑献上最后的悼念。他们的生命像一串基因编码，只有数字，没有姓名。\n\n§a——「为什么活着？」\n§a她的眼泪顺着脸庞滑落——\n\n「为了找到…属于我自己的「梦」…」\n\n§c按§ashift§c查看技能详情\n\n§7获取方式：暂无",
+"tooltip.flame_chase_artifacts.firefly.shift_text":"§a火萤Ⅳ型-死星过载\n§e近战攻击时，对目标周围5x5范围造成50%%击破效率的韧性削减，并附带[原伤害数额*超击破倍率*50%%]的特殊伤害\n§a茧式源火中枢\n§e根据已损失生命值获得减伤，最多在30%%生命值时获得50%%减伤\n§a火萤Ⅳ型-完全燃烧\n§e攻击速度、击破效率提升50%%，击破倍率、超击破倍率提升100%%，每次近战攻击回复自身5%%生命值\n§a自破碎的天空坠落\n§e触发击破时，获得7s「自破碎的天空坠落」状态，攻击力、攻击速度、超击破倍率提升100%%",
+
+"effect.flame_chase_artifacts.toughness_break": "韧性击破",
+"effect.flame_chase_artifacts.from_shattered_sky_i_free_fall": "自破碎的天空坠落",
+
+"flame_chase_artifacts.break_efficiency":"击破效率",
+"flame_chase_artifacts.break_damage":"击破伤害倍率",
+"flame_chase_artifacts.break_amplifier":"超击破倍率",
+"flame_chase_artifacts.break_time":"击破时长",
 "flame_chase_artifacts.key":"星穹饰品",
 "item_group.flame_chase_artifacts.tab":"星穹饰品",
 "item_group.flame_chase_artifacts.craft_item_tab":"星穹饰品-素材",

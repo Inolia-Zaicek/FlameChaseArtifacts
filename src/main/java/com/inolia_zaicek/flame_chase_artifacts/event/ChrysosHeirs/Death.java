@@ -152,7 +152,7 @@ public class Death {
         /// 死龙
         if(livingEntity.level().getGameTime() % 20L == 0 ) {
             if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.HandOfShadow.get())) {
-                var DamageType = FCADamageType.source(livingEntity.level(), DamageTypes.WITHER);
+                var DamageType = FCADamageType.hasSource(livingEntity.level(), DamageTypes.WITHER,livingEntity);
                 var mobList = FCAUtil.mobList(13, livingEntity);
                 for (Mob mobs : mobList) {
                     //非随从or非是自己为主的随从

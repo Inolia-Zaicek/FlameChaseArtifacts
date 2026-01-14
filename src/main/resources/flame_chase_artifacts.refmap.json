@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "com/inolia_zaicek/flame_chase_artifacts/Mixins/FCAMixinEnchantmentContainer": {
+      "clickMenuButton": "Lnet/minecraft/world/inventory/EnchantmentMenu;m_6366_(Lnet/minecraft/world/entity/player/Player;I)Z"
+    }
+  },
+  "data": {
+    "searge": {
+      "com/inolia_zaicek/flame_chase_artifacts/Mixins/FCAMixinEnchantmentContainer": {
+        "clickMenuButton": "Lnet/minecraft/world/inventory/EnchantmentMenu;m_6366_(Lnet/minecraft/world/entity/player/Player;I)Z"
+      }
+    }
+  }
+}

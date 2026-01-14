@@ -65,7 +65,9 @@ public class FCAItemRegister {
     public static final Supplier<Item> Janus=registerCommonMaterials(ZeroingITEM,"janus", JanusItem::new);
 
     public static final Supplier<Item> DeepestDark=registerCommonMaterials(ZeroingITEM,"deepest_dark", DeepestDarkItem::new);
+    /// 角色饰品
     public static final Supplier<Item> Acheron=registerCommonMaterials(ZeroingITEM,"acheron", AcheronItem::new);
+    public static final Supplier<Item> Firefly=registerCommonMaterials(ZeroingITEM,"firefly", FireflyItem::new);
     /// 货币战争
     //散件
     public static final Supplier<Item> RollerSkates = registerCommonMaterials(ZeroingITEM, "roller_skates", RollerSkatesItem::new);
