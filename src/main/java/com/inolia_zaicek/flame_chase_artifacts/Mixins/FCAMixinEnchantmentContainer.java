@@ -5,6 +5,7 @@ import java.util.List;
 import com.inolia_zaicek.flame_chase_artifacts.config.FCAconfig;
 import com.inolia_zaicek.flame_chase_artifacts.register.FCAItemRegister;
 import com.inolia_zaicek.flame_chase_artifacts.util.FCAUtil;
+import com.inolia_zaicek.flame_chase_artifacts.util.SuperpositionHandler;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -48,19 +49,16 @@ public abstract class FCAMixinEnchantmentContainer extends AbstractContainerMenu
         if (
                 ( FCAUtil.isCurioEquipped(player, FCAItemRegister.ReasonCurios.get()) &&FCAUtil.isCurioEquipped(player, FCAItemRegister.PristineLove.get()) )
         ||  FCAUtil.isCurioEquipped(player, FCAItemRegister.Cerces.get()) ) {
+            ///
+
+
             ItemStack inputItem = container.enchantSlots.getItem(0);
             int levelsRequired = clickedID + 1;
-
-            if (container.costs[clickedID] <= 0 || inputItem.isEmpty() || (player.experienceLevel < levelsRequired || player.experienceLevel < container.costs[clickedID]) && !player.getAbilities().instabuild) {
-                info.setReturnValue(false);
-                return; // false;
-            } else {
+            if (container.costs[clickedID] > 0 && !inputItem.isEmpty() && (player.experienceLevel >= levelsRequired && player.experienceLevel >= container.costs[clickedID] || player.getAbilities().instabuild)) {
                 EnchantmentMenu finalContainer = container;
                 container.access.execute((world, blockPos) -> {
                     ItemStack enchantedItem = inputItem;
-                    List<EnchantmentInstance> rolledEnchantments = finalContainer.getEnchantmentList(
-                            inputItem, clickedID, finalContainer.costs[clickedID]
-                    );
+                    List<EnchantmentInstance> rolledEnchantments = finalContainer.getEnchantmentList(inputItem, clickedID, finalContainer.costs[clickedID]);
                     if (!rolledEnchantments.isEmpty()) {
                         int number = 0;
                         if(FCAUtil.isCurioEquipped(player, FCAItemRegister.ReasonCurios.get()) &&FCAUtil.isCurioEquipped(player, FCAItemRegister.PristineLove.get())){
@@ -69,12 +67,12 @@ public abstract class FCAMixinEnchantmentContainer extends AbstractContainerMenu
                         if(FCAUtil.isCurioEquipped(player, FCAItemRegister.Cerces.get())){
                             number+=15;
                         }
-                        Integer up = number;
-                        ItemStack doubleRoll = EnchantmentHelper.enchantItem(
-                                player.getRandom(), inputItem.copy(),
-                                //附魔台等级
-                                finalContainer.costs[clickedID] + up,
-                                FCAconfig.reasonEgoCuriosTreasure.get() //是否应用宝藏附魔
+                        //提升等级
+                        ItemStack doubleRoll = EnchantmentHelper.enchantItem(player.getRandom(), inputItem.copy(),
+                                //附魔等级
+                                finalContainer.costs[clickedID] + number,
+                                //是否运用宝藏附魔
+                                FCAconfig.reasonEgoCuriosTreasure.get()
                         );
                         player.onEnchantmentPerformed(inputItem, levelsRequired);
                         boolean isBookStack = inputItem.getItem() == Items.BOOK;
@@ -88,7 +86,7 @@ public abstract class FCAMixinEnchantmentContainer extends AbstractContainerMenu
                             finalContainer.enchantSlots.setItem(0, enchantedItem);
                         }
 
-                        for (EnchantmentInstance enchantmentdata : rolledEnchantments) {
+                        for(EnchantmentInstance enchantmentdata : rolledEnchantments) {
                             if (isBookStack) {
                                 EnchantedBookItem.addEnchantment(enchantedItem, enchantmentdata);
                             } else {
@@ -96,25 +94,28 @@ public abstract class FCAMixinEnchantmentContainer extends AbstractContainerMenu
                             }
                         }
 
-                        enchantedItem = FCAUtil.mergeEnchantments(enchantedItem, doubleRoll, false, false);
+                        enchantedItem = SuperpositionHandler.mergeEnchantments(enchantedItem, doubleRoll, false, false);
                         finalContainer.enchantSlots.setItem(0, enchantedItem);
-
                         player.awardStat(Stats.ENCHANT_ITEM);
                         if (player instanceof ServerPlayer) {
-                            CriteriaTriggers.ENCHANTED_ITEM.trigger((ServerPlayer) player, enchantedItem, levelsRequired);
+                            CriteriaTriggers.ENCHANTED_ITEM.trigger((ServerPlayer)player, enchantedItem, levelsRequired);
                         }
 
                         finalContainer.enchantSlots.setChanged();
                         finalContainer.enchantmentSeed.set(player.getEnchantmentSeed());
                         finalContainer.slotsChanged(finalContainer.enchantSlots);
-                        world.playSound(null, blockPos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+                        world.playSound((Player)null, blockPos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
                     }
 
                 });
-
                 info.setReturnValue(true);
-                info.cancel();
+                return;
             }
+
+            info.setReturnValue(false);
+            return;
+
+            ///
         }
 
     }

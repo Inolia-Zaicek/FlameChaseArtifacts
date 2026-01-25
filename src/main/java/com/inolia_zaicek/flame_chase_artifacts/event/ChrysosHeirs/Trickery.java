@@ -121,7 +121,7 @@ public class Trickery {
     @SubscribeEvent
     public static void entityKilled(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof Player)) {
-            if (event.getSource().getEntity() instanceof LivingEntity livingEntity) {
+            if (event.getSource().getEntity() instanceof LivingEntity livingEntity&&event.getEntity()!=null) {
                 if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.TrickeryCurios.get())
                         || FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.OriginSin.get())
                         || FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.CoinOfWhimsy.get())
@@ -133,7 +133,7 @@ public class Trickery {
                     if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.CoinOfWhimsy.get())) {
                         number += 3;
                     }
-                    if (number > 0) {
+                    if (number > 0&&event.getEntity()!=null) {
                         for (int i = 0; i < number; i++) {
                             Level level = livingEntity.level();
                             LootTable loot = ((MinecraftServer) Objects.requireNonNull(level.getServer())).getLootData().getLootTable(event.getEntity().getType().getDefaultLootTable());
