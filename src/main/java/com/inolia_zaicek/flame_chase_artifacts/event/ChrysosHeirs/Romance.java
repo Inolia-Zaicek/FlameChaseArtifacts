@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.OwnableEntity;
@@ -117,12 +118,12 @@ public class Romance {
             for (Mob mobs : mobList) {
                 var map = mobs.getActiveEffectsMap();
                 mobs.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0));
-                if (!mobs.hasEffect(MobEffects.GLOWING)) {
+                if (!mobs.hasEffect(MobEffects.GLOWING)&&!EntityType.getKey(mobs.getType()).toString().equals("eeeabsmobs:immortal") ) {
                     map.put(MobEffects.GLOWING, new MobEffectInstance(MobEffects.GLOWING, 100, 0));
                 }
                 if (!(mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null) &&mobs!=livingEntity) {
                     mobs.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0));
-                    if (!mobs.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+                    if (!mobs.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)&&!EntityType.getKey(mobs.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.MOVEMENT_SLOWDOWN, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0));
                     }
                 }

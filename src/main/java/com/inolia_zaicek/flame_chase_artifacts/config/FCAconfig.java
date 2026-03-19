@@ -3,14 +3,14 @@ package com.inolia_zaicek.flame_chase_artifacts.config;
 import net.minecraftforge.common.ForgeConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 
+import static com.inolia_zaicek.flame_chase_artifacts.event.ChrysosHeirs.Death.death_curios_cooldown;
+
 public class FCAconfig {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec SPEC;
     //——————————————————————————————————————————————配置类型————配置名称
     //public static final ForgeConfigSpec.ConfigValue<Boolean> bbbbb;
     //public static final ForgeConfigSpec.ConfigValue<Float> ccccc;
-    //开启合成素材
-    public static final ForgeConfigSpec.ConfigValue<Boolean> craftItem;
     //诅咒
     public static final ForgeConfigSpec.DoubleValue skyCurse;
     public static final ForgeConfigSpec.DoubleValue earthCurse;
@@ -94,14 +94,58 @@ public class FCAconfig {
     public static final ForgeConfigSpec.DoubleValue ironTombDamageDown;
     public static final ForgeConfigSpec.DoubleValue ironTombHatred;
     public static final ForgeConfigSpec.DoubleValue ironTombHatredDamage;
-    
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> over_revelation;
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> sky_get;
+    public static final ForgeConfigSpec.DoubleValue sky_get_number;
+    public static final ForgeConfigSpec.DoubleValue sky_get_y;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> earth_get;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ocean_get;
+    public static final ForgeConfigSpec.DoubleValue ocean_get_number;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> romance_get;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> worldbearing_get;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> reason_get;
+    public static final ForgeConfigSpec.DoubleValue reason_get_number;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> trickery_get;
+    public static final ForgeConfigSpec.DoubleValue trickery_get_number;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> strife_get;
+    public static final ForgeConfigSpec.DoubleValue strife_get_number;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> death_get;
+    public static final ForgeConfigSpec.DoubleValue death_get_number;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> time_get;
+    public static final ForgeConfigSpec.DoubleValue time_get_number;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> law_get;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> passage_get;
+    public static final ForgeConfigSpec.DoubleValue death_curios_cooldown;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> book_get;
     static {
         //这个builder的push里面写的是“分组”
         //push是一组的开始，pop是结束
         //常规分组:general
         //诅咒
-        BUILDER.push("craft_item");
-        craftItem = BUILDER.comment("合成素材").define("craftItem",true);
+        BUILDER.push("curios_get");
+        book_get = BUILDER.comment("如我所书是否使用原版获取方式").define("book_get",true);
+        passage_get = BUILDER.comment("门径是否使用原版获取方式").define("passage_get",true);
+        law_get = BUILDER.comment("律法是否使用原版获取方式").define("law_get",true);
+        time_get = BUILDER.comment("死亡是否使用原版获取方式").define("time_get",true);
+        time_get_number = BUILDER.comment("死亡获取血量阈值").defineInRange("time_get_number",240.0,0F,2147483647F);
+        death_get = BUILDER.comment("死亡是否使用原版获取方式").define("death_get",true);
+        death_get_number = BUILDER.comment("死亡获取血量阈值").defineInRange("death_get_number",0.2,0F,2147483647F);
+        strife_get = BUILDER.comment("纷争是否使用原版获取方式").define("strife_get",true);
+        strife_get_number = BUILDER.comment("纷争获取阈值").defineInRange("strife_get_number",0.9,0F,2147483647F);
+        trickery_get = BUILDER.comment("诡计是否使用原版获取方式").define("trickery_get",true);
+        trickery_get_number = BUILDER.comment("诡计获取抢夺等级").defineInRange("trickery_get_number",3.0,0F,2147483647F);
+        reason_get = BUILDER.comment("理性是否使用原版获取方式").define("reason_get",true);
+        reason_get_number = BUILDER.comment("理性获取经验等级").defineInRange("reason_get_number",75.0,0F,2147483647F);
+        worldbearing_get = BUILDER.comment("负世是否使用原版获取方式").define("worldbearing_get",true);
+        romance_get = BUILDER.comment("浪漫是否使用原版获取方式").define("romance_get",true);
+        ocean_get = BUILDER.comment("海洋是否使用原版获取方式").define("ocean_get",true);
+        ocean_get_number = BUILDER.comment("海洋获取debuff数量").defineInRange("ocean_get_number",4.0,0F,2147483647F);
+        earth_get = BUILDER.comment("大地是否使用原版获取方式").define("earth_get",true);
+        sky_get = BUILDER.comment("天空是否使用原版获取方式").define("sky_get",true);
+        sky_get_y = BUILDER.comment("天空获取高度").defineInRange("sky_get_y",300.0,-640,2147483647F);
+        sky_get_number = BUILDER.comment("天空获取回血比例").defineInRange("sky_get_number",0.2,0F,2147483647F);
         BUILDER.pop();
         //诅咒
         BUILDER.push("curse");
@@ -116,11 +160,13 @@ public class FCAconfig {
                 .define("ZZ",1.0F);
          */
 
+        over_revelation = BUILDER.comment("本模组饰品是否无视下界亚波伦封印").define("over_revelation",true);
         skyCurse = BUILDER
                 //写在配置文件上方的默认备注
                 .comment("天空减疗数额")
                 //XX = ture
                 .defineInRange("skyCurse",0.75F,0F,2147483647F);
+        death_curios_cooldown = BUILDER.comment("死亡百分比内置冷却").defineInRange("death_curios_cooldown",1.0,0F,2147483647F);
         earthCurse = BUILDER.comment("大地增防数额").defineInRange("earthCurse",1.25F,0F,2147483647F);
         oceanCurse = BUILDER.comment("海洋延时数额").defineInRange("oceanCurse",1.5F,0F,2147483647F);
         romanceCurse = BUILDER.comment("浪漫无敌数额").defineInRange("romanceCurse",1.5F,0F,2147483647F);

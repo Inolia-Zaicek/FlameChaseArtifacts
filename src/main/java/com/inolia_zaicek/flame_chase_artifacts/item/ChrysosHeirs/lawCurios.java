@@ -12,6 +12,10 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -24,25 +28,26 @@ public class lawCurios extends FCACuriosItem {
     protected int getTooltipShiftColor() {
         return 0x37F3FF; // 返回你想要的RGB 值
     }
+    @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        var lawKey = "law_curios_get_nbt";
-        if(Minecraft.getInstance().player!=null && ! Minecraft.getInstance().player.getPersistentData().getBoolean(lawKey) ){
-            pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.%s.get_text".formatted(this.getTooltipItemName())
-            ).withStyle(ChatFormatting.DARK_GRAY));
-        }
         pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.%s.up_text".formatted(this.getTooltipItemName()))
                 .withStyle(style -> style.withColor(TextColor.fromRgb( this.getTooltipShiftColor() ))));
 
         pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.%s.text".formatted(this.getTooltipItemName() )
                             ,(int) (FCAconfig.lawCurios.get() * 100))
                     .withStyle(ChatFormatting.GRAY));
-        if(Minecraft.getInstance().player!=null&& FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.PristineLove.get()) ){
+        if(FCAClientUtil.isCurioEquipped()!=null&& FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.PristineLove.get()) ){
 
             pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.%s.ego_text".formatted(this.getTooltipItemName()))
                     .withStyle(style -> style.withColor(TextColor.fromRgb( this.getTooltipShiftColor() ))));
 
             pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_law_blessing",
                     (float) (FCAconfig.lawEgoCurios.get() * 100)).withStyle(style -> style.withColor(TextColor.fromRgb(0x37F3FF))));
+        }
+        var lawKey = "law_curios_get_nbt";
+        if(FCAClientUtil.isCurioEquipped()!=null && ! FCAClientUtil.isCurioEquipped().getPersistentData().getBoolean(lawKey)&&FCAconfig.law_get.get() ){
+            pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.%s.get_text".formatted(this.getTooltipItemName())
+            ).withStyle(ChatFormatting.DARK_GRAY));
         }
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }

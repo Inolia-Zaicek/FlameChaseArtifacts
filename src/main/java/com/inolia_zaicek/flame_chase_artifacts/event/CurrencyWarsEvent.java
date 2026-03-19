@@ -123,13 +123,11 @@ public class CurrencyWarsEvent {
                     //有主人的随从
                     if ((mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null  && ownableEntity.getOwner() == livingEntity) && mobs != livingEntity) {
                         mobs.heal(healNumber);
-                        mobs.addEffect(new MobEffectInstance(FCAEffectsRegister.AfterRain.get(),100,0));
                     }
                 }
                 for (Player players : playerList) {
                     if (players != livingEntity) {
                         players.heal(healNumber);
-                        players.addEffect(new MobEffectInstance(FCAEffectsRegister.AfterRain.get(),100,0));
                     }
                 }
             }
@@ -144,11 +142,13 @@ public class CurrencyWarsEvent {
                     //有主人的随从
                     if ((mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null && ownableEntity.getOwner()==livingEntity) && mobs != livingEntity) {
                         mobs.heal(healNumber);
+                        mobs.addEffect(new MobEffectInstance(FCAEffectsRegister.AfterRain.get(),100,0));
                     }
                 }
                 for (Player players : playerList) {
                     if (players != livingEntity) {
                         players.heal(healNumber);
+                        players.addEffect(new MobEffectInstance(FCAEffectsRegister.AfterRain.get(),100,0));
                     }
                 }
             }

@@ -9,6 +9,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.OwnableEntity;
@@ -93,12 +94,12 @@ public class Strife {
                             int fire = mob.getRemainingFireTicks();
                             if (random.nextInt(30) < 10) {
                                 mob.addEffect(new MobEffectInstance(MobEffects.WITHER, 400, 0));
-                                if (!mob.hasEffect(MobEffects.WITHER)) {
+                                if (!mob.hasEffect(MobEffects.WITHER)&&!EntityType.getKey(mobs.getType()).toString().equals("eeeabsmobs:immortal") ) {
                                     map.put(MobEffects.WITHER, new MobEffectInstance(MobEffects.WEAKNESS, 400, 0));
                                 }
                             } else if (random.nextInt(30) < 20 && random.nextInt(30) >= 10) {
                                 mob.addEffect(new MobEffectInstance(MobEffects.POISON, 400, 0));
-                                if (!mob.hasEffect(MobEffects.POISON)) {
+                                if (!mob.hasEffect(MobEffects.POISON)&&!EntityType.getKey(mobs.getType()).toString().equals("eeeabsmobs:immortal") ) {
                                     map.put(MobEffects.POISON, new MobEffectInstance(MobEffects.POISON, 400, 0));
                                 }
                             } else if (random.nextInt(30) >= 20) {
@@ -127,12 +128,12 @@ public class Strife {
                             int fire = mob.getRemainingFireTicks();
                             if (random.nextInt(30) < 10) {
                                 mob.addEffect(new MobEffectInstance(MobEffects.WITHER, 400, 0));
-                                if (!mob.hasEffect(MobEffects.WITHER)) {
+                                if (!mob.hasEffect(MobEffects.WITHER)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                                     map.put(MobEffects.WITHER, new MobEffectInstance(MobEffects.WEAKNESS, 400, 0));
                                 }
                             } else if (random.nextInt(30) < 20 && random.nextInt(30) >= 10) {
                                 mob.addEffect(new MobEffectInstance(MobEffects.POISON, 400, 0));
-                                if (!mob.hasEffect(MobEffects.POISON)) {
+                                if (!mob.hasEffect(MobEffects.POISON)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                                     map.put(MobEffects.POISON, new MobEffectInstance(MobEffects.POISON, 400, 0));
                                 }
                             } else if (random.nextInt(30) >= 20) {

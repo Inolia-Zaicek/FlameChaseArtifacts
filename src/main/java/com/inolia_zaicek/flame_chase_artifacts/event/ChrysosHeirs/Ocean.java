@@ -11,6 +11,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
@@ -36,22 +37,22 @@ public class Ocean {
                 int debuffNumber = 0;
                 if (random.nextInt(40) < 10) {
                     mob.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.WEAKNESS)) {
+                    if (!mob.hasEffect(MobEffects.WEAKNESS)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.WEAKNESS, new MobEffectInstance(MobEffects.WEAKNESS, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 } else if (random.nextInt(40) < 20 && random.nextInt(40) >= 10) {
                     mob.addEffect(new MobEffectInstance(MobEffects.POISON, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.POISON)) {
+                    if (!mob.hasEffect(MobEffects.POISON)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.POISON, new MobEffectInstance(MobEffects.POISON, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 } else if (random.nextInt(40) < 30 && random.nextInt(40) >= 20) {
                     mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+                    if (!mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.MOVEMENT_SLOWDOWN, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 } else if (random.nextInt(40) >= 30) {
                     mob.addEffect(new MobEffectInstance(MobEffects.WITHER, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.WITHER)) {
+                    if (!mob.hasEffect(MobEffects.WITHER)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.WITHER, new MobEffectInstance(MobEffects.WITHER, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 }
@@ -64,22 +65,22 @@ public class Ocean {
                 int debuffNumber = 0;
                 if (random.nextInt(40) < 10) {
                     mob.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.WEAKNESS)) {
+                    if (!mob.hasEffect(MobEffects.WEAKNESS)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.WEAKNESS, new MobEffectInstance(MobEffects.WEAKNESS, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 } else if (random.nextInt(40) < 20 && random.nextInt(40) >= 10) {
                     mob.addEffect(new MobEffectInstance(MobEffects.POISON, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.POISON)) {
+                    if (!mob.hasEffect(MobEffects.POISON)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.POISON, new MobEffectInstance(MobEffects.POISON, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 } else if (random.nextInt(40) < 30 && random.nextInt(40) >= 20) {
                     mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+                    if (!mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.MOVEMENT_SLOWDOWN, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 } else if (random.nextInt(40) >= 30) {
                     mob.addEffect(new MobEffectInstance(MobEffects.WITHER, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.WITHER)) {
+                    if (!mob.hasEffect(MobEffects.WITHER)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.WITHER, new MobEffectInstance(MobEffects.WITHER, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 }
@@ -95,22 +96,22 @@ public class Ocean {
                 int debuffNumber = 0;
                 if (random.nextInt(40) < 10) {
                     mob.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.WEAKNESS)) {
+                    if (!mob.hasEffect(MobEffects.WEAKNESS)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.WEAKNESS, new MobEffectInstance(MobEffects.WEAKNESS, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 } else if (random.nextInt(40) < 20 && random.nextInt(40) >= 10) {
                     mob.addEffect(new MobEffectInstance(MobEffects.POISON, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.POISON)) {
+                    if (!mob.hasEffect(MobEffects.POISON)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.POISON, new MobEffectInstance(MobEffects.POISON, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 } else if (random.nextInt(40) < 30 && random.nextInt(40) >= 20) {
                     mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+                    if (!mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.MOVEMENT_SLOWDOWN, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 } else if (random.nextInt(40) >= 30) {
                     mob.addEffect(new MobEffectInstance(MobEffects.WITHER, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.WITHER)) {
+                    if (!mob.hasEffect(MobEffects.WITHER)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.WITHER, new MobEffectInstance(MobEffects.WITHER, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 }
@@ -124,22 +125,22 @@ public class Ocean {
                 int debuffNumber = 0;
                 if (random.nextInt(40) < 10) {
                     mob.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.WEAKNESS)) {
+                    if (!mob.hasEffect(MobEffects.WEAKNESS)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.WEAKNESS, new MobEffectInstance(MobEffects.WEAKNESS, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 } else if (random.nextInt(40) < 20 && random.nextInt(40) >= 10) {
                     mob.addEffect(new MobEffectInstance(MobEffects.POISON, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.POISON)) {
+                    if (!mob.hasEffect(MobEffects.POISON)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.POISON, new MobEffectInstance(MobEffects.POISON, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 } else if (random.nextInt(40) < 30 && random.nextInt(40) >= 20) {
                     mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+                    if (!mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.MOVEMENT_SLOWDOWN, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 } else if (random.nextInt(40) >= 30) {
                     mob.addEffect(new MobEffectInstance(MobEffects.WITHER, (int) (FCAconfig.oceanCurios.get() * 20), 1));
-                    if (!mob.hasEffect(MobEffects.WITHER)) {
+                    if (!mob.hasEffect(MobEffects.WITHER)&&!EntityType.getKey(mob.getType()).toString().equals("eeeabsmobs:immortal") ) {
                         map.put(MobEffects.WITHER, new MobEffectInstance(MobEffects.WITHER, (int) (FCAconfig.oceanCurios.get() * 20), 1));
                     }
                 }

@@ -63,12 +63,14 @@ public class Sky {
             compoundTag.putInt(eye_of_twilight_Number_NBT, healNumber);
         }
         //饰品
-        var skyKey = "sky_curios_get_nbt";
-        if(FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.HatredInundate.get()) &&
-                event.getAmount()>=livingEntity.getMaxHealth()*0.2f && !compoundTag.getBoolean(skyKey) &&
-                livingEntity instanceof ServerPlayer player && livingEntity.getY()>=300){
-            player.addItem(new ItemStack( FCAItemRegister.SkyCurios.get() ));
-            compoundTag.putBoolean(skyKey, true);
+        if(FCAconfig.sky_get.get()) {
+            var skyKey = "sky_curios_get_nbt";
+            if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.HatredInundate.get()) &&
+                    event.getAmount() >= livingEntity.getMaxHealth() * FCAconfig.sky_get_number.get() && !compoundTag.getBoolean(skyKey) &&
+                    livingEntity instanceof ServerPlayer player && livingEntity.getY() >= 300) {
+                player.addItem(new ItemStack(FCAItemRegister.SkyCurios.get()));
+                compoundTag.putBoolean(skyKey, true);
+            }
         }
     }
     @SubscribeEvent

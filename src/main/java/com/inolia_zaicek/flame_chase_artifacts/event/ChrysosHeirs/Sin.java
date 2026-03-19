@@ -5,6 +5,7 @@ import com.inolia_zaicek.flame_chase_artifacts.config.FCAconfig;
 import com.inolia_zaicek.flame_chase_artifacts.item.FCACuriosItem;
 import com.inolia_zaicek.flame_chase_artifacts.register.FCAEffectsRegister;
 import com.inolia_zaicek.flame_chase_artifacts.register.FCAItemRegister;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
 import com.inolia_zaicek.flame_chase_artifacts.util.FCAUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -12,6 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.OwnableEntity;
@@ -81,7 +83,7 @@ public class Sin {
             for (Mob mobs : mobList) {
                 var map = mobs.getActiveEffectsMap();
                 int max = (int) (FCAconfig.ironTombLevel.get() * 1) - 1;
-                if (!(mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null) && mobs != livingEntity) {
+                if (!(mobs instanceof OwnableEntity ownableEntity && ownableEntity.getOwnerUUID() != null) && mobs != livingEntity&&!EntityType.getKey(mobs.getType()).toString().equals("eeeabsmobs:immortal") ) {
                     if (!mobs.hasEffect(FCAEffectsRegister.IronTombErosion.get())) {
                         map.put(FCAEffectsRegister.IronTombErosion.get(), new MobEffectInstance(FCAEffectsRegister.IronTombErosion.get(), 200, 0));
                     } else {
@@ -103,7 +105,7 @@ public class Sin {
 
     @SubscribeEvent
     public static void tooltip(ItemTooltipEvent event) {
-        LivingEntity livingEntity = Minecraft.getInstance().player;
+        LivingEntity livingEntity = FCAClientUtil.isCurioEquipped();
         ItemStack itemStack = event.getItemStack();
         if (livingEntity != null&&itemStack.getItem() == FCAItemRegister.OriginSin.get() ) {
             //获取工具nbt数值

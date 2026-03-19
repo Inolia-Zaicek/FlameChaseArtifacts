@@ -25,7 +25,7 @@
 "tooltip.flame_chase_artifacts.hatred_inundate.ocean_curse": "◇受到非正面效果时，时长变为原时长的%d%%",
 "tooltip.flame_chase_artifacts.hatred_inundate.romance_curse": "◇攻击时，目标的无敌帧变为原数额的%d%%",
 "tooltip.flame_chase_artifacts.hatred_inundate.worldbearing_curse": "◇受到火焰、熔岩伤害时，伤害变为原数额的%d%%",
-"tooltip.flame_chase_artifacts.hatred_inundate.reason_curse": "◇自身获得的经验值变为原数额的%d%%",
+"tooltip.flame_chase_artifacts.hatred_inundate.reason_curse": "◇击杀实体掉落的经验值变为原数额的%d%%",
 "tooltip.flame_chase_artifacts.hatred_inundate.trickery_curse": "◇受到的正面效果时长变为原时长的%d%%",
 "tooltip.flame_chase_artifacts.hatred_inundate.strife_curse": "◇受击时，视为自身护甲值变为原数额的%d%%",
 "tooltip.flame_chase_artifacts.hatred_inundate.death_curse": "◇禁用玩家不死图腾事件",
@@ -113,7 +113,7 @@
 "item.flame_chase_artifacts.strife_curios": "[纷争]",
 "tooltip.flame_chase_artifacts.strife_curios.text": "根据已损失生命值获得增伤，在1%%血量时达到%d%%最大增伤数额",
 "item.flame_chase_artifacts.death_curios": "[死亡]",
-"tooltip.flame_chase_artifacts.death_curios.text": "攻击时，伤害数额提升目标最大生命值%d%%的数额",
+"tooltip.flame_chase_artifacts.death_curios.text": "攻击时，伤害数额提升目标最大生命值%d%%的数额(内置%d秒冷却)",
 "item.flame_chase_artifacts.time_curios": "[岁月]",
 "tooltip.flame_chase_artifacts.time_curios.text": "每次受击时，恢复该次伤害数额%d%%的生命值",
 "item.flame_chase_artifacts.law_curios": "[律法]",
@@ -213,21 +213,23 @@
 "tooltip.flame_chase_artifacts.strawberry_roselle.text": "§d从天外而来的神奇水果，尽管个头不大，却也散发着【爱】的味道",
 "tooltip.flame_chase_artifacts.strawberry_roselle.text1": "§e赞助者：洛尘林宇",
 
-"tooltip.flame_chase_artifacts.sky_curios.get_text": "在处于y轴大于300格的高空单次恢复自身20%%最大生命值时获取",
+"tooltip.flame_chase_artifacts.sky_curios.get_text": "在处于y轴大于%d格的高空单次恢复自身%d%%最大生命值时获取",
 "tooltip.flame_chase_artifacts.earth_curios.get_text": "经过平原群系+海洋群系+森林群系+山地群系+旱地群系+湿地群系时获取",
-"tooltip.flame_chase_artifacts.ocean_curios.get_text": "在承受4种负面效果时击杀远古守卫者时获取",
+"tooltip.flame_chase_artifacts.ocean_curios.get_text": "在承受%d种负面效果时击杀远古守卫者时获取",
 "tooltip.flame_chase_artifacts.romance_curios.get_text": "在黑暗状态下击杀一个敌人时获取",
 "tooltip.flame_chase_artifacts.worldbearing_curios.get_text": "在处于灼烧状态时击杀末影龙时获取",
-"tooltip.flame_chase_artifacts.reason_curios.get_text": "经验值达到75级时获取",
-"tooltip.flame_chase_artifacts.trickery_curios.get_text": "身上存在迅捷效果，并且在拥有抢夺III魔咒时击杀一只恼鬼时获取",
-"tooltip.flame_chase_artifacts.strife_curios.get_text": "受到超过自身90%%生命值的单次伤害且自身血量大于90%%时获取",
-"tooltip.flame_chase_artifacts.death_curios.get_text": "在击杀凋零时，自身生命值未超过最大生命上限的20%%时获取",
-"tooltip.flame_chase_artifacts.time_curios.get_text": "游戏时间达到4小时时获取",
+"tooltip.flame_chase_artifacts.reason_curios.get_text": "经验值达到%d级时获取",
+"tooltip.flame_chase_artifacts.trickery_curios.get_text": "身上存在迅捷效果，并且在拥有抢夺%d魔咒时击杀一只恼鬼时获取",
+"tooltip.flame_chase_artifacts.strife_curios.get_text": "受到超过自身%90%%生命值的单次伤害且未死亡时获取",
+"tooltip.flame_chase_artifacts.death_curios.get_text": "在击杀凋零时，自身生命值未超过最大生命上限的%d%%时获取",
+"tooltip.flame_chase_artifacts.time_curios.get_text": "游戏时间达到%d分钟时获取",
 "tooltip.flame_chase_artifacts.law_curios.get_text": "击杀一只监守者时获取",
 "tooltip.flame_chase_artifacts.passage_curios.get_text": "进入主世界+下界+末地时获取",
-"tooltip.flame_chase_artifacts.pristine_love.get_text": "获取其余12黄金裔饰品后，自动获取[如我所书]。主手持[如我所书]右键可将其消耗，并将[流溢之恨]转化为[永恒之爱]",
+"tooltip.flame_chase_artifacts.pristine_love.get_text": "获取12黄金裔饰品并装备后，将获取[如我所书]。主手持[如我所书]右键可将其消耗，并将[流溢之恨]转化为[永恒之爱]",
 
 "item.flame_chase_artifacts.as_written_by_whom":"如我所书",
+"tooltip.flame_chase_artifacts.as_written_by_whom.text": "§7主手持该物品右键，可将已装备的[流溢之恨]转化为[永恒之爱]",
+"tooltip.flame_chase_artifacts.as_written_by_whom.text1": "在同时穿戴12件黄金裔饰品(逐火饰品)时获取",
 
 "effect.flame_chase_artifacts.fragility": "脆弱",
 "effect.flame_chase_artifacts.weaken": "虚弱",
@@ -490,9 +492,8 @@
 
 "item.flame_chase_artifacts.coin_of_whimsy":"§1「翻飞之币」",
 "tooltip.flame_chase_artifacts.coin_of_whimsy.text":"§1翻飞之币\n\n§1「汝将与贪婪同行，亦将亡于分文」\n\n§5多洛斯，失落的盗寇之都，三百侠盗曾在此狂欢纵酒。她的神明以诡计为名，布下命运的棋盘\n\n§5戏言成火，引燃前路。猫耳少女再度踏入这场欺诈的游戏\n\n§5她已成为世间必要的谎言。是窃走旧神权柄的新盗\n\n§5“再无值得追猎之物。我，即是旅途尽头的诡计本身”\n\n§5诚如所言：劫掠贫富，戏弄火焰，迎风加冕。皆是刻在她命运中的永恒\n\n§5谎言磨利了猫耳，诡计见证珍宝消逝。荣光映照不散的盛宴\n\n§5神座在静默中被惊醒。火种在骨血里燃烧，往日堆积成金色的山峦\n\n§5直至群星低语的那一天：\n§3多洛斯的孤盗，其名为赛飞儿\n\n§5她所奔赴的，是永劫的谎言。她所留下的，是遍地的传奇\n\n§1按§5shift§1查看技能详情",
-"tooltip.flame_chase_artifacts.coin_of_whimsy.shift_text":"§1热情好客的多洛斯人\n§6造成伤害时，记录伤害数额的24%%为「银币」，每秒减少1%%的银币数额\n§1嘿，空手套白银\n§6移动速度提升50%%，攻击力提升30%%\n§1猫咪怪盗，敬上！\n§6按下绑定快捷键后，获得5s「猫咪怪盗」状态。期间造成伤害将使伤害基础数额提升「银币」等额数值，并在解除状态的同时清空「银币」\n§1穿靴子的猫\n§6击杀时，额外掉落3份列表战利品。",
-"effect.flame_chase_artifacts.kitty_phantom_thief": "猫咪怪盗",
-"flame_chase_artifacts.key.coin_of_whimsy":"「翻飞之币」绑定按键",
+"tooltip.flame_chase_artifacts.coin_of_whimsy.shift_text":"§1热情好客的多洛斯人\n§6造成伤害时，记录伤害数额的24%%为「银币」，每秒减少1%%的银币数额\n§1嘿，空手套白银\n§6移动速度提升50%%，攻击力提升30%%\n§1猫咪怪盗，敬上！\n§6攻击时若目标血量低于「银币」数额，则该次伤害的基础数额提升「银币」等额数值，并减少等同于目标剩余血量的「银币」\n§1穿靴子的猫\n§6击杀时，额外掉落3份列表战利品。",
+
 
 
 "item.flame_chase_artifacts.permansor_terrae":"§2「磐岩之脊」",
@@ -507,7 +508,7 @@
 
 "item.flame_chase_artifacts.cerces":"§a「裂分之枝」",
 "tooltip.flame_chase_artifacts.cerces.text":"§2「汝将超越至纯粹之终极，回归腐败苦黑」\n\n§a奇迹是最傲慢的神迹，它是神以伟力对人的否定。\n§a魔术是最巧妙的抗议，他是人以智慧对神迹的仿戏。\n§a愿用最后的魔术，创造断绝神迹的神迹。\n§a一切皆为学术，人智无边无际。无论武技还是人情，皆能穷理尽性。\n§a愈是渺小，愈见重量。我的名字越愚钝，我成就的一切便越辉煌。\n§a所有「错误」的尝试，都是更接近「正确」的一步。\n§a世上有且只有一种神，那就是无法毁灭的真理！\n§a跨越人生的表演，终到了谢幕的时候。\n§a诸般声音沸腾，而后化为寂静。\n§a一片黑暗中，璀璨的真理在他的手中成型。\n\n§2按§ashift§2查看技能详情",
-"tooltip.flame_chase_artifacts.cerces.shift_text":"§a分形，驱逐虚知\n§6近战攻击时，会对目标周围13x13范围内随机非自身随从实体造成4次87.5%%攻击力的魔法伤害\n§a必要的留白\n§6附魔时，视为附魔额外提升15级；且获取经验数额提升900%%\n§a四分明哲，三重至高\n§6每有1级经验等级，所造成的伤害数额提升5%%，最高计算30级\n§a生息破土，世界塑造\n§6若经验等级达到50级，则「分形，驱逐虚知」伤害次数*2\n§a瞳扉之彩\n§6周围31x31的非自身随从实体，将持续获得缓慢II，虚弱I效果",
+"tooltip.flame_chase_artifacts.cerces.shift_text":"§a分形，驱逐虚知\n§6近战攻击时，会对目标周围13x13范围内随机非自身随从实体造成4次87.5%%攻击力的魔法伤害\n§a必要的留白\n§6附魔时，视为附魔额外提升15级；且击杀实体掉落的经验数额提升900%%\n§a四分明哲，三重至高\n§6每有1级经验等级，所造成的伤害数额提升5%%，最高计算30级\n§a生息破土，世界塑造\n§6若经验等级达到50级，则「分形，驱逐虚知」伤害次数*2\n§a瞳扉之彩\n§6周围31x31的非自身随从实体，将持续获得缓慢II，虚弱I效果",
 
 "item.flame_chase_artifacts.mnestia":"§e「黄金之茧」",
 "tooltip.flame_chase_artifacts.mnestia.text":"§e「汝将最后一次沐浴，在温热耀眼的黄金中」\n\n§6「黄金之茧」阿格莱雅\n§6你要轻抚圣城的丝网，凝听群星的声息\n§6永不落幕的圣城，仿若与黄金之茧的半神昔在永在\n§6在那黎明照拂的圣城，织者抚弄金丝，连缀命运\n§6视物已成双眼的负累，她指尖的金丝，将无数尘埃间的低语和鲜血凝成的歌传至耳边\n§6「这一缕，是战士的牺牲。」\n§6「这一缕，是英雄的成长。」\n§6「这一缕，是城邦的繁盛。」\n§6……\n§6衣匠牵丝引线，汇聚在她的指尖\n§6「一些英雄的轨迹，已然断裂……」\n§6她挽起另一些金丝，接续缝补\n§6「一些英雄的命运，仍要向前延展……」\n§6梦是千百种可能的连缀，藉由命运丝线编织的未来更是如此\n§6织者落枕入梦…\n§6—— 于梦中，她窥见了更为灼眼的金色\n§6背负「浪漫」火种的黄金裔，召集世间英雄，带领他们再度踏上漫长的征程\n§6—— 击落众神，归还神火，予以几近覆灭的翁法罗斯新生\n§6被赋予神性的织机兀自运转，衣匠们曼舞翩跹\n§6千年时光在织机上流流过，她早已习惯了如此的等待 ——\n§6为了那将光阴织成黄金的「灵感」\n\n§e按§6shift§e查看技能详情",

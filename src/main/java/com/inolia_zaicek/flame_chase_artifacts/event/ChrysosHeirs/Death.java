@@ -5,7 +5,7 @@ import com.inolia_zaicek.flame_chase_artifacts.config.FCAconfig;
 import com.inolia_zaicek.flame_chase_artifacts.damage.FCADamageType;
 import com.inolia_zaicek.flame_chase_artifacts.register.FCAEffectsRegister;
 import com.inolia_zaicek.flame_chase_artifacts.register.FCAItemRegister;
-import com.inolia_zaicek.flame_chase_artifacts.util.FCAKeyMappingUtil;
+
 import com.inolia_zaicek.flame_chase_artifacts.util.FCAUtil;
 import dev.architectury.event.events.common.BlockEvent;
 import net.minecraft.nbt.CompoundTag;
@@ -30,14 +30,15 @@ import java.util.Optional;
 public class Death {
     // NBT 键的常量，用于计时器。
     // 建议使用 String 常量，而不是 ResourceLocation 来直接作为 NBT 键。
-    private static final String DEATH_BLESSING_TIME_NBT = FlameChaseArtifacts.MODID + ":death_blessing_time";
-    private static final String coronal_radiance_time_nbt = FlameChaseArtifacts.MODID + ":coronal_radiance_time";
-    private static final String lance_of_fury_time_nbt = FlameChaseArtifacts.MODID + ":lance_of_fury_time";
-    private static final String hand_of_shadow_time_nbt = FlameChaseArtifacts.MODID + ":hand_of_shadow_time";
-    private static final String deepest_dark_Number_NBT = FlameChaseArtifacts.MODID + ":deepest_dark_number";
-    private static final String deepest_dark_TIME_NBT = FlameChaseArtifacts.MODID + ":deepest_dark_time";
-    private static final String eye_of_twilight_Number_NBT = FlameChaseArtifacts.MODID + ":eye_of_twilight_number";
-    private static final String eye_of_twilight_TIME_NBT = FlameChaseArtifacts.MODID + ":eye_of_twilight_time";
+    public static final String DEATH_BLESSING_TIME_NBT = FlameChaseArtifacts.MODID + ":death_blessing_time";
+    public static final String coronal_radiance_time_nbt = FlameChaseArtifacts.MODID + ":coronal_radiance_time";
+    public static final String lance_of_fury_time_nbt = FlameChaseArtifacts.MODID + ":lance_of_fury_time";
+    public static final String hand_of_shadow_time_nbt = FlameChaseArtifacts.MODID + ":hand_of_shadow_time";
+    public static final String deepest_dark_Number_NBT = FlameChaseArtifacts.MODID + ":deepest_dark_number";
+    public static final String deepest_dark_TIME_NBT = FlameChaseArtifacts.MODID + ":deepest_dark_time";
+    public static final String eye_of_twilight_Number_NBT = FlameChaseArtifacts.MODID + ":eye_of_twilight_number";
+    public static final String eye_of_twilight_TIME_NBT = FlameChaseArtifacts.MODID + ":eye_of_twilight_time";
+    public static final String death_curios_cooldown = FlameChaseArtifacts.MODID + ":death_curios_cooldown";
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onLivingDamage(LivingUseTotemEvent event) {
@@ -96,9 +97,9 @@ public class Death {
             compoundTag.putInt(lance_of_fury_time_nbt, 1200*20);
         }
     }
-    private static final String coin_of_whimsy_Number_NBT = FlameChaseArtifacts.MODID + ":coin_of_whimsy_number";
-    private static final String mnestia_Number_NBT = FlameChaseArtifacts.MODID + ":mnestia_number";
-    private static final String mnestia_TIME_NBT = FlameChaseArtifacts.MODID + ":mnestia_time";
+    public static final String coin_of_whimsy_Number_NBT = FlameChaseArtifacts.MODID + ":coin_of_whimsy_number";
+    public static final String mnestia_Number_NBT = FlameChaseArtifacts.MODID + ":mnestia_number";
+    public static final String mnestia_TIME_NBT = FlameChaseArtifacts.MODID + ":mnestia_time";
     //免死冷却
     @SubscribeEvent
     public static void tick(LivingEvent.LivingTickEvent event) {
@@ -134,13 +135,14 @@ public class Death {
         }else{
             compoundTag.putInt(eye_of_twilight_Number_NBT, 0);
         }
+        if(livingEntity.getPersistentData().getInt(death_curios_cooldown)>0){
+            livingEntity.getPersistentData().putInt(death_curios_cooldown,
+                    livingEntity.getPersistentData().getInt(death_curios_cooldown)-1);
+        }
         //翻飞之币
         int coin = compoundTag.getInt(coin_of_whimsy_Number_NBT);
         if (coin > 0 && livingEntity.level().getGameTime() % 20L == 0 ) {
             compoundTag.putInt(hand_of_shadow_time_nbt, (int) (coin-coin*0.01F));
-        }
-        if (FCAKeyMappingUtil.KEYMAPPING.isDown() && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.CoinOfWhimsy.get())) {
-            livingEntity.addEffect(new MobEffectInstance(FCAEffectsRegister.KittyPhantomThief.get(),200,0));
         }
         //阿雅
         int cooldown7 = compoundTag.getInt(mnestia_TIME_NBT);

@@ -122,6 +122,15 @@ public class FCAItemRegister {
         //这是个获取配置文件的例子
         //float aaa = FCAconfig.ccccc.get();
     }
+    //判断这个物品是否属于你注册的所有物品
+    public static boolean isMyRegisteredItem(Item item) {
+        for (RegistryObject<Item> regObj : CommonItem) {
+            if (regObj.get() == item) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static void register(IEventBus bus){
         ZeroingITEM.register(bus);

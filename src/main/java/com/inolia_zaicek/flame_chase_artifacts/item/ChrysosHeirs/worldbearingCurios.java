@@ -19,6 +19,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraftforge.common.ForgeMod;
 import top.theillusivec4.curios.api.SlotContext;
@@ -52,25 +56,26 @@ public class worldbearingCurios extends FCACuriosItem {
         atts.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuid, "world_bearing_blessing", FCAconfig.worldbearingCurios.get(), AttributeModifier.Operation.MULTIPLY_TOTAL));
         return atts;
     }
+    @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        var worldbearingKey = "worldbearing_curios_get_nbt";
-        if(Minecraft.getInstance().player!=null && ! Minecraft.getInstance().player.getPersistentData().getBoolean(worldbearingKey) ){
-            pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.%s.get_text".formatted(this.getTooltipItemName())
-            ).withStyle(ChatFormatting.DARK_GRAY));
-        }
         pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.%s.up_text".formatted(this.getTooltipItemName()))
                 .withStyle(style -> style.withColor(TextColor.fromRgb( this.getTooltipShiftColor() ))));
             pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.%s.text".formatted(this.getTooltipItemName() )
                             ,(float) (FCAconfig.worldbearingCurios.get() * 100))
                     .withStyle(ChatFormatting.GRAY));
 
-        if(Minecraft.getInstance().player!=null&& FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.PristineLove.get()) ){
+        if(FCAClientUtil.isCurioEquipped()!=null&& FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.PristineLove.get()) ){
 
             pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.%s.ego_text".formatted(this.getTooltipItemName()))
                     .withStyle(style -> style.withColor(TextColor.fromRgb( this.getTooltipShiftColor() ))));
 
             pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_worldbearing_blessing",
                     (float) (FCAconfig.worldbearingEgoCurios.get() * 100)).withStyle(style -> style.withColor(TextColor.fromRgb(0x7BEBFC))));
+        }
+        var worldbearingKey = "worldbearing_curios_get_nbt";
+        if(FCAClientUtil.isCurioEquipped()!=null && ! FCAClientUtil.isCurioEquipped().getPersistentData().getBoolean(worldbearingKey)&&FCAconfig.worldbearing_get.get() ){
+            pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.%s.get_text".formatted(this.getTooltipItemName())
+            ).withStyle(ChatFormatting.DARK_GRAY));
         }
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }

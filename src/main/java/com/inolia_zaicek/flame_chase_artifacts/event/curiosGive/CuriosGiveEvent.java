@@ -1,6 +1,7 @@
 package com.inolia_zaicek.flame_chase_artifacts.event.curiosGive;
 
 import com.inolia_zaicek.flame_chase_artifacts.FlameChaseArtifacts;
+import com.inolia_zaicek.flame_chase_artifacts.config.FCAconfig;
 import com.inolia_zaicek.flame_chase_artifacts.network.FCAChannel;
 import com.inolia_zaicek.flame_chase_artifacts.register.FCAItemRegister;
 import com.inolia_zaicek.flame_chase_artifacts.register.craftItem.FCACraftItemRegister;
@@ -26,6 +27,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -48,40 +53,48 @@ public class CuriosGiveEvent {
             //饰品
             CompoundTag compoundTag = livingEntity.getPersistentData();
             //海洋
-            var oceanKey = "ocean_curios_get_nbt";  //名字随意
-            if (!compoundTag.getBoolean(oceanKey) && event.getEntity() instanceof ElderGuardian) {
-                int neutralAndHarmfulCount = 0;
-                for (MobEffectInstance effect : livingEntity.getActiveEffects()) {
-                    // 判断是否为Beneficial或Harmful
-                    boolean isBeneficial = effect.getEffect().getCategory() == MobEffectCategory.BENEFICIAL;
-                    boolean isHarmful = effect.getEffect().getCategory() == MobEffectCategory.HARMFUL;
-                    // 统计非Beneficial且非Harmful的效果
-                    if (isBeneficial || isHarmful) {
-                        neutralAndHarmfulCount++;
+            if(FCAconfig.ocean_get.get()) {
+                var oceanKey = "ocean_curios_get_nbt";  //名字随意
+                if (!compoundTag.getBoolean(oceanKey) && event.getEntity() instanceof ElderGuardian) {
+                    int neutralAndHarmfulCount = 0;
+                    for (MobEffectInstance effect : livingEntity.getActiveEffects()) {
+                        // 判断是否为Beneficial或Harmful
+                        boolean isBeneficial = effect.getEffect().getCategory() == MobEffectCategory.BENEFICIAL;
+                        boolean isHarmful = effect.getEffect().getCategory() == MobEffectCategory.HARMFUL;
+                        // 统计非Beneficial且非Harmful的效果
+                        if (isBeneficial || isHarmful) {
+                            neutralAndHarmfulCount++;
+                        }
                     }
-                }
-                if(neutralAndHarmfulCount>=4 && livingEntity instanceof ServerPlayer player ){
-                    player.addItem(new ItemStack( FCAItemRegister.OceanCurios.get() ));
-                    compoundTag.putBoolean(oceanKey, true);
+                    if (neutralAndHarmfulCount >= FCAconfig.ocean_get_number.get() && livingEntity instanceof ServerPlayer player) {
+                        player.addItem(new ItemStack(FCAItemRegister.OceanCurios.get()));
+                        compoundTag.putBoolean(oceanKey, true);
+                    }
                 }
             }
             //负世
-            var worldbearingKey = "worldbearing_curios_get_nbt";
-            if(livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(worldbearingKey) && event.getEntity() instanceof EnderDragon && player.getRemainingFireTicks()>0){
-                player.addItem(new ItemStack( FCAItemRegister.WorldBearingCurios.get() ));
-                compoundTag.putBoolean(worldbearingKey, true);
+            if(FCAconfig.worldbearing_get.get()) {
+                var worldbearingKey = "worldbearing_curios_get_nbt";
+                if (livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(worldbearingKey) && event.getEntity() instanceof EnderDragon && player.getRemainingFireTicks() > 0) {
+                    player.addItem(new ItemStack(FCAItemRegister.WorldBearingCurios.get()));
+                    compoundTag.putBoolean(worldbearingKey, true);
+                }
             }
             //浪漫
-            var romanceKey = "romance_curios_get_nbt";
-            if(livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(romanceKey) && player.hasEffect(MobEffects.DARKNESS)){
-                player.addItem(new ItemStack( FCAItemRegister.RomanceCurios.get() ));
-                compoundTag.putBoolean(romanceKey, true);
+            if(FCAconfig.romance_get.get()) {
+                var romanceKey = "romance_curios_get_nbt";
+                if (livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(romanceKey) && player.hasEffect(MobEffects.DARKNESS)) {
+                    player.addItem(new ItemStack(FCAItemRegister.RomanceCurios.get()));
+                    compoundTag.putBoolean(romanceKey, true);
+                }
             }
             //死亡
-            var deathKey = "death_curios_get_nbt";
-            if(livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(deathKey) && event.getEntity() instanceof WitherBoss && player.getHealth()<=player.getMaxHealth()*0.2f){
-                player.addItem(new ItemStack( FCAItemRegister.DeathCurios.get() ));
-                compoundTag.putBoolean(deathKey, true);
+            if(FCAconfig.death_get.get()) {
+                var deathKey = "death_curios_get_nbt";
+                if (livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(deathKey) && event.getEntity() instanceof WitherBoss && player.getHealth() <= player.getMaxHealth() * FCAconfig.death_get_number.get() ) {
+                    player.addItem(new ItemStack(FCAItemRegister.DeathCurios.get()));
+                    compoundTag.putBoolean(deathKey, true);
+                }
             }
             //诡计（获取抢夺等级
             int totalLootingLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.MOB_LOOTING, livingEntity);
@@ -91,10 +104,12 @@ public class CuriosGiveEvent {
                 compoundTag.putBoolean(trickeryKey, true);
             }
             //律法
-            var lawKey = "law_curios_get_nbt";
-            if(livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(lawKey) && event.getEntity() instanceof Warden){
-                player.addItem(new ItemStack( FCAItemRegister.LawCurios.get() ));
-                compoundTag.putBoolean(lawKey, true);
+            if(FCAconfig.law_get.get()) {
+                var lawKey = "law_curios_get_nbt";
+                if (livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(lawKey) && event.getEntity() instanceof Warden) {
+                    player.addItem(new ItemStack(FCAItemRegister.LawCurios.get()));
+                    compoundTag.putBoolean(lawKey, true);
+                }
             }
         }
     }
@@ -102,33 +117,37 @@ public class CuriosGiveEvent {
     @SubscribeEvent
     public static void tick(LivingEvent.LivingTickEvent event) {
         LivingEntity livingEntity = event.getEntity();
-        if(!FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.HatredInundate.get()) )return;
+        if (!FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.HatredInundate.get())) return;
         CompoundTag compoundTag = livingEntity.getPersistentData();
         //理性
-        var reasonKey = "reason_curios_get_nbt";
-        if(livingEntity instanceof ServerPlayer player&&player.experienceLevel>=75 && !compoundTag.getBoolean(reasonKey) ){
-            player.addItem(new ItemStack( FCAItemRegister.ReasonCurios.get() ));
-            compoundTag.putBoolean(reasonKey, true);
-        }
-        //黄泉高度判断
-        var acheronKey = "acheron_curios_get_nbt";
-        if(livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(acheronKey) ){
-            float Y = player.getOnPos().getY();
-            if(Y<=-264) {
-                player.addItem(new ItemStack(FCAItemRegister.Acheron.get()));
+        if (FCAconfig.reason_get.get()) {
+            var reasonKey = "reason_curios_get_nbt";
+            if (livingEntity instanceof ServerPlayer player && player.experienceLevel >= 75 && !compoundTag.getBoolean(reasonKey)) {
+                player.addItem(new ItemStack(FCAItemRegister.ReasonCurios.get()));
                 compoundTag.putBoolean(reasonKey, true);
             }
         }
+        //黄泉高度判断
+        var acheronKey = "acheron_curios_get_nbt";
+        if (livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(acheronKey)) {
+            float Y = player.getOnPos().getY();
+            if (Y <= -264) {
+                player.addItem(new ItemStack(FCAItemRegister.Acheron.get()));
+                compoundTag.putBoolean(acheronKey, true);
+            }
+        }
         //岁月——玩家进游戏每tick提升，满额则给
-        var timeKey = "time_curios_get_nbt";
-        int timeTick = compoundTag.getInt(time_curios_tick_time_nbt);
-        if(livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(timeKey)){
-            //tick实际上是*2
-            if(timeTick<4*60*60*20/2){
-                compoundTag.putInt(time_curios_tick_time_nbt, timeTick+1);
-            }else{
-                player.addItem(new ItemStack(FCAItemRegister.TimeCurios.get()));
-                compoundTag.putBoolean(timeKey, true);
+        if (FCAconfig.time_get.get()) {
+            var timeKey = "time_curios_get_nbt";
+            int timeTick = compoundTag.getInt(time_curios_tick_time_nbt);
+            if (livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(timeKey)) {
+                //tick实际上是*2
+                if (timeTick < FCAconfig.time_get_number.get() * 60 * 20 / 2) {
+                    compoundTag.putInt(time_curios_tick_time_nbt, timeTick + 1);
+                } else {
+                    player.addItem(new ItemStack(FCAItemRegister.TimeCurios.get()));
+                    compoundTag.putBoolean(timeKey, true);
+                }
             }
         }
         //如我所书
@@ -143,124 +162,141 @@ public class CuriosGiveEvent {
         var lawKey = "law_curios_get_nbt";
         var passageKey = "passage_curios_get_nbt";
         var bookKey = "book_get_nbt";
-        if(livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(bookKey)
-        && compoundTag.getBoolean(skyKey) && compoundTag.getBoolean(earthKey) && compoundTag.getBoolean(oceanKey)
-                && compoundTag.getBoolean(romanceKey) && compoundTag.getBoolean(worldbearingKey) && compoundTag.getBoolean(reasonKey)
-                && compoundTag.getBoolean(deathKey) && compoundTag.getBoolean(strifeKey) && compoundTag.getBoolean(trickeryKey)
-                && compoundTag.getBoolean(timeKey) && compoundTag.getBoolean(lawKey) && compoundTag.getBoolean(passageKey)
-        ){
+        if(FCAconfig.book_get.get()) {
+            if (livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(bookKey)
+                    && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.SkyCurios.get())
+                    && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.EarthCurios.get())
+                    && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.OceanCurios.get())
+
+                    && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.RomanceCurios.get())
+                    && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.WorldBearingCurios.get())
+                    && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.ReasonCurios.get())
+
+                    && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.TrickeryCurios.get())
+                    && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.StrifeCurios.get())
+                    && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.DeathCurios.get())
+
+                    && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.TimeCurios.get())
+                    && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.LawCurios.get())
+                    && FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.PassageCurios.get())
+            ) {
                 player.addItem(new ItemStack(FCACraftItemRegister.AsWrittenByWhom.get()));
                 compoundTag.putBoolean(bookKey, true);
+            }
         }
         //门径
-        var passageKeyOVERWORLD = "passage_over_world";
-        var passageKeyNETHER = "passage_nether";
-        var passageKeyEND = "passage_end";
-        if(livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(passageKey) ){
-            //获取玩家当前维度
-            ResourceKey<Level> levelResourceKey = player.level().dimension();
-            if (levelResourceKey.equals(Level.OVERWORLD)) {
-                compoundTag.putBoolean(passageKeyOVERWORLD, true);
-            } else if (levelResourceKey.equals(Level.NETHER)) {
-                compoundTag.putBoolean(passageKeyNETHER, true);
-            } else if (levelResourceKey.equals(Level.END)) {
-                compoundTag.putBoolean(passageKeyEND, true);
-            }
-            if(compoundTag.getBoolean(passageKeyOVERWORLD) && compoundTag.getBoolean(passageKeyNETHER) && compoundTag.getBoolean(passageKeyEND) ){
-                player.addItem(new ItemStack(FCAItemRegister.PassageCurios.get()));
-                compoundTag.putBoolean(passageKey, true);
+        if (FCAconfig.passage_get.get()) {
+            var passageKeyOVERWORLD = "passage_over_world";
+            var passageKeyNETHER = "passage_nether";
+            var passageKeyEND = "passage_end";
+            if (livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(passageKey)) {
+                //获取玩家当前维度
+                ResourceKey<Level> levelResourceKey = player.level().dimension();
+                if (levelResourceKey.equals(Level.OVERWORLD)) {
+                    compoundTag.putBoolean(passageKeyOVERWORLD, true);
+                } else if (levelResourceKey.equals(Level.NETHER)) {
+                    compoundTag.putBoolean(passageKeyNETHER, true);
+                } else if (levelResourceKey.equals(Level.END)) {
+                    compoundTag.putBoolean(passageKeyEND, true);
+                }
+                if (compoundTag.getBoolean(passageKeyOVERWORLD) && compoundTag.getBoolean(passageKeyNETHER) && compoundTag.getBoolean(passageKeyEND)) {
+                    player.addItem(new ItemStack(FCAItemRegister.PassageCurios.get()));
+                    compoundTag.putBoolean(passageKey, true);
+                }
             }
         }
         //大地
-        var earthA = "earth_a";
-        var earthB = "earth_b";
-        var earthC = "earth_c";
-        var earthD = "earth_d";
-        var earthE = "earth_e";
-        var earthF = "earth_f";
-        if(livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(earthKey) ) {
-            Level level = player.level();  // 获取玩家所在世界
-            BlockPos pos = player.blockPosition();  // 获取玩家当前位置
-            ResourceKey<Biome> biome = level.getBiome(pos).unwrapKey().get();  // 获取当前位置的群系
-            //平原群系
-            if (
-                    biome.equals(Biomes.PLAINS) ||
-                            biome.equals(Biomes.SUNFLOWER_PLAINS) ||
-                            biome.equals(Biomes.SNOWY_PLAINS) ||
-                            biome.equals(Biomes.ICE_SPIKES)
-            ) {
-                compoundTag.putBoolean(earthA, true);
-            }
-            //海洋群系
-            if (
-                    biome.equals(Biomes.OCEAN) ||
-                            biome.equals(Biomes.COLD_OCEAN) ||
-                            biome.equals(Biomes.DEEP_COLD_OCEAN) ||
-                            biome.equals(Biomes.DEEP_OCEAN) ||
-                            biome.equals(Biomes.DEEP_LUKEWARM_OCEAN) ||
-                            biome.equals(Biomes.LUKEWARM_OCEAN) ||
-                            biome.equals(Biomes.DEEP_FROZEN_OCEAN) ||
-                            biome.equals(Biomes.FROZEN_OCEAN) ||
-                            biome.equals(Biomes.WARM_OCEAN)
-            ) {
-                compoundTag.putBoolean(earthB, true);
-            }
-            //森林群系
-            if (
-                    biome.equals(Biomes.FOREST) ||
-                            biome.equals(Biomes.TAIGA) ||
-                            biome.equals(Biomes.SNOWY_TAIGA) ||
-                            biome.equals(Biomes.OLD_GROWTH_PINE_TAIGA) ||
-                            biome.equals(Biomes.OLD_GROWTH_SPRUCE_TAIGA) ||
-                            biome.equals(Biomes.FLOWER_FOREST) ||
-                            biome.equals(Biomes.BIRCH_FOREST) ||
-                            biome.equals(Biomes.OLD_GROWTH_BIRCH_FOREST) ||
-                            biome.equals(Biomes.DARK_FOREST) ||
-                            biome.equals(Biomes.JUNGLE) ||
-                            biome.equals(Biomes.SPARSE_JUNGLE) ||
-                            biome.equals(Biomes.BAMBOO_JUNGLE)
-            ) {
-                compoundTag.putBoolean(earthC, true);
-            }
-            //山地群系
-            if (
-                    biome.equals(Biomes.JAGGED_PEAKS) ||
-                            biome.equals(Biomes.FROZEN_PEAKS) ||
-                            biome.equals(Biomes.STONY_PEAKS) ||
-                            biome.equals(Biomes.WINDSWEPT_HILLS) ||
-                            biome.equals(Biomes.WINDSWEPT_GRAVELLY_HILLS) ||
-                            biome.equals(Biomes.WINDSWEPT_FOREST) ||
-                            biome.equals(Biomes.WINDSWEPT_SAVANNA) ||
-                            biome.equals(Biomes.SNOWY_SLOPES)
-            ) {
-                compoundTag.putBoolean(earthD, true);
-            }
-            //旱地群系
-            if (
-                    biome.equals(Biomes.DESERT) ||
-                            biome.equals(Biomes.BADLANDS) ||
-                            biome.equals(Biomes.ERODED_BADLANDS) ||
-                            biome.equals(Biomes.SAVANNA) ||
-                            biome.equals(Biomes.SAVANNA_PLATEAU)
-            ) {
-                compoundTag.putBoolean(earthE, true);
-            }
-            //湿地群系
-            if (
-                    biome.equals(Biomes.SWAMP) ||
-                            biome.equals(Biomes.MANGROVE_SWAMP) ||
-                            biome.equals(Biomes.RIVER) ||
-                            biome.equals(Biomes.FROZEN_RIVER) ||
-                            biome.equals(Biomes.BEACH) ||
-                            biome.equals(Biomes.SNOWY_BEACH) ||
-                            biome.equals(Biomes.STONY_SHORE)
-            ) {
-                compoundTag.putBoolean(earthF, true);
-            }
-            if(compoundTag.getBoolean(earthA) && compoundTag.getBoolean(earthB) && compoundTag.getBoolean(earthC) &&
-                    compoundTag.getBoolean(earthD) && compoundTag.getBoolean(earthE) && compoundTag.getBoolean(earthF) ){
-                player.addItem(new ItemStack(FCAItemRegister.EarthCurios.get()));
-                compoundTag.putBoolean(earthKey, true);
+        if (FCAconfig.earth_get.get()) {
+            var earthA = "earth_a";
+            var earthB = "earth_b";
+            var earthC = "earth_c";
+            var earthD = "earth_d";
+            var earthE = "earth_e";
+            var earthF = "earth_f";
+            if (livingEntity instanceof ServerPlayer player && !compoundTag.getBoolean(earthKey)) {
+                Level level = player.level();  // 获取玩家所在世界
+                BlockPos pos = player.blockPosition();  // 获取玩家当前位置
+                ResourceKey<Biome> biome = level.getBiome(pos).unwrapKey().get();  // 获取当前位置的群系
+                //平原群系
+                if (
+                        biome.equals(Biomes.PLAINS) ||
+                                biome.equals(Biomes.SUNFLOWER_PLAINS) ||
+                                biome.equals(Biomes.SNOWY_PLAINS) ||
+                                biome.equals(Biomes.ICE_SPIKES)
+                ) {
+                    compoundTag.putBoolean(earthA, true);
+                }
+                //海洋群系
+                if (
+                        biome.equals(Biomes.OCEAN) ||
+                                biome.equals(Biomes.COLD_OCEAN) ||
+                                biome.equals(Biomes.DEEP_COLD_OCEAN) ||
+                                biome.equals(Biomes.DEEP_OCEAN) ||
+                                biome.equals(Biomes.DEEP_LUKEWARM_OCEAN) ||
+                                biome.equals(Biomes.LUKEWARM_OCEAN) ||
+                                biome.equals(Biomes.DEEP_FROZEN_OCEAN) ||
+                                biome.equals(Biomes.FROZEN_OCEAN) ||
+                                biome.equals(Biomes.WARM_OCEAN)
+                ) {
+                    compoundTag.putBoolean(earthB, true);
+                }
+                //森林群系
+                if (
+                        biome.equals(Biomes.FOREST) ||
+                                biome.equals(Biomes.TAIGA) ||
+                                biome.equals(Biomes.SNOWY_TAIGA) ||
+                                biome.equals(Biomes.OLD_GROWTH_PINE_TAIGA) ||
+                                biome.equals(Biomes.OLD_GROWTH_SPRUCE_TAIGA) ||
+                                biome.equals(Biomes.FLOWER_FOREST) ||
+                                biome.equals(Biomes.BIRCH_FOREST) ||
+                                biome.equals(Biomes.OLD_GROWTH_BIRCH_FOREST) ||
+                                biome.equals(Biomes.DARK_FOREST) ||
+                                biome.equals(Biomes.JUNGLE) ||
+                                biome.equals(Biomes.SPARSE_JUNGLE) ||
+                                biome.equals(Biomes.BAMBOO_JUNGLE)
+                ) {
+                    compoundTag.putBoolean(earthC, true);
+                }
+                //山地群系
+                if (
+                        biome.equals(Biomes.JAGGED_PEAKS) ||
+                                biome.equals(Biomes.FROZEN_PEAKS) ||
+                                biome.equals(Biomes.STONY_PEAKS) ||
+                                biome.equals(Biomes.WINDSWEPT_HILLS) ||
+                                biome.equals(Biomes.WINDSWEPT_GRAVELLY_HILLS) ||
+                                biome.equals(Biomes.WINDSWEPT_FOREST) ||
+                                biome.equals(Biomes.WINDSWEPT_SAVANNA) ||
+                                biome.equals(Biomes.SNOWY_SLOPES)
+                ) {
+                    compoundTag.putBoolean(earthD, true);
+                }
+                //旱地群系
+                if (
+                        biome.equals(Biomes.DESERT) ||
+                                biome.equals(Biomes.BADLANDS) ||
+                                biome.equals(Biomes.ERODED_BADLANDS) ||
+                                biome.equals(Biomes.SAVANNA) ||
+                                biome.equals(Biomes.SAVANNA_PLATEAU)
+                ) {
+                    compoundTag.putBoolean(earthE, true);
+                }
+                //湿地群系
+                if (
+                        biome.equals(Biomes.SWAMP) ||
+                                biome.equals(Biomes.MANGROVE_SWAMP) ||
+                                biome.equals(Biomes.RIVER) ||
+                                biome.equals(Biomes.FROZEN_RIVER) ||
+                                biome.equals(Biomes.BEACH) ||
+                                biome.equals(Biomes.SNOWY_BEACH) ||
+                                biome.equals(Biomes.STONY_SHORE)
+                ) {
+                    compoundTag.putBoolean(earthF, true);
+                }
+                if (compoundTag.getBoolean(earthA) && compoundTag.getBoolean(earthB) && compoundTag.getBoolean(earthC) &&
+                        compoundTag.getBoolean(earthD) && compoundTag.getBoolean(earthE) && compoundTag.getBoolean(earthF)) {
+                    player.addItem(new ItemStack(FCAItemRegister.EarthCurios.get()));
+                    compoundTag.putBoolean(earthKey, true);
+                }
             }
         }
     }
@@ -294,6 +330,7 @@ public class CuriosGiveEvent {
         CompoundTag newData = newPlayer.getPersistentData();
 
         String[] keys = {
+                "book_get_nbt",
                 "hatred_inundate_give",
                 "strawberry_roselle_give",
                 "sky_curios_get_nbt",

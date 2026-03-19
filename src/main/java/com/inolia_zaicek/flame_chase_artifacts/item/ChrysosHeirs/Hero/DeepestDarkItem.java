@@ -17,6 +17,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 import top.theillusivec4.curios.api.SlotContext;
@@ -36,6 +40,7 @@ public class DeepestDarkItem extends Item implements ICurioItem {
     public ICurio.@NotNull DropRule getDropRule(SlotContext slotContext, DamageSource source, int lootingLevel, boolean recentlyHit, ItemStack stack) {
         return ICurio.DropRule.ALWAYS_KEEP;
     }
+    @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         if(Screen.hasShiftDown()) {
             pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.deepest_dark.shift_text"

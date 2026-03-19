@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "flame_chase_artifacts.refmap.json",
   "mixins": [
-    "FCAMixinEnchantmentContainer"
+    "FCAMixinEnchantmentContainer",
+    "Goety.CommonConfigMixin"
   ],
   "client": [
   ],

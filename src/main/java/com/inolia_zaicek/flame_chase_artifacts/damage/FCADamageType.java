@@ -8,6 +8,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
 
 import javax.annotation.Nullable;
 

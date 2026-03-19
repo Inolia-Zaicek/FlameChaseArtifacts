@@ -20,6 +20,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
 import org.jetbrains.annotations.NotNull;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
@@ -40,16 +44,17 @@ public class PristineLoveCuriosItem extends Item implements ICurioItem {
     public ICurio.@NotNull DropRule getDropRule(SlotContext slotContext, DamageSource source, int lootingLevel, boolean recentlyHit, ItemStack stack) {
         return ICurio.DropRule.ALWAYS_KEEP;
     }    // 鼠标经过物品时显示文字，按下shift键后显示另一行提示文字
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         var bookKey = "book_get_nbt";
-        if(Minecraft.getInstance().player!=null && ! Minecraft.getInstance().player.getPersistentData().getBoolean(bookKey) ){
+        if(FCAClientUtil.isCurioEquipped()!=null && ! FCAClientUtil.isCurioEquipped().getPersistentData().getBoolean(bookKey) ){
             pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.get_text").withStyle(ChatFormatting.DARK_GRAY));
         }
         //alt——介绍特殊能力
         if(Screen.hasAltDown()) {
             //天空
-            if(Minecraft.getInstance().player!=null&&FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.SkyCurios.get()) ) {
+            if(FCAClientUtil.isCurioEquipped()!=null&&FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.SkyCurios.get()) ) {
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_sky_awaking_text"
                 ).withStyle(style -> style.withColor(TextColor.fromRgb(0x5AFFC9))));
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_sky_blessing",
@@ -65,7 +70,7 @@ public class PristineLoveCuriosItem extends Item implements ICurioItem {
                 ).withStyle(ChatFormatting.GRAY));
             }
             //大地
-            if(Minecraft.getInstance().player!=null&&FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.EarthCurios.get()) ) {
+            if(FCAClientUtil.isCurioEquipped()!=null&&FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.EarthCurios.get()) ) {
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_earth_awaking_text"
                 ).withStyle(style -> style.withColor(TextColor.fromRgb(0xFAE241))));
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_earth_blessing",
@@ -81,7 +86,7 @@ public class PristineLoveCuriosItem extends Item implements ICurioItem {
                 ).withStyle(ChatFormatting.GRAY));
             }
             //海洋
-            if(Minecraft.getInstance().player!=null&&FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.OceanCurios.get()) ) {
+            if(FCAClientUtil.isCurioEquipped()!=null&&FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.OceanCurios.get()) ) {
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_ocean_awaking_text"
                 ).withStyle(style -> style.withColor(TextColor.fromRgb(0x647EFF))));
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_ocean_blessing",
@@ -93,7 +98,7 @@ public class PristineLoveCuriosItem extends Item implements ICurioItem {
                         (float) (FCAconfig.oceanEgoCurios.get() * 100)                ).withStyle(ChatFormatting.GRAY));
             }
             //浪漫
-            if(Minecraft.getInstance().player!=null&&FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.RomanceCurios.get()) ) {
+            if(FCAClientUtil.isCurioEquipped()!=null&&FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.RomanceCurios.get()) ) {
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_romance_awaking_text"
                 ).withStyle(style -> style.withColor(TextColor.fromRgb(0xFFFF3C))));
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_romance_blessing",
@@ -105,7 +110,7 @@ public class PristineLoveCuriosItem extends Item implements ICurioItem {
                         (float) (FCAconfig.romanceEgoCuriosNumber.get() * 100),(int) (FCAconfig.romanceEgoCuriosTime.get() * 1)                ).withStyle(ChatFormatting.GRAY));
             }
             //负世
-            if(Minecraft.getInstance().player!=null&&FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.WorldBearingCurios.get()) ) {
+            if(FCAClientUtil.isCurioEquipped()!=null&&FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.WorldBearingCurios.get()) ) {
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_worldbearing_awaking_text"
                 ).withStyle(style -> style.withColor(TextColor.fromRgb(0x7BEBFC))));
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_worldbearing_blessing",
@@ -117,7 +122,7 @@ public class PristineLoveCuriosItem extends Item implements ICurioItem {
                         (float) (FCAconfig.worldbearingEgoCurios.get() * 100)                ).withStyle(ChatFormatting.GRAY));
             }
             //理性
-            if(Minecraft.getInstance().player!=null&&FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.ReasonCurios.get()) ) {
+            if(FCAClientUtil.isCurioEquipped()!=null&&FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.ReasonCurios.get()) ) {
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_reason_awaking_text"
                 ).withStyle(style -> style.withColor(TextColor.fromRgb(0x00FF55))));
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_reason_blessing",
@@ -129,7 +134,7 @@ public class PristineLoveCuriosItem extends Item implements ICurioItem {
                         (int) (FCAconfig.reasonEgoCurios.get() * 1)                ).withStyle(ChatFormatting.GRAY));
             }
             //诡计
-            if(Minecraft.getInstance().player!=null&&FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.TrickeryCurios.get()) ) {
+            if(FCAClientUtil.isCurioEquipped()!=null&&FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.TrickeryCurios.get()) ) {
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_trickery_awaking_text"
                 ).withStyle(style -> style.withColor(TextColor.fromRgb(0x4B29F5))));
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_trickery_blessing",
@@ -141,7 +146,7 @@ public class PristineLoveCuriosItem extends Item implements ICurioItem {
                         (float) (FCAconfig.trickeryEgoCurios.get() * 100)                ).withStyle(ChatFormatting.GRAY));
             }
             //纷争
-            if(Minecraft.getInstance().player!=null&&FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.StrifeCurios.get()) ) {
+            if(FCAClientUtil.isCurioEquipped()!=null&&FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.StrifeCurios.get()) ) {
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_strife_awaking_text"
                 ).withStyle(style -> style.withColor(TextColor.fromRgb(0xF95928))));
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_strife_blessing",
@@ -153,7 +158,7 @@ public class PristineLoveCuriosItem extends Item implements ICurioItem {
                         (float) (FCAconfig.strifeEgoCurios.get() * 100)                ).withStyle(ChatFormatting.GRAY));
             }
             //死亡
-            if(Minecraft.getInstance().player!=null&&FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.DeathCurios.get()) ) {
+            if(FCAClientUtil.isCurioEquipped()!=null&&FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.DeathCurios.get()) ) {
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_death_awaking_text"
                 ).withStyle(style -> style.withColor(TextColor.fromRgb(0xA951FF))));
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_death_blessing",
@@ -165,7 +170,7 @@ public class PristineLoveCuriosItem extends Item implements ICurioItem {
                         (int) (FCAconfig.deathEgoCurios.get() * 1)                ).withStyle(ChatFormatting.GRAY));
             }
             //岁月
-            if(Minecraft.getInstance().player!=null&&FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.TimeCurios.get()) ) {
+            if(FCAClientUtil.isCurioEquipped()!=null&&FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.TimeCurios.get()) ) {
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_time_awaking_text"
                 ).withStyle(style -> style.withColor(TextColor.fromRgb(0xFFA4E4))));
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_time_blessing",
@@ -177,7 +182,7 @@ public class PristineLoveCuriosItem extends Item implements ICurioItem {
                         (float) (FCAconfig.timeEgoCurios.get() * 100)                ).withStyle(ChatFormatting.GRAY));
             }
             //律法
-            if(Minecraft.getInstance().player!=null&&FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.LawCurios.get()) ) {
+            if(FCAClientUtil.isCurioEquipped()!=null&&FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.LawCurios.get()) ) {
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_law_awaking_text"
                 ).withStyle(style -> style.withColor(TextColor.fromRgb(0x37F3FF))));
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_law_blessing",
@@ -189,7 +194,7 @@ public class PristineLoveCuriosItem extends Item implements ICurioItem {
                         (float) (FCAconfig.lawEgoCurios.get() * 100)                ).withStyle(ChatFormatting.GRAY));
             }
             //门径
-            if(Minecraft.getInstance().player!=null&&FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.PassageCurios.get()) ) {
+            if(FCAClientUtil.isCurioEquipped()!=null&&FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.PassageCurios.get()) ) {
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_passage_awaking_text"
                 ).withStyle(style -> style.withColor(TextColor.fromRgb(0xFF1E1E))));
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_passage_blessing",
@@ -201,19 +206,19 @@ public class PristineLoveCuriosItem extends Item implements ICurioItem {
                         (float) (FCAconfig.passageEgoCurios.get() * 100)                ).withStyle(ChatFormatting.GRAY));
             }
             //真我
-            if(Minecraft.getInstance().player!=null
-                    && FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.SkyCurios.get())
-                    && FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.EarthCurios.get())
-                    && FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.OceanCurios.get())
-                    && FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.RomanceCurios.get())
-                    && FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.WorldBearingCurios.get())
-                    && FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.ReasonCurios.get())
-                    && FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.TrickeryCurios.get())
-                    && FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.StrifeCurios.get())
-                    && FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.DeathCurios.get())
-                    && FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.TimeCurios.get())
-                    && FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.LawCurios.get())
-                    && FCAUtil.isCurioEquipped(Minecraft.getInstance().player, FCAItemRegister.PassageCurios.get())
+            if(FCAClientUtil.isCurioEquipped()!=null
+                    && FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.SkyCurios.get())
+                    && FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.EarthCurios.get())
+                    && FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.OceanCurios.get())
+                    && FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.RomanceCurios.get())
+                    && FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.WorldBearingCurios.get())
+                    && FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.ReasonCurios.get())
+                    && FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.TrickeryCurios.get())
+                    && FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.StrifeCurios.get())
+                    && FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.DeathCurios.get())
+                    && FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.TimeCurios.get())
+                    && FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.LawCurios.get())
+                    && FCAUtil.isCurioEquipped(FCAClientUtil.isCurioEquipped(), FCAItemRegister.PassageCurios.get())
             ) {
                 pTooltipComponents.add(Component.translatable("tooltip.flame_chase_artifacts.pristine_love.ode_to_ego_awaking_text"
                 ).withStyle(style -> style.withColor(TextColor.fromRgb(0xFB61FF))));

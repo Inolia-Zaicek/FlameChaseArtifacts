@@ -11,11 +11,16 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -30,10 +35,7 @@ import net.minecraftforge.fml.common.Mod;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @SuppressWarnings({"all", "removal"})
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE,modid = FlameChaseArtifacts.MODID)
@@ -44,11 +46,16 @@ public class Trickery {
         if(FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.CoronalRadiance.get())||FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.LanceOfFury.get())
         ) {
             // 遍历当前所有状态效果，移除所有非正面buff（即负面debuff）
+            //避免直接在遍历时修改集合
+            //先收集要移除的效果，再统一移除
+            List<MobEffect> toRemove = new ArrayList<>();
             for (MobEffectInstance effect : livingEntity.getActiveEffects()) {
-                // 判断是否为负面状态
                 if (!effect.getEffect().getCategory().equals(MobEffectCategory.BENEFICIAL)) {
-                    livingEntity.removeEffect(effect.getEffect());
+                    toRemove.add(effect.getEffect());
                 }
+            }
+            for (MobEffect effect : toRemove) {
+                livingEntity.removeEffect(effect);
             }
         }
     }
@@ -121,7 +128,7 @@ public class Trickery {
     @SubscribeEvent
     public static void entityKilled(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof Player)) {
-            if (event.getSource().getEntity() instanceof LivingEntity livingEntity&&event.getEntity()!=null) {
+            if (event.getSource().getEntity() instanceof LivingEntity livingEntity&& !EntityType.getKey(event.getEntity().getType()).toString().equals("goety:obsidian_monolith")) {
                 if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.TrickeryCurios.get())
                         || FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.OriginSin.get())
                         || FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.CoinOfWhimsy.get())
@@ -136,42 +143,15 @@ public class Trickery {
                     if (number > 0&&event.getEntity()!=null) {
                         for (int i = 0; i < number; i++) {
                             Level level = livingEntity.level();
-                            LootTable loot = ((MinecraftServer) Objects.requireNonNull(level.getServer())).getLootData().getLootTable(event.getEntity().getType().getDefaultLootTable());
-                            LootParams context = (new LootParams.Builder((ServerLevel) level)).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(event.getEntity().blockPosition())).withParameter(LootContextParams.THIS_ENTITY, event.getEntity()).withParameter(LootContextParams.DAMAGE_SOURCE, livingEntity.damageSources().playerAttack((Player) livingEntity)).create(LootContextParamSets.ENTITY);
-                            List<ItemStack> drops = loot.getRandomItems(context);
-                            for (ItemStack drop : drops) {
-                                ItemEntity itementity = new ItemEntity(level, event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), drop);
-                                itementity.setDefaultPickUpDelay();
-                                itementity.setDeltaMovement(itementity.getDeltaMovement().add((double) ((level.random.nextFloat() - level.random.nextFloat()) * 0.1F), (double) (level.random.nextFloat() * 0.05F), (double) ((level.random.nextFloat() - level.random.nextFloat()) * 0.1F)));
-                                level.addFreshEntity(itementity);
+                                LootTable loot = ((MinecraftServer) Objects.requireNonNull(level.getServer())).getLootData().getLootTable(event.getEntity().getType().getDefaultLootTable());
+                                LootParams context = (new LootParams.Builder((ServerLevel) level)).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(event.getEntity().blockPosition())).withParameter(LootContextParams.THIS_ENTITY, event.getEntity()).withParameter(LootContextParams.DAMAGE_SOURCE, livingEntity.damageSources().playerAttack((Player) livingEntity)).create(LootContextParamSets.ENTITY);
+                                List<ItemStack> drops = loot.getRandomItems(context);
+                                for (ItemStack drop : drops) {
+                                    ItemEntity itementity = new ItemEntity(level, event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), drop);
+                                    itementity.setDefaultPickUpDelay();
+                                    itementity.setDeltaMovement(itementity.getDeltaMovement().add((double) ((level.random.nextFloat() - level.random.nextFloat()) * 0.1F), (double) (level.random.nextFloat() * 0.05F), (double) ((level.random.nextFloat() - level.random.nextFloat()) * 0.1F)));
+                                    level.addFreshEntity(itementity);
                             }
-                        }
-                    }
-                }
-            }
-        }else if (event.getSource().getDirectEntity() instanceof LivingEntity livingEntity) {
-            if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.TrickeryCurios.get())
-                    || FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.OriginSin.get())
-                    || FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.CoinOfWhimsy.get())
-            ) {
-                int number = 0;
-                if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.TrickeryCurios.get()) || FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.OriginSin.get())) {
-                    number += (int) (FCAconfig.trickeryCurios.get() * 1);
-                }
-                if (FCAUtil.isCurioEquipped(livingEntity, FCAItemRegister.CoinOfWhimsy.get())) {
-                    number += 3;
-                }
-                if (number > 0) {
-                    for (int i = 0; i < number; i++) {
-                        Level level = livingEntity.level();
-                        LootTable loot = ((MinecraftServer) Objects.requireNonNull(level.getServer())).getLootData().getLootTable(event.getEntity().getType().getDefaultLootTable());
-                        LootParams context = (new LootParams.Builder((ServerLevel) level)).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(event.getEntity().blockPosition())).withParameter(LootContextParams.THIS_ENTITY, event.getEntity()).withParameter(LootContextParams.DAMAGE_SOURCE, livingEntity.damageSources().playerAttack((Player) livingEntity)).create(LootContextParamSets.ENTITY);
-                        List<ItemStack> drops = loot.getRandomItems(context);
-                        for (ItemStack drop : drops) {
-                            ItemEntity itementity = new ItemEntity(level, event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), drop);
-                            itementity.setDefaultPickUpDelay();
-                            itementity.setDeltaMovement(itementity.getDeltaMovement().add((double) ((level.random.nextFloat() - level.random.nextFloat()) * 0.1F), (double) (level.random.nextFloat() * 0.05F), (double) ((level.random.nextFloat() - level.random.nextFloat()) * 0.1F)));
-                            level.addFreshEntity(itementity);
                         }
                     }
                 }

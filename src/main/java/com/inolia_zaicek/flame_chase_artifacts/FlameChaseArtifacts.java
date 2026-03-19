@@ -18,10 +18,12 @@ import com.inolia_zaicek.flame_chase_artifacts.register.craftItem.FCACraftItemRe
 import com.inolia_zaicek.flame_chase_artifacts.register.craftItem.FCACraftTab;
 import com.inolia_zaicek.flame_chase_artifacts.register.sponsorItem.FCASponsorItemRegister;
 import com.inolia_zaicek.flame_chase_artifacts.register.sponsorItem.FCASponsorTab;
-import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientHandler;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
+import com.inolia_zaicek.flame_chase_artifacts.util.FCAClientUtil;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -45,9 +47,6 @@ public class FlameChaseArtifacts {
     public static final String MODID = "flame_chase_artifacts";
     public static final Logger LOGGER = LogUtils.getLogger();
     public FlameChaseArtifacts() {
-        if(FMLEnvironment.dist == Dist.CLIENT) {
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(FCAClientHandler::registerKeyMappings);
-        }
         init();
         ModLoadingContext modLoadingContext = ModLoadingContext.get();
         //全局，全部存档都注册这个配置文件
